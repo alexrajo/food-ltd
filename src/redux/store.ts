@@ -10,7 +10,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 const rootConfig = {
   key: 'root',
-  storage: storage,
+  storage,
   whitelist: ['theme'],
 };
 
