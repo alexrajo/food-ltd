@@ -8,13 +8,13 @@ import ReactDOM from 'react-dom/client';
 // Tanstack
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Components
-import App from './App.tsx';
-
 // Redux
+import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './redux/store.ts';
-import { Provider } from 'react-redux';
+
+// Components
+import App from './App.tsx';
 
 // Styles
 import './index.css';
