@@ -10,6 +10,9 @@ module.exports = {
     'airbnb-typescript',
     'prettier',
   ],
+  parserOptions: {
+    project: './tsconfig.json',
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
