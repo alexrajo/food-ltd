@@ -4,6 +4,9 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
+// Tanstack
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 // Components
 import App from './App.tsx';
 
@@ -14,8 +17,6 @@ import { Provider } from 'react-redux';
 
 // Styles
 import './index.css';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   {
