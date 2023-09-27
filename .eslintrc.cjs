@@ -13,10 +13,27 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
+    'no-param-reassign': ['error', { props: false }],
+    'react/react-in-jsx-scope': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    '@typescript-eslint/naming-convention': [
+      'warn',
+      {
+        selector: 'property',
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE', 'snake_case'],
+      },
+      {
+        selector: 'property',
+        format: null,
+        filter: {
+          regex: '(book_image|primary_isbn13|primary_isbn10|list_name)',
+          match: true,
+        },
+      },
+    ],
   },
 };
