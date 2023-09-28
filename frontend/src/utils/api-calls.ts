@@ -35,7 +35,7 @@ export const fetchDish = async (dishId?: string): Promise<Dish> => {
     .catch((err) => console.log(err));
 };
 
-export const fetchReviews = async (page: number, dishId?: string): Promise<Dish> => {
+export const fetchReviews = async (page: number, dishId?: string): Promise<Array<Review>> => {
   if (!dishId) {
     return Promise.reject('No dishId provided');
   }
@@ -47,8 +47,8 @@ export const fetchReviews = async (page: number, dishId?: string): Promise<Dish>
     body: JSON.stringify({
       query: `
                 query ($dishId: Integer!, $page: Integer) {
-                    reviews(id: $dishId, page: $page) {
-                        dish
+                    reviews(dishId: $dishId, page: $page) {
+                        review
                     }
                 }
             `,

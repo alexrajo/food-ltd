@@ -11,6 +11,7 @@ export default function useSearch() {
   /** Page number to allow pagination */
   const [page, setPage] = React.useState<number>(0);
 
+  /** Grab the states from redux store */
   const filters = useAppSelector((state) => state.confinements.filters);
   const sortingPreference = useAppSelector((state) => state.confinements.sortingPreference);
 
