@@ -15,6 +15,8 @@ model dishes {
   image_name          String?
   cleaned_ingredients String?
   reviews             reviews[]
+
+  @@map("Dish")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -25,4 +27,6 @@ model reviews {
   comment   String
   dish_id   Int
   dishes    dishes @relation(fields: [dish_id], references: [dish_id], onDelete: Cascade)
+
+  @@map("Review")
 }
