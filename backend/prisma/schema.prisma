@@ -7,26 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model dishes {
-  dish_id             Int       @id @default(autoincrement())
-  title               String?
-  ingredients         String?
-  instructions        String?
-  image_name          String?
-  cleaned_ingredients String?
-  reviews             reviews[]
+model Dish {
+  dishId             Int      @id @default(autoincrement()) @map("dish_id")
+  title              String?
+  ingredients        String?
+  instructions       String?
+  imageName          String?  @map("image_name")
+  cleanedIngredients String?  @map("cleaned_ingredients")
+  reviews            Review[]
 
-  @@map("Dish")
+  @@map("dishes")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model reviews {
-  review_id Int    @id @default(autoincrement())
-  title     String
-  rating    Int
-  comment   String
-  dish_id   Int
-  dishes    dishes @relation(fields: [dish_id], references: [dish_id], onDelete: Cascade)
+model Review {
+  reviewId Int    @id @default(autoincrement()) @map("review_id")
+  title    String
+  rating   Int
+  comment  String
+  dishId   Int    @map("dish_id")
+  dishes   Dish   @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
 
-  @@map("Review")
+  @@map("reviews")
 }
