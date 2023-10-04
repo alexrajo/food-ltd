@@ -1,3 +1,4 @@
+import useFilter from 'src/hooks/useFilter';
 import FilterDisplay from './FilterDisplay';
 
 export default function SelectedFilters() {
