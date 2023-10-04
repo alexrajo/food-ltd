@@ -1,4 +1,5 @@
-import { PrismaClient, Review, Dish } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import type { Review } from '@prisma/client';
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
@@ -6,7 +7,7 @@ import { buildSchema } from 'graphql';
 const prisma = new PrismaClient();
 
 // Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Dish {
     dishId: Int!
     title: String
@@ -35,8 +36,8 @@ var schema = buildSchema(`
 `);
 
 // The root provides a resolver function for each API endpoint
-var root = {
-  reviews: async ({ dishId, page }: { dishId: number; page: number }) => {
+const root = {
+  reviews: async ({ dishId, page }: { dishId: number, page: number }) => {
     const reviews = await prisma.review.findMany({
       where: {
         dishId: dishId,
@@ -74,7 +75,7 @@ var root = {
   },
 };
 
-var app = express();
+const app = express();
 app.use(
   '/graphql',
   graphqlHTTP({

@@ -20,5 +20,11 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json'],
   },
-  rules: {},
+  ignorePatterns: ['dist', '.eslintrc.cjs', '.eslintrc.js'],
+  rules: {
+    '@typescript-eslint/semi': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
+    'no-var': 'error',
+    'object-shorthand': 'off', // Not readable when enabled in my opinion
+  },
 };
