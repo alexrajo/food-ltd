@@ -1,5 +1,5 @@
-import { useFilter } from 'hooks';
 import cross from 'src/assets/cross.svg';
+import useFilter from 'src/hooks/useFilter';
 
 export default function FilterDisplay({ name }: { name: string }) {
   const { onClickRemoveFilter } = useFilter();
