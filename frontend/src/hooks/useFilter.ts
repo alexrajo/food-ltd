@@ -72,7 +72,7 @@ export default function useFilter(): useFilterReturnType {
   const dispatch = useAppDispatch();
 
   /** Called when user adds filter preference
-   * @param {React.ChangeEvent<HTMLSelectElement>}
+   * @param {string} option - The filter to add
    * @returns {void}
    */
   const onClickAddFilter = (option: string): void => {
@@ -85,7 +85,7 @@ export default function useFilter(): useFilterReturnType {
   };
 
   /** Called when user removes a filter preference
-   * @param {string}
+   * @param {string} option - The filter to remove
    * @returns {void}
    */
   const onClickRemoveFilter = (option: string): void => {
