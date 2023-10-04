@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from './useAppRedux';
 import { setSortingPreference } from 'src/redux/confinementReducer';
+import { useAppDispatch, useAppSelector } from './useAppRedux';
 
 type useSortReturnType = [
   /**

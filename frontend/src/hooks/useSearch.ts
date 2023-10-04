@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
-import { useAppSelector } from './useAppRedux';
 import { fetchSearchResults } from 'src/utils/api-calls';
 import { Dish } from 'src/types/types';
+import { useAppSelector } from './useAppRedux';
 
 type useSearchReturnType = {
   /**

@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from './useAppRedux';
 import { addFilter, removeFilter, setFilters } from 'src/redux/confinementReducer';
+import { useAppDispatch, useAppSelector } from './useAppRedux';
 
 type useFilterReturnType = {
   /**
