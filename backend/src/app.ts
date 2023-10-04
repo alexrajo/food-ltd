@@ -62,7 +62,7 @@ const root = {
     title,
     rating,
     comment,
-  }: Omit<Review, 'review_id'>) => {
+  }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
