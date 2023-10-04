@@ -83,7 +83,7 @@ export const postReview = async (
       query: `
                 mutation ($dishId: Integer!, $title: String!, $rating: Integer!, $comment: String!) {
                     postReview(dishId: $dishId, title: $title, rating: $rating, comment: $comment) {
-                        dish
+                        review
                     }
                 }
                 `,
