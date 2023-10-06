@@ -113,7 +113,7 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-                query ($dishId: Integer!, $filters: [String], $sortingPreference: String, $keyWord: String, $page: Integer) {
+                query ($filters: [String], $sortingPreference: String, $keyWord: String, $page: Integer) {
                   search(filters: $filters, sortingPreference: $sortingPreference, keyWord: $keyWord, page: $page) {
                       dish
                   }
