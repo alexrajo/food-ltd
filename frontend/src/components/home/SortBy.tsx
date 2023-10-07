@@ -1,27 +1,28 @@
-import { useState } from "react";
-import cn from "src/utils/cn";
-
-/* This solution is temporary. Waiting for redux states to do properly */
-const options = ['New', 'Popular', 'A-Z'];
+import useSort from 'src/hooks/useSort';
+import cn from 'src/utils/cn';
+import { SORTING_OPTIONS } from 'src/utils/constants';
 
 export default function SortBy() {
-    const [selected, setSelected] = useState('New');
-  
+  const [sortingPreference, setSortingPreference] = useSort();
+
+  const renderButton = (option: string) => {
+    const onClick = () => {
+      setSortingPreference(option);
+    };
     return (
-      <div className="flex gap-4 my-10">
-        {options.map((option) => (
-          <button
-            type="button"
-            key={option}
-            onClick={() => setSelected(option)}
-            className={cn(
-              'cursor-pointer font-thin w-20 text-center',
-              selected === option && 'border-b-4 border-blue-700 font-normal'
-            )}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+      <button
+        type='button'
+        key={option}
+        onClick={onClick}
+        className={cn(
+          'cursor-pointer font-thin w-20 text-center',
+          sortingPreference === option && 'border-b-4 border-blue-700 font-normal'
+        )}
+      >
+        {option}
+      </button>
     );
-  }
+  };
+
+  return <div className='flex gap-4 my-10'>{SORTING_OPTIONS.map(renderButton)}</div>;
+}

@@ -6,16 +6,26 @@ import themeReducer from 'src/redux/themeReducer';
 
 // Redux persist
 import storage from 'redux-persist/lib/storage';
+import sessionStorage from 'redux-persist/lib/storage/session';
+
 import { persistReducer, persistStore } from 'redux-persist';
+import confinementReducer from './confinementReducer';
 
 const rootConfig = {
   key: 'root',
   storage,
   whitelist: ['theme'],
+  blacklist: ['confinements'],
+};
+
+const confinementConfig = {
+  key: 'favorites',
+  storage: sessionStorage,
 };
 
 const rootReducer = combineReducers({
   theme: themeReducer,
+  confinements: persistReducer(confinementConfig, confinementReducer),
 });
 
 const persistedReducer = persistReducer(rootConfig, rootReducer);
