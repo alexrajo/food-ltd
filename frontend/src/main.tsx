@@ -1,28 +1,25 @@
 /* eslint-disable import/extensions */
 import React from 'react';
-
-// React Router
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-
-// Tanstack
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-// Redux
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from './redux/store.ts';
-
-// Components
-import App from './App.tsx';
-
-// Styles
-import './index.css';
+import { persistor, store } from 'src/redux/store';
+import App from 'src/App';
+import 'src/index.css';
+import Home from 'src/pages/Home';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+    ],
   },
 ]);
 
