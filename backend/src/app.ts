@@ -43,7 +43,7 @@ const root = {
       where: {
         dishId: dishId,
       },
-      skip: Math.max(1, page - 1) * 10,
+      skip: Math.max(0, page - 1) * 10,
       take: 10,
     });
     return reviews;
@@ -65,10 +65,10 @@ const root = {
     const dishes = await prisma.dish.findMany({
       where: {
         title: {
-          search: query,
+          search: query.split(' ').join(' & '),
         },
       },
-      skip: Math.max(1, page - 1) * 10,
+      skip: Math.max(0, page - 1) * 10,
       take: 10,
     });
     return dishes;
