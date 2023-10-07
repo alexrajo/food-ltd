@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Dish {
+  dishId             Int      @id @default(autoincrement()) @map("dish_id")
+  title              String?
+  ingredients        String?
+  instructions       String?
+  imageName          String?  @map("image_name")
+  cleanedIngredients String?  @map("cleaned_ingredients")
+  reviews            Review[]
+
+  @@map("dishes")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Review {
+  reviewId Int    @id @default(autoincrement()) @map("review_id")
+  title    String
+  rating   Int
+  comment  String
+  dishId   Int    @map("dish_id")
+  dishes   Dish   @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
+
+  @@map("reviews")
+}

@@ -20,7 +20,10 @@ module.exports = {
     'react/require-default-props': 'off',
     'no-param-reassign': ['error', { props: false }],
     'react/react-in-jsx-scope': 'off',
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
     '@typescript-eslint/naming-convention': [
       'warn',
       {
