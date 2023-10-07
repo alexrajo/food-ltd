@@ -28,6 +28,7 @@ const schema = buildSchema(`
   type Query {
     reviews(dishId: Int!, page: Int): [Review]
     dish(id: Int!): Dish
+    dishes(query: String!, page: Int): [Dish]
   }
 
   type Mutation {
@@ -37,7 +38,7 @@ const schema = buildSchema(`
 
 // The root provides a resolver function for each API endpoint
 const root = {
-  reviews: async ({ dishId, page }: { dishId: number, page: number }) => {
+  reviews: async ({ dishId, page }: { dishId: number; page: number }) => {
     const reviews = await prisma.review.findMany({
       where: {
         dishId: dishId,
@@ -55,6 +56,22 @@ const root = {
       },
     });
     return dish;
+  },
+
+  // Free text search endpoint
+  dishes: async ({ query, page }: { query: string; page?: number }) => {
+    page = page !== undefined ? page : 1;
+
+    const dishes = await prisma.dish.findMany({
+      where: {
+        title: {
+          search: query,
+        },
+      },
+      skip: Math.max(1, page - 1) * 10,
+      take: 10,
+    });
+    return dishes;
   },
 
   postReview: async ({
