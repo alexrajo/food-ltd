@@ -8,21 +8,30 @@ export default function DishPage() {
   const { data: dish, isLoading, error } = useDish();
   const { data: reviews, isLoading: reviewsAreLoading, error: reviewsError, paginate } = useReviews();
 
-  const { dishId, title } = dish || {};
+  const { dishId, title, ingredients } = dish || {};
 
   return (
-    <div className='flex'>
-      <div className='m-10 bg-white'>
-        <div className='flex flex-row p-10 gap-10'>
-          <img src={stockFood} className='rounded-md w-96' />
-          <div className='flex flex-col'>
-            <p className='text-2xl'>{title}</p>
-            <p className='text-gray-400'>800 kcal</p>
-            <div>
-              <RatingDisplay rating={4.6} />
+    <div className='flex flex-col m-10'>
+      <div className='flex flex-row'>
+        <div className='bg-white'>
+          <div className='flex flex-row p-10 gap-10'>
+            <img src={stockFood} className='rounded-md w-96' />
+            <div className='flex flex-col'>
+              <p className='text-2xl'>{title}</p>
+              <p className='text-gray-400'>800 kcal</p>
+              <RatingDisplay key={`rating-${dishId}`} rating={4.4} />
             </div>
           </div>
         </div>
+        <div className='bg-white'>
+          <p className='text-xl text-center'>Ingredients</p>
+          <p className='text-lg text-center text-gray-400'>4 portions</p>
+          <div>
+            {ingredients !== undefined && ingredients.map((ingredient) => <div key={ingredient}>{ingredient}</div>)}
+          </div>
+        </div>
+      </div>
+      <div>
         {reviews !== undefined &&
           reviews.map((review: Review) => (
             <div key={review.reviewId}>
