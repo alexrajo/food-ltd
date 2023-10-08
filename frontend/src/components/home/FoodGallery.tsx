@@ -1,6 +1,5 @@
 import useSearch from 'src/hooks/useSearch';
 import FoodDisplay from './FoodDisplay';
-import type { Dish } from 'src/types/types';
 
 export default function FoodGallery() {
   const { data } = useSearch();
