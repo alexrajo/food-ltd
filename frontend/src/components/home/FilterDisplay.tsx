@@ -3,15 +3,19 @@ import useFilter from 'src/hooks/useFilter';
 
 type FilterDisplayProps = {
   name: string
-  type: string
+  type: 'include' | 'exclude'
 }
 
 export default function FilterDisplay(props: FilterDisplayProps) {
   const { name, type } = props
-  const { onClickRemoveFilter } = useFilter();
+  const { removeExcludedFilter, removeIncludedFilter } = useFilter();
 
   const onClick = () => {
-    onClickRemoveFilter(name);
+    if (type === 'include') {
+      removeIncludedFilter(name)
+    } else {
+      removeExcludedFilter(name)
+    }
   };
 
   return (
@@ -20,7 +24,7 @@ export default function FilterDisplay(props: FilterDisplayProps) {
         <div className=' first-letter:uppercase font-bold'>{type}:</div>
         <div>{name}</div>
       </div>
-      <img onClick={onClick} alt='cross' className='w-4 h-4' src={cross} />
+      <img onClick={onClick} alt='cross' className='w-4 h-4 cursor-pointer' src={cross} />
     </div>
   );
 }
