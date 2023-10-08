@@ -8,37 +8,7 @@ import { useParams } from 'react-router-dom';
 
 // Utils
 import { fetchReviews } from 'src/utils/api-calls';
-import { Review } from 'src/types/types';
-
-type useReviewsReturnType = {
-  /**
-   * The reviews of a dish
-   */
-  data: Review[] | undefined;
-  /**
-   * If the data is loading
-   */
-  isLoading: boolean;
-  /**
-   * If there an error occured while fetching the data
-   */
-  error: unknown;
-  /**
-   * Paginate to the next page of reviews
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { paginate } = useReviews();
-   * return (
-   * <div>
-   *   <button onClick={() => paginate()}>Next Page</button>
-   * </div>
-   * )
-   * }
-   *
-   */
-  paginate: () => void;
-};
+import { useReviewsReturnType } from './HookTypes';
 
 /**
  * Hooks which allows to fetch the reviews of a dish

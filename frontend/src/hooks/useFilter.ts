@@ -1,109 +1,144 @@
-import { addFilter, removeFilter, setFilters } from 'src/redux/confinementReducer';
+import {
+  includeFilter as includeReduxFilter,
+  removeExcludedFilter as removeReduxExcludedFilter,
+  excludeFilter as excludeReduxFilter,
+  removeIncludedFilter as removeReduxIncludedFilter,
+  resetAllFilters,
+} from 'src/redux/confinementReducer';
 import { useAppDispatch, useAppSelector } from './useAppRedux';
-
-type useFilterReturnType = {
-  /**
-   * Adds a filter to the list of filters
-   * @param {string} option - The filter to add
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onClickAddFilter } = useFilter();
-   * return (
-   * <div>
-   *   <button onClick={() => onClickAddFilter('Vegan')}>Add Vegan</button>
-   * </div>
-   */
-  onClickAddFilter: (option: string) => void;
-  /**
-   * Removes a filter from the list of filters
-   * @param {string} option - The filter to remove
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onClickRemoveFilter } = useFilter();
-   * return (
-   * <div>
-   *  <button onClick={() => onClickRemoveFilter('Vegan')}>Remove Vegan</button>
-   * </div>
-   * )
-   * }
-   */
-  onClickRemoveFilter: (option: string) => void;
-  /**
-   * Resets the list of filters
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onClickResetFilters } = useFilter();
-   * return (
-   * <div>
-   * <button onClick={() => onClickResetFilters()}>Reset Filters</button>
-   * </div>
-   * )
-   * }
-   *
-   */
-  onClickResetFilters: () => void;
-  /**
-   * The list of filters
-   */
-  filters: string[];
-};
+import { useFilterReturnType } from './HookTypes';
 
 /**
  * Hooks which allows to modify the list of filters
  * @example
  * const MyComponent = () => {
- * const { onClickAddFilter, onClickRemoveFilter, onClickResetFilters, filters } = useFilter();
+ * const { includeFilter, removeIncludedFilter, excludeFilter, removeExcludedFilter, resetFilters } = useFilter();
  * return (
  * <div>
- *    <button onClick={() => onClickAddFilter('Vegan')}>Add Vegan</button>
- *    <button onClick={() => onClickRemoveFilter('Vegan')}>Remove Vegan</button>
- *    <button onClick={() => onClickResetFilters()}>Reset Filters</button>
- *    <p>{filters}</p>
+ *    <button onClick={() => includeFilter('Vegan')}>Add Vegan</button>
+ *    <button onClick={() => removeIncludedFilter('Vegan')}>Remove Vegan</button>
+ *    <button onClick={() => excludeFilter('Vegan')}>Add Vegan</button>
+ *    <button onClick={() => removeExcludedFilter('Vegan')}>Remove Vegan</button>
+ *    <button onClick={() => resetFilters()}>Reset Filters</button>
  * </div>
+ * )
+ * }
+ * @returns {useFilterReturnType}
+ * @category Hooks
  */
 export default function useFilter(): useFilterReturnType {
   /** Grab the states from redux store */
-  const filters = useAppSelector((state) => state.confinements.filters);
+  const includingFilters = useAppSelector((state) => state.confinements.includingFilters);
+  const excludeFilters = useAppSelector((state) => state.confinements.excludingFilters);
 
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch();
 
-  /** Called when user adds filter preference
-   * @param {string} option - The filter to add
+  /** Called when user wishes to include a filter
+   * @param {string} option - The filter to include
    * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { includeFilter } = useFilter();
+   * return (
+   * <div>
+   *  <button onClick={() => includeFilter('Vegan')}>Add Vegan</button>
+   * </div>
+   * )
+   * }
+   *
    */
-  const onClickAddFilter = (option: string): void => {
+  const includeFilter = (option: string): void => {
     /**
-     * If the filter is already in the list, remove it
+     * Check to see if the filter is already in the list
      */
-    if (!filters.includes(option)) {
-      dispatch(addFilter(option as string));
+    if (!includingFilters.includes(option)) {
+      dispatch(includeReduxFilter(option as string));
     }
   };
 
-  /** Called when user removes a filter preference
-   * @param {string} option - The filter to remove
+  /**
+   * Removes an included filter
+   * @param {string} option - The included filter to remove
    * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { removeIncludedFilter } = useFilter();
+   * return (
+   * <div>
+   * <button onClick={() => removeIncludedFilter('Vegan')}>Remove Vegan</button>
+   * </div>
+   * )
+   * }
    */
-  const onClickRemoveFilter = (option: string): void => {
+  const removeIncludedFilter = (option: string): void => {
     /**
      * If the filter is already in the list, remove it
      */
-    if (filters.includes(option)) {
-      dispatch(removeFilter(option));
+    if (includingFilters.includes(option)) {
+      dispatch(removeReduxIncludedFilter(option));
     }
   };
 
-  /** Called when user clicks on the reset button
-   * to reset the filters
+  /**
+   * Adds an excluded filter
+   * @param {string} option - The filter to exclude
    * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { excludeFilter } = useFilter();
+   * return (
+   * <div>
+   * <button onClick={() => excludeFilter('Vegan')}>Add Vegan</button>
+   * </div>
+   * )
+   * }
    */
-  const onClickResetFilters = (): void => {
-    dispatch(setFilters([]));
+  const excludeFilter = (option: string): void => {
+    /**
+     * Check to see if the filter is already in the list
+     */
+    if (!excludeFilters.includes(option)) {
+      dispatch(excludeReduxFilter(option as string));
+    }
   };
 
-  return { onClickAddFilter, onClickRemoveFilter, onClickResetFilters, filters };
+  /**
+   * Removes an excluded filter
+   * @param {string} option - The excluded filter to remove
+   * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { removeExcludedFilter } = useFilter();
+   * return (
+   * <div>
+   * <button onClick={() => removeExcludedFilter('Vegan')}>Remove Vegan</button>
+   * </div>
+   * )
+   * }
+   */
+  const removeExcludedFilter = (option: string): void => {
+    /**
+     * If the filter is already in the list, remove it
+     */
+    if (excludeFilters.includes(option)) {
+      dispatch(removeReduxExcludedFilter(option));
+    }
+  };
+
+  /**
+   * Resets all filters
+   * @returns {void}
+   */
+  const resetFilters = (): void => {
+    dispatch(resetAllFilters());
+  };
+
+  return {
+    includeFilter,
+    removeIncludedFilter,
+    excludeFilter,
+    removeExcludedFilter,
+    resetFilters,
+  };
 }
