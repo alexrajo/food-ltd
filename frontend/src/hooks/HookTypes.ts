@@ -86,20 +86,20 @@ export type useReviewsReturnType = {
    */
   error: unknown;
   /**
-   * Paginate to the next page of reviews
+   * Load more to the next page of reviews
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { paginate } = useReviews();
+   * const { loadMore } = useReviews();
    * return (
    * <div>
-   *   <button onClick={() => paginate()}>Next Page</button>
+   *   <button onClick={() => loadMore()}>Next Page</button>
    * </div>
    * )
    * }
    *
    */
-  paginate: () => void;
+  loadMore: () => void;
 };
 
 export type useSortReturnType = [
@@ -242,20 +242,51 @@ export type useSearchReturnType = {
    */
   data: Dish[] | undefined;
   /**
-   * Paginate to the next page of search results
+   * Load more to the next page of search results
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { paginate } = useSearch();
+   * const { paginateForwards } = useSearch();
    * return (
    * <div>
-   *  <button onClick={() => paginate()}>Next Page</button>
+   *   <button onClick={() => paginateForwards()}>Next Page</button>
    * </div>
    * )
    * }
    *
    */
-  paginate: () => void;
+  paginateForwards: () => void;
+  /**
+   * Load more to the previous page of search results
+   * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { paginateBackwards } = useSearch();
+   * return (
+   * <div>
+   *   <button onClick={() => paginateBackwards()}>Previous Page</button>
+   * </div>
+   * )
+   * }
+   *
+   */
+  paginateBackwards: () => void;
+  /**
+   * Load a specific page of search results
+   * @param {number} page - The page to load
+   * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { paginateToPage } = useSearch();
+   * return (
+   * <div>
+   *   <button onClick={() => paginateToPage(2)}>Page 2</button>
+   * </div>
+   * )
+   * }
+   *
+   */
+  paginateToPage: (page: number) => void;
   /**
    * Refetch the search results
    * @returns {void}
