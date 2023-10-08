@@ -286,7 +286,7 @@ export type useSearchReturnType = {
    * }
    *
    */
-  paginateToPage: (page: number) => void;
+  paginateTo: (page: number) => void;
   /**
    * Refetch the search results
    * @returns {void}
