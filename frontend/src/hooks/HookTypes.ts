@@ -1,5 +1,20 @@
 import { Dish, Review } from 'src/types/types';
 
+export type useDishReturnType = {
+  /**
+   * The data about the dish
+   */
+  data: Dish | undefined;
+  /**
+   * If the data is loading
+   */
+  isLoading: boolean;
+  /**
+   * If there is an error
+   */
+  error: unknown;
+};
+
 export type usePostReviewReturnType = {
   /**
    * The error message
