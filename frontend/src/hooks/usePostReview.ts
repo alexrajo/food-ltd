@@ -48,6 +48,10 @@ function useReview(props: HookProps): usePostReviewReturnType {
     userRating.current = parseInt(value, 10);
   };
 
+  /**
+   * This function posts a review to the backend
+   * @returns {void}
+   */
   const writeReview = async () => {
     if (userText.current === '' || userRating.current === 0) {
       setError('Please fill in all the fields');
