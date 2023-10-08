@@ -2,21 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Dish } from 'src/types/types';
 import { fetchDish } from 'src/utils/api-calls';
-
-type useDishReturnType = {
-  /**
-   * The data about the dish
-   */
-  data: Dish | undefined;
-  /**
-   * If the data is loading
-   */
-  isLoading: boolean;
-  /**
-   * If there is an error
-   */
-  error: unknown;
-};
+import { useDishReturnType } from './HookTypes';
 
 /**
  * Fetches data about the dish by the id in the URL

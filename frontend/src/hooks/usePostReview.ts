@@ -1,66 +1,10 @@
 import { useRef, useState } from 'react';
 import { Dish } from 'src/types/types';
 import { postReview } from 'src/utils/api-calls';
+import { usePostReviewReturnType } from './HookTypes';
 
 type HookProps = {
   dishId: Dish['dishId'];
-};
-
-type usePostReviewReturnType = {
-  /**
-   * The error message
-   */
-  error: string;
-  /**
-   * If the data is loading
-   */
-  isLoading: boolean;
-  /**
-   * Sends a review to the backend
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { writeReview } = usePostReview();
-   * return (
-   * <div>
-   *   <button onClick={() => writeReview()}>Submit Review</button>
-   * </div>
-   * )
-   * }
-   */
-  writeReview: () => void;
-  /**
-   * Update the review text
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onChangeReviewInput } = usePostReview();
-   * return (
-   * <div>
-   *   <input type="text" onChange={(event) => onChangeReviewInput(event)} />
-   * </div>
-   * )
-   * }
-   *
-   */
-  onChangeReviewInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  /**
-   * Update the rating
-   * @param {React.ChangeEvent<HTMLInputElement>} event
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onChangeRatingInput } = usePostReview();
-   * return (
-   * <div>
-   *  <input type="number" onChange={(event) => onChangeRatingInput(event)} />
-   * </div>
-   * )
-   * }
-   *
-   */
-  onChangeRatingInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 /**
