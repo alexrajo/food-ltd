@@ -75,11 +75,43 @@ function useSearch(): useSearchReturnType {
    * Calling this function will increment the page number
    * and refetches the data
    */
-  const paginate = () => {
+  const paginateForwards = () => {
+    if (data?.length === 0) {
+      return;
+    }
     setPage((prev) => prev + 1);
   };
 
-  return { searchInput, onChangeSearchInput, isLoading, error, data, paginate, onSearch };
+  /**
+   * Calling this function will increment the page number
+   * and refetches the data
+   */
+  const paginateBackwards = () => {
+    if (page === 0) {
+      return;
+    }
+    setPage((prev) => prev - 1);
+  };
+
+  /**
+   * Calling this function will paginate to a
+   * specific number
+   */
+  const paginateTo = (page: number) => {
+    setPage(page);
+  };
+
+  return {
+    searchInput,
+    onChangeSearchInput,
+    isLoading,
+    error,
+    data,
+    paginateTo,
+    paginateForwards,
+    paginateBackwards,
+    onSearch,
+  };
 }
 
 export default useSearch;
