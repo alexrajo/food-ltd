@@ -17,6 +17,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
+    'jsx-a11y/click-events-have-key-events': 'off',
     'react/require-default-props': 'off',
     'no-param-reassign': ['error', { props: false }],
     'react/react-in-jsx-scope': 'off',

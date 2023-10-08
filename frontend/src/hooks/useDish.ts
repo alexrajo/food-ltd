@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { Dish } from 'src/types/types';
 import { fetchDish } from 'src/utils/api-calls';
 import { useDishReturnType } from './HookTypes';
 

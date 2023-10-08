@@ -1,11 +1,13 @@
-import mockData from 'src/assets/mockdata.json';
+import useSearch from 'src/hooks/useSearch';
 import FoodDisplay from './FoodDisplay';
 
 export default function FoodGallery() {
+  const { data } = useSearch()
+  
     return (
       <div className="flex gap-10 flex-wrap">
-        {mockData.map((f) => (
-          <FoodDisplay key={f.id} recipe={f} />
+        {data?.map((dish) => (
+          <FoodDisplay key={dish.dishId} dish={dish} />
         ))}
       </div>
     );
