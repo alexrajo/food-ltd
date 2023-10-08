@@ -138,6 +138,10 @@ export type useSortReturnType = [
 ];
 
 export type useFilterReturnType = {
+  /** All the included filters */
+  includedFilters: string[];
+  /** All the excluded filters */
+  excludedFilters: string[];
   /** Called when user wishes to include a filter
    * @param {string} option - The filter to include
    * @returns {void}
