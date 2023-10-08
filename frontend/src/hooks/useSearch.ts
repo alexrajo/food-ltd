@@ -1,9 +1,9 @@
+import { SEARCH_TIMEOUT_MS } from 'src/utils/constants';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { fetchSearchResults } from 'src/utils/api-calls';
 import { useAppDispatch, useAppSelector } from './useAppRedux';
 import { setKeyWord } from 'src/redux/confinementReducer';
-import { SEARCH_TIMEOUT_MS } from 'src/utils/constants';
 import { useSearchReturnType } from './HookTypes';
 
 /**

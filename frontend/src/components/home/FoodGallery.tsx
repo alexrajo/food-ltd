@@ -1,5 +1,5 @@
-import FoodDisplay from './FoodDisplay';
 import useSearch from 'src/hooks/useSearch';
+import FoodDisplay from './FoodDisplay';
 
 export default function FoodGallery() {
   const { data } = useSearch()

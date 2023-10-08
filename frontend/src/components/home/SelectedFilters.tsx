@@ -7,13 +7,13 @@ export default function SelectedFilters() {
   return (
     <div className="flex items-center gap-2 flex-wrap">
       {includedFilters.map((f) => (
-        <FilterDisplay key={f} name={f} type={'include'} />
+        <FilterDisplay key={f} name={f} type='include' />
       ))}
       {excludedFilters.map((f) => (
-        <FilterDisplay key={f} name={f} type={'exclude'} />
+        <FilterDisplay key={f} name={f} type='exclude' />
       ))}
       {(includedFilters.length > 0 || excludedFilters.length > 0) && (
-        <button onClick={resetFilters} className="font-thin text-sm underline">
+        <button type='button' onClick={resetFilters} className="font-thin text-sm underline">
           Clear
         </button>
       )}
