@@ -28,8 +28,8 @@ import { useFilterReturnType } from './HookTypes';
  */
 export default function useFilter(): useFilterReturnType {
   /** Grab the states from redux store */
-  const includingFilters = useAppSelector((state) => state.confinements.includingFilters);
-  const excludeFilters = useAppSelector((state) => state.confinements.excludingFilters);
+  const includedFilters = useAppSelector((state) => state.confinements.includingFilters);
+  const excludedFilters = useAppSelector((state) => state.confinements.excludingFilters);
 
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ export default function useFilter(): useFilterReturnType {
     /**
      * Check to see if the filter is already in the list
      */
-    if (!includingFilters.includes(option)) {
+    if (!includedFilters.includes(option)) {
       dispatch(includeReduxFilter(option as string));
     }
   };
@@ -75,7 +75,7 @@ export default function useFilter(): useFilterReturnType {
     /**
      * If the filter is already in the list, remove it
      */
-    if (includingFilters.includes(option)) {
+    if (includedFilters.includes(option)) {
       dispatch(removeReduxIncludedFilter(option));
     }
   };
@@ -98,7 +98,7 @@ export default function useFilter(): useFilterReturnType {
     /**
      * Check to see if the filter is already in the list
      */
-    if (!excludeFilters.includes(option)) {
+    if (!excludedFilters.includes(option)) {
       dispatch(excludeReduxFilter(option as string));
     }
   };
@@ -121,7 +121,7 @@ export default function useFilter(): useFilterReturnType {
     /**
      * If the filter is already in the list, remove it
      */
-    if (excludeFilters.includes(option)) {
+    if (excludedFilters.includes(option)) {
       dispatch(removeReduxExcludedFilter(option));
     }
   };
@@ -140,5 +140,7 @@ export default function useFilter(): useFilterReturnType {
     excludeFilter,
     removeExcludedFilter,
     resetFilters,
+    includedFilters,
+    excludedFilters,
   };
 }
