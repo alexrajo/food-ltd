@@ -1,10 +1,10 @@
 export type Dish = {
   dishId: number;
   title?: string;
-  ingredients?: string;
+  ingredients?: string[];
   instructions?: string;
   imageName?: string;
-  cleanedIngredients: string;
+  cleanedIngredients: string[];
 };
 
 export type Review = {
