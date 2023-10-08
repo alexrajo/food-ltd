@@ -26,14 +26,15 @@ function useSearch(): useSearchReturnType {
   /** Page number to allow pagination */
   const [page, setPage] = React.useState<number>(0);
 
-  /** Grab the states from redux store */
+  /** Grab the confinements from redux store */
   const { includingFilters, excludingFilters, keyWord, sortingPreference } = useAppSelector(
     (state) => state.confinements
   );
-  /** User input after 500ms */
 
+  /** Allows to modify the redux store */
   const dispatch = useAppDispatch();
 
+  /** Fetch the data from the api */
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['searchResults', keyWord, page, includingFilters, excludingFilters],
     queryFn: () =>
@@ -42,11 +43,18 @@ function useSearch(): useSearchReturnType {
   });
 
   useEffect(() => {
+    /** Set a timeout to avoid calling the api too often */
     const timeout = setTimeout(() => {
       dispatch(setKeyWord(searchInput));
     }, SEARCH_TIMEOUT_MS);
+    /** Clear the timeout if the user types too fast */
     return () => clearTimeout(timeout);
   }, [searchInput]);
+
+  /** Reset the page number whenever confinements changes */
+  useEffect(() => {
+    setPage(0);
+  }, [includingFilters, excludingFilters, keyWord, sortingPreference]);
 
   /**
    * This function refetches the searchresults based
@@ -63,6 +71,10 @@ function useSearch(): useSearchReturnType {
     setSearchInput(value);
   };
 
+  /**
+   * Calling this function will increment the page number
+   * and refetches the data
+   */
   const paginate = () => {
     setPage((prev) => prev + 1);
   };
