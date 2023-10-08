@@ -28,7 +28,6 @@ function useSort(): useSortReturnType {
    * @returns {void}
    */
   const onClickSortingPreference = (option: string): void => {
-    /** Destruct */
     /** Update the value in redux */
     dispatch(setSortingPreference(option));
   };
