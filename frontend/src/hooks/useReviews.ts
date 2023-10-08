@@ -14,13 +14,13 @@ import { useReviewsReturnType } from './HookTypes';
  * Hooks which allows to fetch the reviews of a dish
  * @example
  * const MyComponent = () => {
- * const { data, isLoading, error, paginate } = useReviews();
+ * const { data, isLoading, error, loadMore } = useReviews();
  * return (
  * <div>
  *    {data.map((review) => (
  *      <p>{review.content}</p>
  *    ))}
- *    <button onClick={() => paginate()}>Next Page</button>
+ *    <button onClick={() => loadMore()}>Load more</button>
  * </div>
  */
 function useReviews(): useReviewsReturnType {
@@ -38,12 +38,12 @@ function useReviews(): useReviewsReturnType {
     keepPreviousData: true,
   });
 
-  /** Pagination */
-  const paginate = () => {
+  /** Loads more reviews */
+  const loadMore = () => {
     setPage((prev) => prev + 1);
   };
 
-  return { data, isLoading, error, paginate };
+  return { data, isLoading, error, loadMore };
 }
 
 export default useReviews;
