@@ -1,5 +1,6 @@
 import { Confinement } from 'src/redux/confinementReducer';
 import { Dish, Review } from 'src/types/types';
+import mock_data from '../assets/mockdata.json';
 
 const URL = '/graphql';
 
@@ -11,6 +12,12 @@ const URL = '/graphql';
 export const fetchDish = async (dishId?: string): Promise<Dish> => {
   if (!dishId) {
     return Promise.reject('No dishId provided');
+  }
+  // If in development, use the mock data
+  if (process.env.NODE_ENV === 'development') {
+    return Promise.resolve(
+      mock_data.find((dish) => dish.dishId === parseInt(dishId)) || mock_data[0]
+    );
   }
   return fetch(URL, {
     method: 'POST',
@@ -38,6 +45,11 @@ export const fetchDish = async (dishId?: string): Promise<Dish> => {
 export const fetchReviews = async (page: number, dishId?: string): Promise<Array<Review>> => {
   if (!dishId) {
     return Promise.reject('No dishId provided');
+  }
+  if (process.env.NODE_ENV === 'development') {
+    return Promise.resolve(
+      mock_data.find((dish) => dish.dishId === parseInt(dishId))?.reviews || []
+    );
   }
   return fetch(URL, {
     method: 'POST',
@@ -74,6 +86,15 @@ export const postReview = async (
   rating: number,
   comment: string
 ): Promise<Review> => {
+  if (process.env.NODE_ENV === 'development') {
+    return Promise.resolve({
+      reviewId: 1,
+      title,
+      rating,
+      comment,
+      dishId,
+    });
+  }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -101,11 +122,17 @@ export const postReview = async (
 };
 
 export const fetchSearchResults = async (
-  filters: Confinement['filters'],
+  excludingFilters: Confinement['excludingFilters'],
+  includingFilters: Confinement['includingFilters'],
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
   page: number
 ): Promise<Array<Dish>> => {
+  if (process.env.NODE_ENV === 'development') {
+    return Promise.resolve(
+      mock_data.filter((dish) => dish.title.toLowerCase().includes(keyWord.toLowerCase()))
+    );
+  }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -113,14 +140,15 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-                query ($query: String!,  $page: Integer, $filters: [String], $sortingPreference: String) {
-                  dishes(query: $keyWord, page: $page, filters: $filters, sortingPreference: $sortingPreference ) {
+                query ($query: String!,  $page: Integer, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
+                  dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters,  sortingPreference: $sortingPreference ) {
                       dish
                   }
                 }
                 `,
       variables: {
-        filters,
+        excludingFilters,
+        includingFilters,
         sortingPreference,
         keyWord,
         page,
