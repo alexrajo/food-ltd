@@ -1,40 +1,6 @@
 import { setSortingPreference } from 'src/redux/confinementReducer';
 import { useAppDispatch, useAppSelector } from './useAppRedux';
-
-type useSortReturnType = [
-  /**
-   * The sorting preference
-   * @example
-   * const MyComponent = () => {
-   * const { sortingPreference } = useSort();
-   * return (
-   * <div>
-   *  <p>{sortingPreference}</p>
-   * </div>
-   * )
-   * }
-   */
-  sortingPreference: string,
-  /**
-   * Update the sorting preference
-   * @param {string} option
-   * @returns {void}
-   * @example
-   * const MyComponent = () => {
-   * const { onChangeSortingPreference } = useSort();
-   * return (
-   * <div>
-   * <select onChange={(event) => onChangeSortingPreference(event)}>
-   * <option value="name">Name</option>
-   * <option value="rating">Rating</option>
-   * </select>
-   * </div>
-   * )
-   * }
-   *
-   */
-  onChangeSortingPreference: (option: string) => void,
-];
+import { useSortReturnType } from './HookTypes';
 
 /**
  * Hooks which allows to sort the dishes
