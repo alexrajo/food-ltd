@@ -4,7 +4,7 @@ import TestWrapper from 'src/tests/TestWrapper';
 
 describe('FoodDisplay', () => {
   beforeEach(() => {
-    render(<></>, {
+    render(<div />, {
       wrapper: TestWrapper,
     });
   });
@@ -14,6 +14,6 @@ describe('FoodDisplay', () => {
     await screen.findByText('Miso-Butter Roast Chicken With Acorn Squash Panzanella')
 
     // Find the image of food
-    expect(screen.findByAltText("food image")).toBeDefined()
+    expect(screen.findByAltText("food")).toBeDefined()
   });
 });

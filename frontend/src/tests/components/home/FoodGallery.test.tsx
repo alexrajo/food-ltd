@@ -1,11 +1,10 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import TestWrapper from 'src/tests/TestWrapper';
-import FoodGallery from 'src/components/home/FoodGallery';
 
 describe('FoodGallery', () => {
   beforeEach(async () => {
-    render(<></>, {
+    render(<div />, {
       wrapper: TestWrapper,
     });
     // Wait for the data to arrive before testing
@@ -14,6 +13,6 @@ describe('FoodGallery', () => {
     );
   });
   test('should load Food display components', () => {
-    expect(screen.queryAllByAltText('food image').length).toBeGreaterThan(0);
+    expect(screen.queryAllByAltText('food').length).toBeGreaterThan(0);
   });
 });

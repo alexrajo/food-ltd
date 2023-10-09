@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('AddFilter', () => {
   beforeEach(async () => {
-    render(<></>, {
+    render(<div />, {
       wrapper: TestWrapper,
     });
     // Wait for the data to arrive

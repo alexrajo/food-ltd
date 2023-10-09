@@ -1,17 +1,15 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import {
-  act,
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import TestWrapper from 'src/tests/TestWrapper';
 import userEvent from '@testing-library/user-event';
 
-describe('FoodDisplay', () => {
+describe('Search', () => {
   beforeEach(async () => {
-    render(<></>, {
+    render(<div />, {
       wrapper: TestWrapper,
     });
     // Wait for the data to arrive before testing
@@ -20,7 +18,7 @@ describe('FoodDisplay', () => {
     );
   });
   test('search should reduce number of food displays', async () => {
-    const preSearchCount = screen.getAllByAltText('food image').length;
+    const preSearchCount = screen.getAllByAltText('food').length;
 
     await userEvent.click(screen.getByPlaceholderText('Search'));
     await userEvent.keyboard('M');
@@ -28,12 +26,12 @@ describe('FoodDisplay', () => {
 
     await waitForElementToBeRemoved(screen.getByText("Newton's Law"));
 
-    const postSearchCount = screen.getAllByAltText('food image').length;
+    const postSearchCount = screen.getAllByAltText('food').length;
 
     expect(postSearchCount !== preSearchCount).toBeTruthy();
   });
   test('search by pressing enter', async () => {
-    const preSearchCount = screen.getAllByAltText('food image').length;
+    const preSearchCount = screen.getAllByAltText('food').length;
 
     await userEvent.click(screen.getByPlaceholderText('Search'));
     await userEvent.keyboard('iso');
@@ -42,7 +40,7 @@ describe('FoodDisplay', () => {
     await waitForElementToBeRemoved(
       screen.getByText('Thanksgiving Mac and Cheese')
     );
-    const postSearchCount = screen.getAllByAltText('food image').length;
+    const postSearchCount = screen.getAllByAltText('food').length;
     expect(postSearchCount !== preSearchCount).toBeTruthy();
   });
 });

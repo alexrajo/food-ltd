@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('FilterDisplay', async() => {
   beforeEach( async () => {
-    render(<></>, { wrapper: TestWrapper })
+    render(<div />, { wrapper: TestWrapper })
 
     // Wait for the data to arrive before testing
     await screen.findByText('Miso-Butter Roast Chicken With Acorn Squash Panzanella')
