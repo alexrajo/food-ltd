@@ -22,8 +22,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/dish/:id',
-        element: <DishPage />
-      }
+        element: <DishPage />,
+      },
     ],
   },
 ]);
