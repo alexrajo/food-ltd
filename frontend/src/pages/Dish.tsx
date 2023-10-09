@@ -4,6 +4,28 @@ import { Review } from 'src/types/types';
 import stockFood from 'src/assets/mockFoodImage.jpg';
 import RatingDisplay from 'src/components/RatingDisplay';
 import ReviewDisplay from 'src/components/dish/ReviewDisplay';
+import { useState } from 'react';
+
+type TemperatureUnit = 'fahrenheit' | 'celsius';
+
+/**
+ * Converts a text containing a Fahrenheit temperature to Celsius.
+ * @param text the text to convert
+ * @returns the text with the Fahrenheit temperature converted to Celsius
+ */
+const fahrenheitTextToCelsius = (text: string) => {
+  // Find the Fahrenheit temperature in the text and convert it to Celsius
+  const match = text.match(/(\d+) ?°[F]/);
+
+  if (match) {
+    const fahrenheitValue = parseInt(match[1]);
+    const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9);
+
+    return text.replace(/(\d+) ?°[F]/, celsiusCalc + '°C');
+  } else {
+    return text;
+  }
+};
 
 export default function DishPage() {
   const { data: dish, isLoading, error } = useDish();
@@ -13,6 +35,8 @@ export default function DishPage() {
     error: reviewsError,
     loadMore,
   } = useReviews();
+  const [temperatureUnit, setTemperatureUnit] =
+    useState<TemperatureUnit>('fahrenheit');
 
   const { dishId, title, ingredients, instructions } = dish || {};
 
@@ -39,13 +63,40 @@ export default function DishPage() {
                 >
                   See reviews
                 </HashLink> */}
+                <div className='h-full flex flex-col justify-end'>
+                  <div className='flex flex-col gap-1'>
+                    <p className='font-semibold'>Temperature units</p>
+                    <div className='flex gap-3'>
+                      <button
+                        onClick={() => setTemperatureUnit('fahrenheit')}
+                        className={`border p-2 rounded-md ${
+                          temperatureUnit === 'fahrenheit' && 'bg-selected'
+                        }`}
+                      >
+                        Fahrenheit
+                      </button>
+                      <button
+                        onClick={() => setTemperatureUnit('celsius')}
+                        className={`border p-2 rounded-md ${
+                          temperatureUnit === 'celsius' && 'bg-selected'
+                        }`}
+                      >
+                        Celsius
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className='flex flex-col gap-3'>
               {instructions !== undefined &&
                 instructions.split('. ').map((instruction, index) => (
                   <div key={instruction}>
-                    {index + 1}. {instruction}.
+                    {index + 1}.{' '}
+                    {temperatureUnit === 'fahrenheit'
+                      ? instruction
+                      : fahrenheitTextToCelsius(instruction)}
+                    .
                   </div>
                 ))}
             </div>
