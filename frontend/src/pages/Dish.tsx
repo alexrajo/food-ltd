@@ -31,7 +31,7 @@ export default function DishPage() {
               <img src={stockFood} className='rounded-md w-full xl:w-96' />
               <div className='flex flex-col'>
                 <p className='text-2xl'>{title}</p>
-                <p className='text-gray-400'>800 kcal</p>
+                <p className='text-grayed-text'>800 kcal</p>
                 <RatingDisplay key={`rating-${dishId}`} rating={rating} />
                 {/* <HashLink
                   className='underline hover:cursor-pointer'
@@ -52,7 +52,7 @@ export default function DishPage() {
           </div>
           <div className='bg-white p-10 h-fit w-full basis-1/3'>
             <p className='text-xl text-center'>Ingredients</p>
-            <p className='text-lg text-center text-gray-400'>4 portions</p>
+            <p className='text-lg text-center text-grayed-text'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
                 {ingredients !== undefined &&

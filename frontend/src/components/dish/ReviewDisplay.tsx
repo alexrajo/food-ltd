@@ -15,6 +15,7 @@ export default function ReviewDisplay(props: ReviewDisplayProps) {
         </div>
       </div>
       <p>{comment}</p>
+      <p className='text-grayed-text'>Posted at 2023-10-09</p>
     </div>
   );
 }
