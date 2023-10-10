@@ -10,12 +10,12 @@ import sessionStorage from 'redux-persist/lib/storage/session';
 
 import { persistReducer, persistStore } from 'redux-persist';
 import confinementReducer from './confinementReducer';
-import temperatureUnitReducer from './temperatureUnitsReducer';
+import temperatureUnitReducer from './temperatureUnitReducer';
 
 const rootConfig = {
   key: 'root',
   storage,
-  whitelist: ['theme'],
+  whitelist: ['theme', 'temperatureUnit'],
   blacklist: ['confinements'],
 };
 

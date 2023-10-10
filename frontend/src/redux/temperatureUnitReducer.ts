@@ -9,7 +9,7 @@ const initialState: TemperatureUnit = {
 };
 
 export const temperatureUnitReducer = createSlice({
-  name: 'themeReducer',
+  name: 'temperatureUnitReducer',
   initialState,
   reducers: {
     setFahrenheit: (state) => {

@@ -5,7 +5,7 @@ import stockFood from 'src/assets/mockFoodImage.jpg';
 import RatingDisplay from 'src/components/RatingDisplay';
 import ReviewDisplay from 'src/components/dish/ReviewDisplay';
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux';
-import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitsReducer';
+import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer';
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
