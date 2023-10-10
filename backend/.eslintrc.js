@@ -27,4 +27,4 @@ module.exports = {
     'no-var': 'error',
     'object-shorthand': 'off', // Not readable when enabled in my opinion
   },
-};
+}

@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import { Outlet } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 
 export default function App() {
   return (
@@ -11,5 +11,5 @@ export default function App() {
         <Outlet />
       </div>
     </div>
-  );
+  )
 }

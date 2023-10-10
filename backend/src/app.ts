@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import type { Review } from '@prisma/client';
-import express from 'express';
-import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
+import { PrismaClient } from '@prisma/client'
+import type { Review } from '@prisma/client'
+import express from 'express'
+import { graphqlHTTP } from 'express-graphql'
+import { buildSchema } from 'graphql'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
@@ -34,7 +34,7 @@ const schema = buildSchema(`
   type Mutation {
     postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): Review
   }
-`);
+`)
 
 // The root provides a resolver function for each API endpoint
 const root = {
@@ -45,8 +45,8 @@ const root = {
       },
       skip: Math.max(0, page - 1) * 10,
       take: 10,
-    });
-    return reviews;
+    })
+    return reviews
   },
 
   dish: async ({ id }: { id: number }) => {
@@ -54,13 +54,13 @@ const root = {
       where: {
         dishId: id,
       },
-    });
-    return dish;
+    })
+    return dish
   },
 
   // Free text search endpoint
   dishes: async ({ query, page }: { query: string; page?: number }) => {
-    page = page !== undefined ? page : 1;
+    page = page !== undefined ? page : 1
 
     const dishes = await prisma.dish.findMany({
       where: {
@@ -70,8 +70,8 @@ const root = {
       },
       skip: Math.max(0, page - 1) * 10,
       take: 10,
-    });
-    return dishes;
+    })
+    return dishes
   },
 
   postReview: async ({
@@ -87,21 +87,21 @@ const root = {
         rating,
         comment,
       },
-    });
-    return review;
+    })
+    return review
   },
-};
+}
 
-const app = express();
+const app = express()
 app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
     rootValue: root,
     graphiql: process.env.NODE_ENV === 'development',
-  })
-);
+  }),
+)
 
 app.listen(4000, () => {
-  console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-});
+  console.log('Running a GraphQL API server at http://localhost:4000/graphql')
+})

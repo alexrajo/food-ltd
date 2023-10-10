@@ -1,6 +1,6 @@
-import { setSortingPreference } from 'src/redux/confinementReducer';
-import { useAppDispatch, useAppSelector } from './useAppRedux';
-import { useSortReturnType } from './HookTypes';
+import { setSortingPreference } from 'src/redux/confinementReducer'
+import { useAppDispatch, useAppSelector } from './useAppRedux'
+import { useSortReturnType } from './HookTypes'
 
 /**
  * Hooks which allows to sort the dishes
@@ -18,10 +18,12 @@ import { useSortReturnType } from './HookTypes';
  */
 function useSort(): useSortReturnType {
   /** Grab the states from redux store */
-  const sortingPreference = useAppSelector((state) => state.confinements.sortingPreference);
+  const sortingPreference = useAppSelector(
+    (state) => state.confinements.sortingPreference,
+  )
 
   /** Allows to modify the redux store */
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   /** Called when user changes sorting preference
    * @param {string} option - The sorting preference
@@ -29,9 +31,9 @@ function useSort(): useSortReturnType {
    */
   const onClickSortingPreference = (option: string): void => {
     /** Update the value in redux */
-    dispatch(setSortingPreference(option));
-  };
-  return [sortingPreference, onClickSortingPreference];
+    dispatch(setSortingPreference(option))
+  }
+  return [sortingPreference, onClickSortingPreference]
 }
 
-export default useSort;
+export default useSort
