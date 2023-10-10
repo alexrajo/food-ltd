@@ -6,6 +6,7 @@ import RatingDisplay from 'src/components/RatingDisplay';
 import ReviewDisplay from 'src/components/dish/ReviewDisplay';
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux';
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer';
+import { Link } from 'react-router-dom';
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
@@ -63,6 +64,12 @@ export default function DishPage() {
                 >
                   See reviews
                 </HashLink> */}
+                <Link
+                  className='border rounded-md my-3 p-2 w-full sm:w-fit'
+                  to={'write-review'}
+                >
+                  Write a review
+                </Link>
                 <div className='h-full flex flex-col justify-end'>
                   <div className='flex flex-col gap-1'>
                     <p className='font-semibold'>Temperature units</p>
