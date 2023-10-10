@@ -56,8 +56,10 @@ export default function DishPage() {
               <img src={stockFood} className='rounded-md w-full xl:w-96' />
               <div className='flex flex-col'>
                 <p className='text-2xl'>{title}</p>
-                <p className='text-grayed-text'>800 kcal</p>
-                <RatingDisplay key={`rating-${dishId}`} rating={rating} />
+                {/* <p className='text-grayed-text'>800 kcal</p> */}
+                <div className='mt-4'>
+                  <RatingDisplay key={`rating-${dishId}`} rating={rating} />
+                </div>
                 {/* <HashLink
                   className='underline hover:cursor-pointer'
                   to={`/dish/${dishId}#reviews`}
@@ -65,7 +67,7 @@ export default function DishPage() {
                   See reviews
                 </HashLink> */}
                 <Link
-                  className='border rounded-md my-3 p-2 w-full sm:w-fit'
+                  className='border rounded-md my-3 p-2 w-full sm:w-fit text-center'
                   to={'write-review'}
                 >
                   Write a review
