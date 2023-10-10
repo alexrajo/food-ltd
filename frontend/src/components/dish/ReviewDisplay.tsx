@@ -4,7 +4,7 @@ import RatingDisplay from '../RatingDisplay';
 type ReviewDisplayProps = Review;
 
 export default function ReviewDisplay(props: ReviewDisplayProps) {
-  const { reviewId, title, rating, comment } = props;
+  const { reviewId, title, rating, comment, postedAt } = props;
 
   return (
     <div key={reviewId} className='border p-5 rounded-md flex flex-col gap-5'>
@@ -15,7 +15,7 @@ export default function ReviewDisplay(props: ReviewDisplayProps) {
         </div>
       </div>
       <p>{comment}</p>
-      <p className='text-grayed-text'>Posted at 2023-10-09</p>
+      <p className='text-grayed-text'>Posted at {postedAt}</p>
     </div>
   );
 }

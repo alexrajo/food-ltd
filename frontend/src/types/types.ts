@@ -12,5 +12,6 @@ export type Review = {
   title: string;
   rating: number;
   comment: string;
+  postedAt: string;
   dishId: number;
 };
