@@ -4,9 +4,8 @@ import { Review } from 'src/types/types';
 import stockFood from 'src/assets/mockFoodImage.jpg';
 import RatingDisplay from 'src/components/RatingDisplay';
 import ReviewDisplay from 'src/components/dish/ReviewDisplay';
-import { useState } from 'react';
-
-type TemperatureUnit = 'fahrenheit' | 'celsius';
+import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux';
+import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitsReducer';
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
@@ -35,8 +34,9 @@ export default function DishPage() {
     error: reviewsError,
     loadMore,
   } = useReviews();
-  const [temperatureUnit, setTemperatureUnit] =
-    useState<TemperatureUnit>('fahrenheit');
+
+  const temperatureUnit = useAppSelector((state) => state.temperatureUnit);
+  const dispatch = useAppDispatch();
 
   const { dishId, title, ingredients, instructions } = dish || {};
 
@@ -68,17 +68,18 @@ export default function DishPage() {
                     <p className='font-semibold'>Temperature units</p>
                     <div className='flex gap-3'>
                       <button
-                        onClick={() => setTemperatureUnit('fahrenheit')}
+                        onClick={() => dispatch(setFahrenheit())}
                         className={`border p-2 rounded-md ${
-                          temperatureUnit === 'fahrenheit' && 'bg-selected'
+                          temperatureUnit.value === 'fahrenheit' &&
+                          'bg-selected'
                         }`}
                       >
                         Fahrenheit
                       </button>
                       <button
-                        onClick={() => setTemperatureUnit('celsius')}
+                        onClick={() => dispatch(setCelsius())}
                         className={`border p-2 rounded-md ${
-                          temperatureUnit === 'celsius' && 'bg-selected'
+                          temperatureUnit.value === 'celsius' && 'bg-selected'
                         }`}
                       >
                         Celsius
@@ -93,7 +94,7 @@ export default function DishPage() {
                 instructions.split('. ').map((instruction, index) => (
                   <div key={instruction}>
                     {index + 1}.{' '}
-                    {temperatureUnit === 'fahrenheit'
+                    {temperatureUnit.value === 'fahrenheit'
                       ? instruction
                       : fahrenheitTextToCelsius(instruction)}
                     .
@@ -122,11 +123,7 @@ export default function DishPage() {
           </div>
           {reviews !== undefined &&
             reviews.map((review: Review) => <ReviewDisplay {...review} />)}
-          <div className='flex justify-center'>
-            <button className='border w-fit font-semibold p-3 rounded-md'>
-              Load more
-            </button>
-          </div>
+          <div className='flex justify-center'></div>
         </div>
       </div>
       <div className='w-full h-20' />
