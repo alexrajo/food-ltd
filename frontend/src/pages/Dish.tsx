@@ -7,6 +7,7 @@ import ReviewDisplay from 'src/components/dish/ReviewDisplay';
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux';
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer';
 import { Link } from 'react-router-dom';
+import cn from 'src/utils/cn';
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
@@ -18,22 +19,19 @@ const fahrenheitTextToCelsius = (text: string) => {
   const match = text.match(/(\d+) ?°[F]/);
 
   if (match) {
-    const fahrenheitValue = parseInt(match[1]);
+    const fahrenheitValue = parseInt(match[1], 10);
     const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9);
 
-    return text.replace(/(\d+) ?°[F]/, celsiusCalc + '°C');
-  } else {
-    return text;
+    return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`);
   }
+  return text
 };
 
 export default function DishPage() {
-  const { data: dish, isLoading, error } = useDish();
+  const { data: dish, } = useDish();
   const {
     data: reviews,
     isLoading: reviewsAreLoading,
-    error: reviewsError,
-    loadMore,
   } = useReviews();
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit);
@@ -41,11 +39,9 @@ export default function DishPage() {
 
   const { dishId, title, ingredients, instructions } = dish || {};
 
-  const rating = reviewsAreLoading
+  const rating = reviewsAreLoading || !reviews
     ? undefined
-    : reviews !== undefined
-    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-    : undefined;
+    : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
 
   return (
     <div className='w-full h-full overflow-y-scroll'>
@@ -58,7 +54,7 @@ export default function DishPage() {
                 <p className='text-2xl'>{title}</p>
                 {/* <p className='text-grayed-text'>800 kcal</p> */}
                 <div className='mt-4'>
-                  <RatingDisplay key={`rating-${dishId}`} rating={rating} />
+                  <RatingDisplay key={`rating-${dishId}`} rating={rating} alt='rating' />
                 </div>
                 {/* <HashLink
                   className='underline hover:cursor-pointer'
@@ -78,18 +74,15 @@ export default function DishPage() {
                     <div className='flex gap-3'>
                       <button
                         onClick={() => dispatch(setFahrenheit())}
-                        className={`border p-2 rounded-md ${
-                          temperatureUnit.value === 'fahrenheit' &&
-                          'bg-selected'
-                        }`}
+                        className={cn('border p-2 rounded-md', temperatureUnit.value === 'fahrenheit' && 'bg-selected')}
+                        type='button'
                       >
                         Fahrenheit
                       </button>
                       <button
                         onClick={() => dispatch(setCelsius())}
-                        className={`border p-2 rounded-md ${
-                          temperatureUnit.value === 'celsius' && 'bg-selected'
-                        }`}
+                        className={cn('border p-2 rounded-md', temperatureUnit.value === 'celsius' && 'bg-selected')}
+                        type='button'
                       >
                         Celsius
                       </button>
@@ -99,8 +92,7 @@ export default function DishPage() {
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              {instructions !== undefined &&
-                instructions.split('. ').map((instruction, index) => (
+              {instructions?.split('. ').map((instruction, index) => (
                   <div key={instruction}>
                     {index + 1}.{' '}
                     {temperatureUnit.value === 'fahrenheit'
@@ -130,8 +122,7 @@ export default function DishPage() {
           <div className='border-b pb-5'>
             <p className='text-xl text-center'>Reviews</p>
           </div>
-          {reviews !== undefined &&
-            reviews.map((review: Review) => <ReviewDisplay {...review} />)}
+          {reviews?.map((review: Review) => <ReviewDisplay review={review} />)}
           <div className='flex justify-center'></div>
         </div>
       </div>

@@ -14,20 +14,21 @@ type RatingDisplayProps = {
 export default function RatingDisplay(props: RatingDisplayProps) {
   const { rating: inputRating } = props;
   const rating =
-    inputRating === undefined || isNaN(inputRating)
+    inputRating === undefined || Number.isNaN(inputRating)
       ? 0
       : Math.max(1, Math.min(5, Math.floor(inputRating * 10 + 0.5) / 10));
 
   return (
     <div className='flex flex-row gap-3 items-center'>
       <div className='flex flex-row gap-1 items-center'>
-        {Array.from(Array(5).keys()).map((_, index) => {
+        {Array.from(Array(5).keys()).map((number, index) => {
           const isGrayed = Math.ceil(rating - 0.3) < index + 1;
           const isHalf = rating - index > 0.3 && rating - index < 0.7;
           return (
             <img
-              key={index}
-              src={isGrayed ? outlineStar : isHalf ? halfStar : star}
+              alt='star'
+              key={number}
+              src={(isGrayed && isHalf && halfStar) || (isGrayed && outlineStar) || (star)}
             />
           );
         })}

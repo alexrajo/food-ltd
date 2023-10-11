@@ -1,10 +1,13 @@
 import type { Review } from 'src/types/types';
 import RatingDisplay from '../RatingDisplay';
 
-type ReviewDisplayProps = Review;
+type ReviewDisplayProps = {
+  review: Review
+};
 
 export default function ReviewDisplay(props: ReviewDisplayProps) {
-  const { reviewId, title, rating, comment, postedAt } = props;
+  const { review } = props
+  const { reviewId, title, rating, comment, postedAt } = review;
 
   return (
     <div key={reviewId} className='border p-5 rounded-md flex flex-col gap-5'>
@@ -17,5 +20,6 @@ export default function ReviewDisplay(props: ReviewDisplayProps) {
       <p>{comment}</p>
       <p className='text-grayed-text'>Posted at {postedAt}</p>
     </div>
+    
   );
 }
