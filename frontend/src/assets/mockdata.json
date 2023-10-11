@@ -58,6 +58,15 @@
         "title": "Kjempegod!",
         "rating": 5,
         "comment": "Wow denne var skikkelig god, smakfull, digg, herlig, fantastisk, nydelig og alt annet godt. Anbefales på det sterkeste!",
+        "postedAt": "2020-11-01",
+        "dishId": 1
+      },
+      {
+        "reviewId": 2,
+        "title": "Ganske bra, men det kunne vært bedre",
+        "rating": 3,
+        "comment": "Kyllingen var saftig og god, men panzanellaen var ikke så god. Anbefaler å finne en annen oppskrift på panzanella.",
+        "postedAt": "2022-06-12",
         "dishId": 1
       }
     ]

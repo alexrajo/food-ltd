@@ -10,11 +10,12 @@ import sessionStorage from 'redux-persist/lib/storage/session';
 
 import { persistReducer, persistStore } from 'redux-persist';
 import confinementReducer from './confinementReducer';
+import temperatureUnitReducer from './temperatureUnitReducer';
 
 const rootConfig = {
   key: 'root',
   storage,
-  whitelist: ['theme'],
+  whitelist: ['theme', 'temperatureUnit'],
   blacklist: ['confinements'],
 };
 
@@ -26,13 +27,15 @@ const confinementConfig = {
 const rootReducer = combineReducers({
   theme: themeReducer,
   confinements: persistReducer(confinementConfig, confinementReducer),
+  temperatureUnit: temperatureUnitReducer,
 });
 
 const persistedReducer = persistReducer(rootConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export const persistor = persistStore(store);

@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
@@ -9,6 +8,7 @@ import { persistor, store } from 'src/redux/store';
 import App from 'src/App';
 import 'src/index.css';
 import Home from 'src/pages/Home';
+import DishPage from './pages/Dish';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/dish/:id',
+        element: <DishPage />,
       },
     ],
   },

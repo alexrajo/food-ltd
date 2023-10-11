@@ -25,7 +25,7 @@ export default function Search() {
             {isLoading && <img alt='loading spinner' src={loadingIcon} className='w-8 bg-transparent animate-spin' />}
           </div>
         <button type='button' onClick={onSearch} className="w-14 h-14 flex items-center justify-center rounded-r-xl bg-stone-400 cursor-pointer hover:bg-stone-300">
-          <img className='w-8' alt="icon" src={searchIcon} />
+          <img className='w-8' alt="searchicon" src={searchIcon} />
         </button>
       </div>
     );
