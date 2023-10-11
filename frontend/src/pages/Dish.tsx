@@ -49,12 +49,12 @@ export default function DishPage() {
         <div className='flex flex-col md:flex-row gap-10'>
           <div className='flex flex-col bg-white p-10 gap-10 w-full basis-2/3'>
             <div className='flex gap-10 flex-col xl:flex-row'>
-              <img src={stockFood} className='rounded-md w-full xl:w-96' />
+              <img src={stockFood} className='rounded-md w-full xl:w-96' alt='food' />
               <div className='flex flex-col'>
                 <p className='text-2xl'>{title}</p>
                 {/* <p className='text-grayed-text'>800 kcal</p> */}
                 <div className='mt-4'>
-                  <RatingDisplay key={`rating-${dishId}`} rating={rating} alt='rating' />
+                  <RatingDisplay key={`rating-${dishId}`} rating={rating} />
                 </div>
                 {/* <HashLink
                   className='underline hover:cursor-pointer'
@@ -64,7 +64,7 @@ export default function DishPage() {
                 </HashLink> */}
                 <Link
                   className='border rounded-md my-3 p-2 w-full sm:w-fit text-center'
-                  to={'write-review'}
+                  to='write-review'
                 >
                   Write a review
                 </Link>
@@ -108,8 +108,7 @@ export default function DishPage() {
             <p className='text-lg text-center text-grayed-text'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
-                {ingredients !== undefined &&
-                  ingredients.map((ingredient) => (
+                {ingredients?.map((ingredient) => (
                     <li key={ingredient} className='my-3'>
                       {ingredient}
                     </li>
@@ -122,7 +121,7 @@ export default function DishPage() {
           <div className='border-b pb-5'>
             <p className='text-xl text-center'>Reviews</p>
           </div>
-          {reviews?.map((review: Review) => <ReviewDisplay review={review} />)}
+          {reviews?.map((review: Review) => <ReviewDisplay key={review.reviewId} review={review} />)}
           <div className='flex justify-center'></div>
         </div>
       </div>
