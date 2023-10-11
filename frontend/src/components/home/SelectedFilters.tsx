@@ -4,8 +4,6 @@ import FilterDisplay from './FilterDisplay';
 export default function SelectedFilters() {
   const { includedFilters, excludedFilters, resetFilters } = useFilter();
 
-  console.log(includedFilters, excludedFilters);
-
   return (
     <div className='flex items-center gap-2 flex-wrap'>
       {includedFilters.map((f) => (

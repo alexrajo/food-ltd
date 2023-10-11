@@ -19,13 +19,17 @@ export default function FilterDisplay(props: FilterDisplayProps) {
   };
 
   return (
-    <div className="flex items-center gap-2 p-2 border border-black rounded-lg">
-      <div className="flex gap-2">
-        <div className=" first-letter:uppercase font-bold">{type}:</div>
+    <div className='flex items-center gap-2 p-2 border border-black rounded-lg'>
+      <div className='flex gap-2'>
+        <div className=' first-letter:uppercase font-bold'>{type}:</div>
         <div>{name}</div>
       </div>
       <button type='button' onClick={onClick}>
-        <img alt="cross" className="w-4 h-4 cursor-pointer" src={cross} />
+        <img
+          alt='remove filter cross'
+          className='w-4 h-4 cursor-pointer'
+          src={cross}
+        />
       </button>
     </div>
   );
