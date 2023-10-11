@@ -1,27 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 interface TemperatureUnit {
-  value: 'fahrenheit' | 'celsius';
+  value: 'fahrenheit' | 'celsius'
 }
 
 const initialState: TemperatureUnit = {
   value: 'fahrenheit',
-};
+}
 
 export const temperatureUnitReducer = createSlice({
   name: 'temperatureUnitReducer',
   initialState,
   reducers: {
     setFahrenheit: (state) => {
-      state.value = 'fahrenheit';
+      state.value = 'fahrenheit'
     },
     setCelsius: (state) => {
-      state.value = 'celsius';
+      state.value = 'celsius'
     },
   },
-});
+})
 
 // Action creators are generated for each case reducer function
-export const { setFahrenheit, setCelsius } = temperatureUnitReducer.actions;
+export const { setFahrenheit, setCelsius } = temperatureUnitReducer.actions
 
-export default temperatureUnitReducer.reducer;
+export default temperatureUnitReducer.reducer

@@ -1,13 +1,13 @@
-import useDish from 'src/hooks/useDish';
-import useReviews from 'src/hooks/useReviews';
-import { Review } from 'src/types/types';
-import stockFood from 'src/assets/mockFoodImage.jpg';
-import RatingDisplay from 'src/components/RatingDisplay';
-import ReviewDisplay from 'src/components/dish/ReviewDisplay';
-import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux';
-import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer';
-import { Link } from 'react-router-dom';
-import cn from 'src/utils/cn';
+import useDish from 'src/hooks/useDish'
+import useReviews from 'src/hooks/useReviews'
+import { Review } from 'src/types/types'
+import stockFood from 'src/assets/mockFoodImage.jpg'
+import RatingDisplay from 'src/components/RatingDisplay'
+import ReviewDisplay from 'src/components/dish/ReviewDisplay'
+import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
+import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
+import { Link } from 'react-router-dom'
+import cn from 'src/utils/cn'
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
@@ -16,40 +16,42 @@ import cn from 'src/utils/cn';
  */
 const fahrenheitTextToCelsius = (text: string) => {
   // Find the Fahrenheit temperature in the text and convert it to Celsius
-  const match = text.match(/(\d+) ?°[F]/);
+  const match = text.match(/(\d+) ?°[F]/)
 
   if (match) {
-    const fahrenheitValue = parseInt(match[1], 10);
-    const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9);
+    const fahrenheitValue = parseInt(match[1], 10)
+    const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
 
-    return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`);
+    return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`)
   }
   return text
-};
+}
 
 export default function DishPage() {
-  const { data: dish, } = useDish();
-  const {
-    data: reviews,
-    isLoading: reviewsAreLoading,
-  } = useReviews();
+  const { data: dish } = useDish()
+  const { data: reviews, isLoading: reviewsAreLoading } = useReviews()
 
-  const temperatureUnit = useAppSelector((state) => state.temperatureUnit);
-  const dispatch = useAppDispatch();
+  const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
+  const dispatch = useAppDispatch()
 
-  const { dishId, title, ingredients, instructions } = dish || {};
+  const { dishId, title, ingredients, instructions } = dish || {}
 
-  const rating = reviewsAreLoading || !reviews
-    ? undefined
-    : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  const rating =
+    reviewsAreLoading || !reviews
+      ? undefined
+      : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
 
   return (
-    <div className='w-full h-full overflow-y-scroll'>
-      <div className='flex flex-col m-10 gap-10'>
-        <div className='flex flex-col md:flex-row gap-10'>
-          <div className='flex flex-col bg-white p-10 gap-10 w-full basis-2/3'>
-            <div className='flex gap-10 flex-col xl:flex-row'>
-              <img src={stockFood} className='rounded-md w-full xl:w-96' alt='food' />
+    <div className='h-full w-full overflow-y-scroll'>
+      <div className='m-10 flex flex-col gap-10'>
+        <div className='flex flex-col gap-10 md:flex-row'>
+          <div className='flex w-full basis-2/3 flex-col gap-10 bg-white p-10'>
+            <div className='flex flex-col gap-10 xl:flex-row'>
+              <img
+                src={stockFood}
+                className='w-full rounded-md xl:w-96'
+                alt='food'
+              />
               <div className='flex flex-col'>
                 <p className='text-2xl'>{title}</p>
                 {/* <p className='text-grayed-text'>800 kcal</p> */}
@@ -63,25 +65,32 @@ export default function DishPage() {
                   See reviews
                 </HashLink> */}
                 <Link
-                  className='border rounded-md my-3 p-2 w-full sm:w-fit text-center'
+                  className='my-3 w-full rounded-md border p-2 text-center sm:w-fit'
                   to='write-review'
                 >
                   Write a review
                 </Link>
-                <div className='h-full flex flex-col justify-end'>
+                <div className='flex h-full flex-col justify-end'>
                   <div className='flex flex-col gap-1'>
                     <p className='font-semibold'>Temperature units</p>
                     <div className='flex gap-3'>
                       <button
                         onClick={() => dispatch(setFahrenheit())}
-                        className={cn('border p-2 rounded-md', temperatureUnit.value === 'fahrenheit' && 'bg-selected')}
+                        className={cn(
+                          'rounded-md border p-2',
+                          temperatureUnit.value === 'fahrenheit' &&
+                            'bg-selected',
+                        )}
                         type='button'
                       >
                         Fahrenheit
                       </button>
                       <button
                         onClick={() => dispatch(setCelsius())}
-                        className={cn('border p-2 rounded-md', temperatureUnit.value === 'celsius' && 'bg-selected')}
+                        className={cn(
+                          'rounded-md border p-2',
+                          temperatureUnit.value === 'celsius' && 'bg-selected',
+                        )}
                         type='button'
                       >
                         Celsius
@@ -93,39 +102,41 @@ export default function DishPage() {
             </div>
             <div className='flex flex-col gap-3'>
               {instructions?.split('. ').map((instruction, index) => (
-                  <div key={instruction}>
-                    {index + 1}.{' '}
-                    {temperatureUnit.value === 'fahrenheit'
-                      ? instruction
-                      : fahrenheitTextToCelsius(instruction)}
-                    .
-                  </div>
-                ))}
+                <div key={instruction}>
+                  {index + 1}.{' '}
+                  {temperatureUnit.value === 'fahrenheit'
+                    ? instruction
+                    : fahrenheitTextToCelsius(instruction)}
+                  .
+                </div>
+              ))}
             </div>
           </div>
-          <div className='bg-white p-10 h-fit w-full basis-1/3'>
-            <p className='text-xl text-center'>Ingredients</p>
-            <p className='text-lg text-center text-grayed-text'>4 portions</p>
+          <div className='h-fit w-full basis-1/3 bg-white p-10'>
+            <p className='text-center text-xl'>Ingredients</p>
+            <p className='text-center text-lg text-grayed-text'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
                 {ingredients?.map((ingredient) => (
-                    <li key={ingredient} className='my-3'>
-                      {ingredient}
-                    </li>
-                  ))}
+                  <li key={ingredient} className='my-3'>
+                    {ingredient}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
-        <div className='flex flex-col bg-white p-10 gap-10' id='reviews'>
+        <div className='flex flex-col gap-10 bg-white p-10' id='reviews'>
           <div className='border-b pb-5'>
-            <p className='text-xl text-center'>Reviews</p>
+            <p className='text-center text-xl'>Reviews</p>
           </div>
-          {reviews?.map((review: Review) => <ReviewDisplay key={review.reviewId} review={review} />)}
+          {reviews?.map((review: Review) => (
+            <ReviewDisplay key={review.reviewId} review={review} />
+          ))}
           <div className='flex justify-center'></div>
         </div>
       </div>
-      <div className='w-full h-20' />
+      <div className='h-20 w-full' />
     </div>
-  );
+  )
 }
