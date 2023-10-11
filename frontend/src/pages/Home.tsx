@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className='flex'>
       <Sidebar className='hidden lg:flex' />
-      <div className='flex flex-col gap-2 p-20 w-full overflow-y-scroll'>
+      <div className='flex flex-col gap-2 p-20 w-full overflow-y-scroll no-scrollbar'>
         <Search />
         <SelectedFilters />
         <SortBy />
