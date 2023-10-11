@@ -128,7 +128,9 @@ export const fetchSearchResults = async (
   keyWord: string,
   page: number
 ): Promise<Array<Dish>> => {
-  if (process.env.NODE_ENV === 'development') {
+
+  // Use mock data for testing and development
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     return Promise.resolve(
       mock_data.filter((dish) => dish.title.toLowerCase().includes(keyWord.toLowerCase()))
     );

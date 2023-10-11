@@ -11,7 +11,7 @@ export default function FoodDisplay(props: FoodDisplayProps) {
   const { title, dishId: id } = dish;
   return (
     <Link to={`/dish/${id}`} className='flex gap-4 flex-col shadow-xl w-60  group cursor-pointer bg-white p-4'>
-      <img alt='stockfood' className='rounded-md' src={stockFood} />
+      <img alt='food' className='rounded-md' src={stockFood} />
       <div className='font-bold p-4 group-hover:underline'>{title}</div>
     </Link>
   );
