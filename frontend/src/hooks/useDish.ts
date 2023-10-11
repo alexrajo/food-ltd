@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import { fetchDish } from 'src/utils/api-calls';
-import { useDishReturnType } from './HookTypes';
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
+import { fetchDish } from 'src/utils/api-calls'
+import { useDishReturnType } from './HookTypes'
 
 /**
  * Fetches data about the dish by the id in the URL
@@ -23,16 +23,16 @@ import { useDishReturnType } from './HookTypes';
  */
 function useDish(): useDishReturnType {
   /** Get the id from the url */
-  const params = useParams();
-  const { id } = params;
+  const params = useParams()
+  const { id } = params
 
   /** Fetches data about the dish by the id in the URL */
   const { data, isLoading, error } = useQuery({
     queryKey: ['dish', id],
     queryFn: () => fetchDish(id),
-  });
+  })
 
-  return { data, isLoading, error };
+  return { data, isLoading, error }
 }
 
-export default useDish;
+export default useDish

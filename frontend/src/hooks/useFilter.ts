@@ -4,9 +4,9 @@ import {
   excludeFilter as excludeReduxFilter,
   removeIncludedFilter as removeReduxIncludedFilter,
   resetAllFilters,
-} from 'src/redux/confinementReducer';
-import { useAppDispatch, useAppSelector } from './useAppRedux';
-import { useFilterReturnType } from './HookTypes';
+} from 'src/redux/confinementReducer'
+import { useAppDispatch, useAppSelector } from './useAppRedux'
+import { useFilterReturnType } from './HookTypes'
 
 /**
  * Hooks which allows to modify the list of filters
@@ -28,11 +28,15 @@ import { useFilterReturnType } from './HookTypes';
  */
 export default function useFilter(): useFilterReturnType {
   /** Grab the states from redux store */
-  const includedFilters = useAppSelector((state) => state.confinements.includingFilters);
-  const excludedFilters = useAppSelector((state) => state.confinements.excludingFilters);
+  const includedFilters = useAppSelector(
+    (state) => state.confinements.includingFilters,
+  )
+  const excludedFilters = useAppSelector(
+    (state) => state.confinements.excludingFilters,
+  )
 
   /** Allows to modify the redux store */
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   /** Called when user wishes to include a filter
    * @param {string} option - The filter to include
@@ -53,9 +57,9 @@ export default function useFilter(): useFilterReturnType {
      * Check to see if the filter is already in the list
      */
     if (!includedFilters.includes(option)) {
-      dispatch(includeReduxFilter(option as string));
+      dispatch(includeReduxFilter(option as string))
     }
-  };
+  }
 
   /**
    * Removes an included filter
@@ -76,9 +80,9 @@ export default function useFilter(): useFilterReturnType {
      * If the filter is already in the list, remove it
      */
     if (includedFilters.includes(option)) {
-      dispatch(removeReduxIncludedFilter(option));
+      dispatch(removeReduxIncludedFilter(option))
     }
-  };
+  }
 
   /**
    * Adds an excluded filter
@@ -99,9 +103,9 @@ export default function useFilter(): useFilterReturnType {
      * Check to see if the filter is already in the list
      */
     if (!excludedFilters.includes(option)) {
-      dispatch(excludeReduxFilter(option as string));
+      dispatch(excludeReduxFilter(option as string))
     }
-  };
+  }
 
   /**
    * Removes an excluded filter
@@ -122,17 +126,17 @@ export default function useFilter(): useFilterReturnType {
      * If the filter is already in the list, remove it
      */
     if (excludedFilters.includes(option)) {
-      dispatch(removeReduxExcludedFilter(option));
+      dispatch(removeReduxExcludedFilter(option))
     }
-  };
+  }
 
   /**
    * Resets all filters
    * @returns {void}
    */
   const resetFilters = (): void => {
-    dispatch(resetAllFilters());
-  };
+    dispatch(resetAllFilters())
+  }
 
   return {
     includeFilter,
@@ -142,5 +146,5 @@ export default function useFilter(): useFilterReturnType {
     resetFilters,
     includedFilters,
     excludedFilters,
-  };
+  }
 }

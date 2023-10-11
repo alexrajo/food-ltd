@@ -1,14 +1,14 @@
-import Sidebar from 'src/components/Sidebar';
-import FoodGallery from 'src/components/home/FoodGallery';
-import Search from 'src/components/home/Search';
-import SelectedFilters from 'src/components/home/SelectedFilters';
-import SortBy from 'src/components/home/SortBy';
+import Sidebar from 'src/components/Sidebar'
+import FoodGallery from 'src/components/home/FoodGallery'
+import Search from 'src/components/home/Search'
+import SelectedFilters from 'src/components/home/SelectedFilters'
+import SortBy from 'src/components/home/SortBy'
 
 export default function Home() {
   return (
     <div className='flex'>
       <Sidebar className='hidden lg:flex' />
-      <div className='flex flex-col gap-2 p-20 w-full overflow-y-scroll no-scrollbar'>
+      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
         <Search />
         <SelectedFilters />
         <SortBy />
@@ -16,5 +16,5 @@ export default function Home() {
         <div className='my-20' />
       </div>
     </div>
-  );
+  )
 }
