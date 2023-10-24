@@ -5,8 +5,6 @@ export default function FoodGallery() {
   const { data } = useSearch()
   const { dishes } = data || {}
 
-  console.log(data)
-
   return (
     <div className='flex flex-wrap gap-10'>
       {dishes !== undefined &&

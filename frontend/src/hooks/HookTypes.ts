@@ -4,7 +4,7 @@ export type useDishReturnType = {
   /**
    * The data about the dish
    */
-  data: Dish | undefined
+  data: { dish: Dish } | undefined
   /**
    * If the data is loading
    */

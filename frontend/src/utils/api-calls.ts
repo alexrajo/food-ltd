@@ -9,17 +9,18 @@ const URL = 'http://127.0.0.1:4000/graphql'
  * @param dishId The id of the dish to fetch
  * @returns The dish
  */
-export const fetchDish = async (dishId?: string): Promise<Dish> => {
+export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
   // If in development, use the mock data
-  if (process.env.NODE_ENV === 'development') {
-    return Promise.resolve(
-      mock_data.find((dish) => dish.dishId === parseInt(dishId)) ||
-        mock_data[0],
-    )
-  }
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     dish:
+  //       mock_data.find((dish) => dish.dishId === parseInt(dishId)) ||
+  //       mock_data[0],
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -29,12 +30,14 @@ export const fetchDish = async (dishId?: string): Promise<Dish> => {
       query: `
                 query ($dishId: Int!) {
                   dish(id: $dishId) {
-                      dish
+                      title
+                      ingredients
+                      instructions
                   }
                 }
                 `,
       variables: {
-        dishId,
+        dishId: parseInt(dishId),
       },
     }),
   })
@@ -141,13 +144,13 @@ export const fetchSearchResults = async (
   page: number,
 ): Promise<{ dishes: Array<Dish> }> => {
   // Use mock data for testing and development
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve({
-      dishes: mock_data.filter((dish) =>
-        dish.title.toLowerCase().includes(keyWord.toLowerCase()),
-      ),
-    })
-  }
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     dishes: mock_data.filter((dish) =>
+  //       dish.title.toLowerCase().includes(keyWord.toLowerCase()),
+  //     ),
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {

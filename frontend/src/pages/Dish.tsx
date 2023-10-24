@@ -28,11 +28,11 @@ const fahrenheitTextToCelsius = (text: string) => {
 }
 
 export default function DishPage() {
-  const { data: dish } = useDish()
+  const { data: dishData } = useDish()
   const { data: reviewsData, isLoading: reviewsAreLoading } = useReviews()
-  const { reviews } = reviewsData || {}
 
-  console.log(reviews)
+  const { dish } = dishData || {}
+  const { reviews } = reviewsData || {}
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()
@@ -120,11 +120,17 @@ export default function DishPage() {
             <p className='text-center text-lg text-grayed-text'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
-                {ingredients?.map((ingredient) => (
-                  <li key={ingredient} className='my-3'>
-                    {ingredient}
-                  </li>
-                ))}
+                {ingredients
+                  ?.slice(1, -2)
+                  .split("',")
+                  .map((ingredient) => {
+                    ingredient = ingredient.replace("'", '')
+                    return (
+                      <li key={ingredient} className='my-3'>
+                        {ingredient}
+                      </li>
+                    )
+                  })}
               </ul>
             </div>
           </div>
