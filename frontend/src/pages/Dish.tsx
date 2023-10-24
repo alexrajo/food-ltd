@@ -29,7 +29,10 @@ const fahrenheitTextToCelsius = (text: string) => {
 
 export default function DishPage() {
   const { data: dish } = useDish()
-  const { data: reviews, isLoading: reviewsAreLoading } = useReviews()
+  const { data: reviewsData, isLoading: reviewsAreLoading } = useReviews()
+  const { reviews } = reviewsData || {}
+
+  console.log(reviews)
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()

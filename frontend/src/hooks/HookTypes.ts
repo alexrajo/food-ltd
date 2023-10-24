@@ -76,7 +76,7 @@ export type useReviewsReturnType = {
   /**
    * The reviews of a dish
    */
-  data: Review[] | undefined
+  data: { reviews: Review[] } | undefined
   /**
    * If the data is loading
    */
@@ -240,7 +240,7 @@ export type useSearchReturnType = {
   /**
    * The search results
    */
-  data: Dish[] | undefined
+  data: { dishes: Dish[] } | undefined
   /**
    * Load more to the next page of search results
    * @returns {void}

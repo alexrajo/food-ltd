@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     title TEXT NOT NULL,
     rating INTEGER NOT NULL,
     comment TEXT NOT NULL,
+    posted_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
     dish_id INTEGER NOT NULL,
 

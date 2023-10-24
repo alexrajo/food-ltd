@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -22,12 +22,13 @@ model Dish {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model Review {
-  reviewId Int    @id @default(autoincrement()) @map("review_id")
-  title    String
-  rating   Int
-  comment  String
-  dishId   Int    @map("dish_id")
-  dishes   Dish   @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
+  reviewId  Int      @id @default(autoincrement()) @map("review_id")
+  title     String
+  rating    Int
+  comment   String
+  dishId    Int      @map("dish_id")
+  postedAt DateTime @default(now()) @db.Timestamp(6) @map("posted_at")
+  dishes    Dish     @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
 
   @@map("reviews")
 }
