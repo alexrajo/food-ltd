@@ -2,6 +2,12 @@ import useSort from 'src/hooks/useSort'
 import cn from 'src/utils/cn'
 import { SORTING_OPTIONS } from 'src/utils/constants'
 
+/**
+ * Container for all sorting options that can be applied to the dishes.
+ * Shows up on the main page, over the FoodGallery. 
+ * Gives user option to click on the sorting option they want to 
+ * apply to the dishes. 
+ */
 export default function SortBy() {
   const [sortingPreference, setSortingPreference] = useSort()
 

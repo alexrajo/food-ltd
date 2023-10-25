@@ -1,6 +1,9 @@
 import cn from 'src/utils/cn'
 import DropDownMenu from './sidebar/DropDownMenu'
 
+/**
+ * On the left side of main page. Contains filters that the user can apply.
+ */
 export default function Sidebar({ className }: { className?: string }) {
   return (
     <div

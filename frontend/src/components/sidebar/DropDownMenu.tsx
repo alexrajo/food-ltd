@@ -7,6 +7,10 @@ type DropDownMenuProps = {
   type: 'include' | 'exclude'
 }
 
+/**
+ * Display for the different filter options in the sidebar. Each is a 
+ * dropdown menu that can be expanded on click.
+ */
 export default function DropDownMenu(props: DropDownMenuProps) {
   const { type } = props
   const [open, setOpen] = useState(false)

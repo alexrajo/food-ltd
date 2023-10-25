@@ -1,6 +1,9 @@
 import useSearch from 'src/hooks/useSearch'
 import FoodDisplay from './FoodDisplay'
 
+/**
+ * Container for all FoodDisplay components on the main page.
+ */
 export default function FoodGallery() {
   const { data } = useSearch()
 

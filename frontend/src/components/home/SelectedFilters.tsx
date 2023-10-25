@@ -1,6 +1,9 @@
 import useFilter from 'src/hooks/useFilter'
 import FilterDisplay from './FilterDisplay'
 
+/**
+ * Container for all FilterDisplay components. Situated under the search bar.
+ */
 export default function SelectedFilters() {
   const { includedFilters, excludedFilters, resetFilters } = useFilter()
 

@@ -2,6 +2,10 @@ import cn from 'src/utils/cn'
 import logo from 'src/assets/logo.svg'
 import { Link } from 'react-router-dom'
 
+/**
+ * Allows for navigation between pages in the application.
+ * Situated at the top of the page.
+ */
 export default function Navbar({ className }: { className?: string }) {
   return (
     <div

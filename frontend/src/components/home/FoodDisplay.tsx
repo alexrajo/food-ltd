@@ -6,6 +6,10 @@ type FoodDisplayProps = {
   dish: Dish
 }
 
+/**
+ * Used on the main page, to show every dish returned after search, filter etc. Each links to 
+ * the individual page for that dish.
+ */
 export default function FoodDisplay(props: FoodDisplayProps) {
   const { dish } = props
   const { title, dishId: id } = dish
