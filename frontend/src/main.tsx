@@ -23,6 +23,18 @@ const router = createBrowserRouter([
         path: '/dish/:id',
         element: <DishPage />,
       },
+      {
+        path: '*',
+        element: <>404</>,
+      },
+      {
+        path: '/favorites',
+        element: <>Favorites</>,
+      },
+      {
+        path: '/settings',
+        element: <>Settings</>,
+      }
     ],
   },
 ])
