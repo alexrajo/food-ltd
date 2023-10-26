@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 CREATE VIEW dishes_with_review_aggregate AS (
-    SELECT dishes.dish_id, dishes.title, dishes.ingredients, dishes.instructions, dishes.image_name, dishes.cleaned_ingredients, AVG(reviews.rating) AS average_rating, COUNT(reviews.review_id) AS review_count
+    SELECT dishes.dish_id, dishes.title, dishes.ingredients, dishes.instructions, dishes.image_name, dishes.cleaned_ingredients, AVG(reviews.rating) AS average_rating, COALESCE(COUNT(reviews.review_id), 0) AS review_count
     FROM dishes
     LEFT JOIN reviews ON dishes.dish_id = reviews.dish_id
     GROUP BY dishes.dish_id

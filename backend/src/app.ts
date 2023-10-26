@@ -3,7 +3,7 @@ import type { Review } from '@prisma/client';
 import express from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
+import { GraphQLScalarType, Kind, buildSchema } from 'graphql';
 import logger from './middleware/logger';
 
 const prisma = new PrismaClient();
@@ -30,14 +30,31 @@ const schema = buildSchema(`
     postedAt: String!
   }
 
+  type ReviewsResponse {
+    data: [Review]
+  }
+
+  type DishResponse {
+    data: Dish
+  }
+
+  type DishesResponse {
+    pages: Int!
+    data: [Dish]
+  }
+
+  type PostReviewResponse {
+    data: Review
+  }
+
   type Query {
-    reviews(dishId: Int!, page: Int): {data: [Review]}
-    dish(id: Int!): {data: Dish}
-    dishes(query: String!, page: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): {pages: Int!, data: [Dish]}
+    reviews(dishId: Int!, page: Int): ReviewsResponse
+    dish(id: Int!): DishResponse
+    dishes(query: String!, page: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): DishesResponse
   }
 
   type Mutation {
-    postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): {data: Review}
+    postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): PostReviewResponse
   }
 `);
 
@@ -65,13 +82,19 @@ const root = {
         dishId: id,
       },
     });
+    // Change the reviewCount field of the dish to be a number and not a bigint
+    const responseDish = dish && {
+      ...dish,
+      reviewCount: Number(dish.reviewCount),
+    };
     return {
-      data: dish,
+      data: responseDish,
     };
   },
 
   // Free text search endpoint
   dishes: async ({ query, page }: { query: string; page?: number }) => {
+    const pageSize = 10;
     page = page !== undefined ? page : 1;
 
     if (query === '') {
@@ -79,10 +102,14 @@ const root = {
         skip: Math.max(0, page - 1) * 10,
         take: 10,
       });
-      const pages = await prisma.dish.count();
+      const count = await prisma.dish.count();
+      const responseDishes = data.map((dish) => ({
+        ...dish,
+        reviewCount: Number(dish.reviewCount),
+      }));
       return {
-        pages,
-        data,
+        pages: Math.ceil(count / pageSize),
+        data: responseDishes,
       };
     } else {
       const data = await prisma.dishWithReviewAggregate.findMany({
@@ -94,16 +121,20 @@ const root = {
         skip: Math.max(0, page - 1) * 10,
         take: 10,
       });
-      const pages = await prisma.dish.count({
+      const count = await prisma.dish.count({
         where: {
           title: {
             search: query.split(' ').join(' & '),
           },
         },
       });
+      const responseDishes = data.map((dish) => ({
+        ...dish,
+        reviewCount: Number(dish.reviewCount),
+      }));
       return {
-        pages,
-        data,
+        pages: Math.ceil(count / pageSize),
+        data: responseDishes,
       };
     }
   },
@@ -124,6 +155,7 @@ const root = {
 
 const app = express();
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(logger); // Log all requests to the console
 }

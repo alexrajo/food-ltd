@@ -57,10 +57,14 @@ export const fetchDish = async (
       query: `
                 query ($dishId: Int!) {
                   dish(id: $dishId) {
-                      title
-                      ingredients
-                      instructions
-                      imageName
+                      data {
+                        title
+                        ingredients
+                        instructions
+                        imageName
+                        averageRating
+                        reviewCount
+                      }
                   }
                 }
                 `,
@@ -98,11 +102,12 @@ export const fetchReviews = async (
       query: `
                 query ($dishId: Int!, $page: Int) {
                     reviews(dishId: $dishId, page: $page) {
+                      data {
                         reviewId
                         title
                         rating
                         comment
-                        postedAt
+                      }
                     }
                 }
             `,
@@ -147,7 +152,10 @@ export const postReview = async (
       query: `
                 mutation ($dishId: Int!, $title: String!, $rating: Int!, $comment: String!) {
                     postReview(dishId: $dishId, title: $title, rating: $rating, comment: $comment) {
-                        review
+                        data {
+                          reviewId
+                          title
+                        }
                     }
                 }
                 `,
@@ -188,9 +196,14 @@ export const fetchSearchResults = async (
       query: `
               query ($keyWord: String!, $page: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
                 dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
-                  dishId
-                  title
-                  imageName
+                  data {
+                    dishId
+                    title
+                    imageName
+                    averageRating
+                    reviewCount
+                  }
+                  pages
                 }
               }
       `,
