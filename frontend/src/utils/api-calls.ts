@@ -33,6 +33,7 @@ export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
                       title
                       ingredients
                       instructions
+                      imageName
                   }
                 }
                 `,
@@ -162,6 +163,7 @@ export const fetchSearchResults = async (
                 dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
                   dishId
                   title
+                  imageName
                 }
               }
       `,
