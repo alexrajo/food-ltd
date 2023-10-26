@@ -40,7 +40,7 @@ const schema = buildSchema(`
 `);
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:5173',
+  origin: 'http://localhost:5173',
   optionsSuccessStatus: 200,
 };
 
@@ -88,12 +88,7 @@ const root = {
     }
   },
 
-  postReview: async ({
-    dishId,
-    title,
-    rating,
-    comment,
-  }: Omit<Review, 'reviewId'>) => {
+  postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
