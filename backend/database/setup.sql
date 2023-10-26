@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 -- Read the data from the CSV file into the dishes table
 COPY dishes (dish_id, title, ingredients, instructions, image_name, cleaned_ingredients)
-FROM '/Users/alexrj/Documents/ProgrammingProjects/Web/prosjekt-2-webutvikling/backend/data/dishes.csv'
+FROM '/Users/alexrj/Documents/ProgrammingProjects/Web/prosjekt-2-webutvikling/backend/database/dishes.csv'
 DELIMITER ','
 CSV HEADER;
-
