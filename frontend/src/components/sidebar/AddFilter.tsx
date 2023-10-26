@@ -4,16 +4,15 @@ import {
   EXCLUDE_FILTER_OPTIONS,
 } from 'src/utils/constants'
 
-/* 
-  TODO : make more modular filter add. I will clean up this component, the code is very ugly
-  We currently only have two ways to add filter (which is checked for individually),
-  but we want to add more.
-*/
 
 type AddFilterProps = {
   type: string
 }
 
+/**
+ * Container for all the filter options (checkboxes) presented to the user in the sidebar.
+ * One for each dropdown menu
+ */
 export default function AddFilter(props: AddFilterProps) {
   const { type } = props
   const {

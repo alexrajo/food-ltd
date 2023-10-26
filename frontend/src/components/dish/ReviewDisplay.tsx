@@ -4,7 +4,9 @@ import RatingDisplay from '../RatingDisplay'
 type ReviewDisplayProps = {
   review: Review
 }
-
+/**
+ * Displays the content of an individual user rating. Used on each dish page. 
+ */
 export default function ReviewDisplay(props: ReviewDisplayProps) {
   const { review } = props
   const { reviewId, title, rating, comment, postedAt } = review

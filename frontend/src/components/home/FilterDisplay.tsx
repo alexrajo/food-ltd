@@ -6,6 +6,10 @@ type FilterDisplayProps = {
   type: 'include' | 'exclude'
 }
 
+/**
+ * Information about an individual filter that has been applied to the search result. 
+ * Component shows up under the search bar when active.  
+ */
 export default function FilterDisplay(props: FilterDisplayProps) {
   const { name, type } = props
   const { removeExcludedFilter, removeIncludedFilter } = useFilter()

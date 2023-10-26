@@ -4,6 +4,9 @@ import Search from 'src/components/home/Search'
 import SelectedFilters from 'src/components/home/SelectedFilters'
 import SortBy from 'src/components/home/SortBy'
 
+/**
+ * Holds all the components that show up on the main page.
+ */
 export default function Home() {
   return (
     <div className='flex'>

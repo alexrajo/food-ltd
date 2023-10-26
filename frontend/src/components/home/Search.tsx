@@ -2,6 +2,9 @@ import searchIcon from 'src/assets/search.svg'
 import loadingIcon from 'src/assets/loading.svg'
 import useSearch from 'src/hooks/useSearch'
 
+/**
+ * The large search bar on the main page. 
+ */
 export default function Search() {
   const { onSearch, onChangeSearchInput, searchInput, isLoading } = useSearch()
 
