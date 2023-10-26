@@ -89,7 +89,7 @@ function useSearch(): useSearchReturnType {
    * and refetches the data
    */
   const paginateForwards = () => {
-    if (data?.dishes.length === 0) {
+    if (data?.dishes.data.length === 0) {
       return
     }
     setPage((prev) => prev + 1)
@@ -114,12 +114,14 @@ function useSearch(): useSearchReturnType {
     setPage(page)
   }
 
+  const dishesData = data && data.dishes
+
   return {
     searchInput,
     onChangeSearchInput,
     isLoading,
     error,
-    data,
+    data: dishesData,
     paginateTo,
     paginateForwards,
     paginateBackwards,

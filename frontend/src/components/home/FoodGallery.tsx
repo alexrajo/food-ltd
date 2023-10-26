@@ -6,7 +6,7 @@ import FoodDisplay from './FoodDisplay'
  */
 export default function FoodGallery() {
   const { data } = useSearch()
-  const { dishes } = data || {}
+  const { data: dishes } = data || {}
 
   return (
     <div className='flex flex-wrap gap-10'>

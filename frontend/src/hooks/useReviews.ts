@@ -43,7 +43,9 @@ function useReviews(): useReviewsReturnType {
     setPage((prev) => prev + 1)
   }
 
-  return { data, isLoading, error, loadMore }
+  const reviewsData = data && data.reviews
+
+  return { data: reviewsData, isLoading, error, loadMore }
 }
 
 export default useReviews

@@ -17,6 +17,8 @@ const schema = buildSchema(`
     instructions: String
     imageName: String
     cleanedIngredients: String
+    reviewCount: Int
+    averageRating: Float
   }
 
   type Review {
@@ -29,13 +31,13 @@ const schema = buildSchema(`
   }
 
   type Query {
-    reviews(dishId: Int!, page: Int): [Review]
-    dish(id: Int!): Dish
-    dishes(query: String!, page: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): [Dish]
+    reviews(dishId: Int!, page: Int): {data: [Review]}
+    dish(id: Int!): {data: Dish}
+    dishes(query: String!, page: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): {pages: Int!, data: [Dish]}
   }
 
   type Mutation {
-    postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): Review
+    postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): {data: Review}
   }
 `);
 
@@ -58,12 +60,14 @@ const root = {
   },
 
   dish: async ({ id }: { id: number }) => {
-    const dish = await prisma.dish.findUnique({
+    const dish = await prisma.dishWithReviewAggregate.findUnique({
       where: {
         dishId: id,
       },
     });
-    return dish;
+    return {
+      data: dish,
+    };
   },
 
   // Free text search endpoint
@@ -71,12 +75,17 @@ const root = {
     page = page !== undefined ? page : 1;
 
     if (query === '') {
-      return await prisma.dish.findMany({
+      const data = await prisma.dishWithReviewAggregate.findMany({
         skip: Math.max(0, page - 1) * 10,
         take: 10,
       });
+      const pages = await prisma.dish.count();
+      return {
+        pages,
+        data,
+      };
     } else {
-      return await prisma.dish.findMany({
+      const data = await prisma.dishWithReviewAggregate.findMany({
         where: {
           title: {
             search: query.split(' ').join(' & '),
@@ -85,6 +94,17 @@ const root = {
         skip: Math.max(0, page - 1) * 10,
         take: 10,
       });
+      const pages = await prisma.dish.count({
+        where: {
+          title: {
+            search: query.split(' ').join(' & '),
+          },
+        },
+      });
+      return {
+        pages,
+        data,
+      };
     }
   },
 
@@ -98,7 +118,7 @@ const root = {
         // postedAt is automatically set by the database
       },
     });
-    return review;
+    return { data: review };
   },
 };
 
