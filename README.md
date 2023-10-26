@@ -33,8 +33,12 @@ _Make sure to have a postgresql database running on your machine_
 
 - Install postgresql on your machine, <a href="https://www.postgresql.org/download">see downloads</a>
 - Make sure the psql command is in your OS's PATH environment variable
+- Make sure you have a user to log in with
+- Run `psql -U postgres` and type in the password, likely "postgres" and press enter
+- Run `CREATE DATABASE dishdb;`
+- Exit psql (ctrl+z)
 - Navigate to the project-2/backend/database directory
-- Run `psql dishdb < database.psql`
+- Run `psql dishdb < setup.sql`
 - Add a .env file in project-2/backend and add
 
       DATABASE_URL=postgresql://username:password@localhost:5432/dishdb?schema=public
