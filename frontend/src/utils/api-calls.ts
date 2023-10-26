@@ -2,24 +2,25 @@ import { Confinement } from 'src/redux/confinementReducer'
 import { Dish, Review } from 'src/types/types'
 import mock_data from '../assets/mockdata.json'
 
-const URL = '/graphql'
+const URL = 'http://127.0.0.1:4000/graphql'
 
 /**
  * Fetches the dish from the database
  * @param dishId The id of the dish to fetch
  * @returns The dish
  */
-export const fetchDish = async (dishId?: string): Promise<Dish> => {
+export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
   // If in development, use the mock data
-  if (process.env.NODE_ENV === 'development') {
-    return Promise.resolve(
-      mock_data.find((dish) => dish.dishId === parseInt(dishId)) ||
-        mock_data[0],
-    )
-  }
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     dish:
+  //       mock_data.find((dish) => dish.dishId === parseInt(dishId)) ||
+  //       mock_data[0],
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -27,14 +28,17 @@ export const fetchDish = async (dishId?: string): Promise<Dish> => {
     },
     body: JSON.stringify({
       query: `
-                query ($dishId: Integer!) {
+                query ($dishId: Int!) {
                   dish(id: $dishId) {
-                      dish
+                      title
+                      ingredients
+                      instructions
+                      imageName
                   }
                 }
                 `,
       variables: {
-        dishId,
+        dishId: parseInt(dishId),
       },
     }),
   })
@@ -46,14 +50,17 @@ export const fetchDish = async (dishId?: string): Promise<Dish> => {
 export const fetchReviews = async (
   page: number,
   dishId?: string,
-): Promise<Array<Review>> => {
+): Promise<{ reviews: Array<Review> }> => {
+  const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
+
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
-  if (process.env.NODE_ENV === 'development') {
-    return Promise.resolve(
-      mock_data.find((dish) => dish.dishId === parseInt(dishId))?.reviews || [],
-    )
+  if (process.env.NODE_ENV === 'test') {
+    return Promise.resolve({
+      reviews:
+        mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
+    })
   }
   return fetch(URL, {
     method: 'POST',
@@ -62,14 +69,18 @@ export const fetchReviews = async (
     },
     body: JSON.stringify({
       query: `
-                query ($dishId: Integer!, $page: Integer) {
+                query ($dishId: Int!, $page: Int) {
                     reviews(dishId: $dishId, page: $page) {
-                        review
+                        reviewId
+                        title
+                        rating
+                        comment
+                        postedAt
                     }
                 }
             `,
       variables: {
-        dishId,
+        dishId: dishIdNumber,
         page,
       },
     }),
@@ -90,13 +101,14 @@ export const postReview = async (
   rating: number,
   comment: string,
 ): Promise<Review> => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'test') {
     return Promise.resolve({
       reviewId: 1,
       title,
       rating,
       comment,
       dishId,
+      postedAt: new Date().toISOString(),
     })
   }
   return fetch(URL, {
@@ -106,7 +118,7 @@ export const postReview = async (
     },
     body: JSON.stringify({
       query: `
-                mutation ($dishId: Integer!, $title: String!, $rating: Integer!, $comment: String!) {
+                mutation ($dishId: Int!, $title: String!, $rating: Int!, $comment: String!) {
                     postReview(dishId: $dishId, title: $title, rating: $rating, comment: $comment) {
                         review
                     }
@@ -131,18 +143,15 @@ export const fetchSearchResults = async (
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
   page: number,
-): Promise<Array<Dish>> => {
+): Promise<{ dishes: Array<Dish> }> => {
   // Use mock data for testing and development
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === 'test'
-  ) {
-    return Promise.resolve(
-      mock_data.filter((dish) =>
-        dish.title.toLowerCase().includes(keyWord.toLowerCase()),
-      ),
-    )
-  }
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     dishes: mock_data.filter((dish) =>
+  //       dish.title.toLowerCase().includes(keyWord.toLowerCase()),
+  //     ),
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -150,12 +159,14 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-                query ($query: String!,  $page: Integer, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
-                  dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters,  sortingPreference: $sortingPreference ) {
-                      dish
-                  }
+              query ($keyWord: String!, $page: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
+                dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
+                  dishId
+                  title
+                  imageName
                 }
-                `,
+              }
+      `,
       variables: {
         excludingFilters,
         includingFilters,

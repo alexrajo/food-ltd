@@ -24,7 +24,7 @@ function useSearch(): useSearchReturnType {
   /** Raw user input form html element */
   const [searchInput, setSearchInput] = React.useState<string>('')
   /** Page number to allow pagination */
-  const [page, setPage] = React.useState<number>(0)
+  const [page, setPage] = React.useState<number>(1)
 
   /** Grab the confinements from redux store */
   const { includingFilters, excludingFilters, keyWord, sortingPreference } =
@@ -89,7 +89,7 @@ function useSearch(): useSearchReturnType {
    * and refetches the data
    */
   const paginateForwards = () => {
-    if (data?.length === 0) {
+    if (data?.dishes.length === 0) {
       return
     }
     setPage((prev) => prev + 1)

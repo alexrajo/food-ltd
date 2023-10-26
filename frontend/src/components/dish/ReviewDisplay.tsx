@@ -9,7 +9,9 @@ type ReviewDisplayProps = {
  */
 export default function ReviewDisplay(props: ReviewDisplayProps) {
   const { review } = props
-  const { reviewId, title, rating, comment, postedAt } = review
+  const { reviewId, title, rating, comment, postedAt: postedAtUnix } = review
+
+  const postedAt = new Date(parseInt(postedAtUnix)).toUTCString()
 
   return (
     <div key={reviewId} className='flex flex-col gap-5 rounded-md border p-5'>

@@ -25,7 +25,7 @@ import { useReviewsReturnType } from './HookTypes'
  */
 function useReviews(): useReviewsReturnType {
   /** Page number to allow pagination */
-  const [page, setPage] = React.useState<number>(0)
+  const [page, setPage] = React.useState<number>(1)
 
   /** Get the id from the url */
   const params = useParams()
