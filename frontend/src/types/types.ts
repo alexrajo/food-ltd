@@ -5,6 +5,8 @@ export type Dish = {
   instructions?: string
   imageName?: string
   cleanedIngredients: string[]
+  averageRating?: number
+  reviewCount?: number
 }
 
 export type Review = {

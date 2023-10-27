@@ -1,10 +1,10 @@
-import { SEARCH_TIMEOUT_MS } from 'src/utils/constants';
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
-import { fetchSearchResults } from 'src/utils/api-calls';
-import { setKeyWord } from 'src/redux/confinementReducer';
-import { useAppDispatch, useAppSelector } from './useAppRedux';
-import { useSearchReturnType } from './HookTypes';
+import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
+import { useQuery } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
+import { fetchSearchResults } from 'src/utils/api-calls'
+import { setKeyWord } from 'src/redux/confinementReducer'
+import { useAppDispatch, useAppSelector } from './useAppRedux'
+import { useSearchReturnType } from './HookTypes'
 
 /**
  * Hooks which allows to search for dishes
@@ -22,25 +22,36 @@ import { useSearchReturnType } from './HookTypes';
  */
 function useSearch(): useSearchReturnType {
   /** Raw user input form html element */
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>('')
   /** Page number to allow pagination */
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1)
 
   /** Grab the confinements from redux store */
-  const { includingFilters, excludingFilters, keyWord, sortingPreference } = useAppSelector(
-    (state) => state.confinements
-  );
+  const { includingFilters, excludingFilters, keyWord, sortingPreference } =
+    useAppSelector((state) => state.confinements)
 
   /** Allows to modify the redux store */
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   /** Fetch the data from the api */
   const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ['searchResults', keyWord, page, includingFilters, excludingFilters],
+    queryKey: [
+      'searchResults',
+      keyWord,
+      page,
+      includingFilters,
+      excludingFilters,
+    ],
     queryFn: () =>
-      fetchSearchResults(includingFilters, excludingFilters, sortingPreference, keyWord, page),
+      fetchSearchResults(
+        includingFilters,
+        excludingFilters,
+        sortingPreference,
+        keyWord,
+        page,
+      ),
     keepPreviousData: true,
-  });
+  })
 
   // useEffect(() => {
   //   /** Set a timeout to avoid calling the api too often */
@@ -53,35 +64,37 @@ function useSearch(): useSearchReturnType {
 
   /** Reset the page number whenever confinements changes */
   useEffect(() => {
-    setPage(1);
-  }, [includingFilters, excludingFilters, keyWord, sortingPreference]);
+    setPage(1)
+  }, [includingFilters, excludingFilters, keyWord, sortingPreference])
 
   /**
    * This function refetches the searchresults based
    * on the current confinements
    */
   const onSearch = () => {
-    dispatch(setKeyWord(searchInput));
-    refetch();
-  };
+    dispatch(setKeyWord(searchInput))
+    refetch()
+  }
 
-  const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChangeSearchInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     /** Destruct */
-    const { value } = event.target;
+    const { value } = event.target
     /** Update the state */
-    setSearchInput(value);
-  };
+    setSearchInput(value)
+  }
 
   /**
    * Calling this function will increment the page number
    * and refetches the data
    */
   const paginateForwards = () => {
-    if (data?.dishes.length === 0) {
-      return;
+    if (data?.dishes.data.length === 0) {
+      return
     }
-    setPage((prev) => prev + 1);
-  };
+    setPage((prev) => prev + 1)
+  }
 
   /**
    * Calling this function will increment the page number
@@ -89,31 +102,33 @@ function useSearch(): useSearchReturnType {
    */
   const paginateBackwards = () => {
     if (page === 1) {
-      return;
+      return
     }
-    setPage((prev) => prev - 1);
-  };
+    setPage((prev) => prev - 1)
+  }
 
   /**
    * Calling this function will paginate to a
    * specific number
    */
   const paginateTo = (page: number) => {
-    setPage(page);
-  };
+    setPage(page)
+  }
+
+  const dishesData = data && data.dishes
 
   return {
     searchInput,
     onChangeSearchInput,
     isLoading,
     error,
-    data,
+    data: dishesData,
     paginateTo,
     paginateForwards,
     paginateBackwards,
     onSearch,
     page,
-  };
+  }
 }
 
-export default useSearch;
+export default useSearch
