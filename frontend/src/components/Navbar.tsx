@@ -8,6 +8,10 @@ import NavElement from 'src/components/navbar/NavElement';
 import Lottie from 'lottie-react';
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import HomeIcon from 'src/components/icons/HomeIcon';
+import SettingsIcon from 'src/components/icons/SettingsIcon';
+import FavoritesIcon from 'src/components/icons/FavoritesIcon';
+import HistoryIcon from 'src/components/icons/HistoryIcon';
 
 /**
  * Allows for navigation between pages in the application.
@@ -38,8 +42,10 @@ export default function Navbar({ className }: { className?: string }) {
           <Lottie loop={false} key={key} className='w-48 h-48' animationData={animation} />
         </Link>
       </div>
-      <NavElement icon={home} text='Home' link='/' />
-      <NavElement icon={settings} text='Settings' link='/settings' />
+      <NavElement icon={<HomeIcon />} text='Home' link='/' />
+      <NavElement icon={<FavoritesIcon />} text='Favorites' link='/favorites' />
+      <NavElement icon={<HistoryIcon />} text='History' link='/history' />
+      <NavElement icon={<SettingsIcon />} text='Settings' link='/settings' />
     </div>
   );
 }
