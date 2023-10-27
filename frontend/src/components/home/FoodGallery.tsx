@@ -19,7 +19,7 @@ export default function FoodGallery(props: ComponentProps) {
     return (
       <div className='flex w-full h-full items-center justify-center flex-col'>
         <p className='text-2xl'>No dishes found</p>
-        <Lottie animationData={empty} loop={false} className=' w-1/2' />
+        <Lottie animationData={empty} loop={false} className=' w-1/2 h-1/2' />
       </div>
     );
   }
