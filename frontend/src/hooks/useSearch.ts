@@ -90,7 +90,7 @@ function useSearch(): useSearchReturnType {
    * and refetches the data
    */
   const paginateForwards = () => {
-    if (data?.dishes.data.length === 0) {
+    if (data?.dishes.data.length === 0 || data?.dishes.pages === page) {
       return
     }
     setPage((prev) => prev + 1)

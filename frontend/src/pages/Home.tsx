@@ -84,51 +84,65 @@ export default function Home() {
         <FoodGallery dishes={dishes} isLoading={isLoading} />
 
         <div className=' flex w-full flex-row items-center gap-4'>
-          <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
+          <p
+            onClick={paginateBackwards}
+            className={`flex p-2 ${page < 2 ? 'opacity-50' : 'cursor-pointer'}`}
+          >
             {'<'} Prevous
           </p>
           {pageSuggestions[0] && (
             <p
-              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[0]!)}
             >
               {pageSuggestions[0]}
             </p>
           )}
-          {page > 2 && <p>...</p>}
+          {page > 2 && (
+            <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
+              •••
+            </p>
+          )}
           {pageSuggestions[1] && (
             <p
-              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[1]!)}
             >
               {pageSuggestions[1]}
             </p>
           )}
           {pageSuggestions[2] && (
-            <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2 opacity-50'>
+            <p className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 opacity-50 dark:border-white'>
               {pageSuggestions[2]}
             </p>
           )}
           {pageSuggestions[3] && (
             <p
-              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[3]!)}
             >
               {pageSuggestions[3]}
             </p>
           )}
           {pageSuggestions[3] && pages && pages - pageSuggestions[3] > 1 && (
-            <p>...</p>
+            <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
+              •••
+            </p>
           )}
           {pageSuggestions[4] && (
             <p
-              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[4]!)}
             >
               {pageSuggestions[4]}
             </p>
           )}
-          <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
+          <p
+            onClick={paginateForwards}
+            className={`flex p-2 ${
+              page > pages - 1 ? 'opacity-50' : 'cursor-pointer'
+            }`}
+          >
             Next {'>'}
           </p>
         </div>
