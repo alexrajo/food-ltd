@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 type ComponentProps = {
-  icon: string;
+  icon: React.ReactNode;
   text: string;
   link: string;
 };
@@ -16,7 +16,7 @@ export default function NavElement(props: ComponentProps) {
 
   return (
     <Link to={link} className=' flex flex-row items-center gap-2 w-72 px-20 relative '>
-      <img src={icon} alt='icon' className='w-6 h-6 ' />
+      {icon}
       <p className={`flex ${selected ? 'light:text-black dark:text-white' : 'text-gray-400'} `}>
         {text}
       </p>
