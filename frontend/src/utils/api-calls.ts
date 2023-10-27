@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-import { Confinement } from 'src/redux/confinementReducer';
-import { Dish, Review } from 'src/types/types';
-import mock_data from '../assets/mockdata.json';
-=======
 import { Confinement } from 'src/redux/confinementReducer'
 import { Dish, Review } from 'src/types/types'
 // import mock_data from '../assets/mockdata.json'
->>>>>>> main
 
-const URL = 'http://127.0.0.1:4000/graphql';
+const URL = 'http://127.0.0.1:4000/graphql'
 
 type FetchDishResponse = {
   dish: {
@@ -44,7 +38,7 @@ export const fetchDish = async (
   dishId?: string,
 ): Promise<FetchDishResponse> => {
   if (!dishId) {
-    return Promise.reject('No dishId provided');
+    return Promise.reject('No dishId provided')
   }
   // If in development, use the mock data
   // if (process.env.NODE_ENV === 'test') {
@@ -81,38 +75,24 @@ export const fetchDish = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
+    .catch((err) => console.log(err))
+}
 
 export const fetchReviews = async (
   page: number,
-<<<<<<< HEAD
-  dishId?: string
-): Promise<{ reviews: Array<Review> }> => {
-  const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined;
-=======
   dishId?: string,
 ): Promise<FetchReviewsResponse> => {
   const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
->>>>>>> main
 
   if (!dishId) {
-    return Promise.reject('No dishId provided');
+    return Promise.reject('No dishId provided')
   }
-<<<<<<< HEAD
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve({
-      reviews: mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
-    });
-  }
-=======
   // if (process.env.NODE_ENV === 'test') {
   //   return Promise.resolve({
   //     reviews:
   //       mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
   //   })
   // }
->>>>>>> main
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -139,8 +119,8 @@ export const fetchReviews = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
+    .catch((err) => console.log(err))
+}
 
 /**
  * Fetches the dish from the database
@@ -151,20 +131,6 @@ export const postReview = async (
   dishId: number,
   title: string,
   rating: number,
-<<<<<<< HEAD
-  comment: string
-): Promise<Review> => {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve({
-      reviewId: 1,
-      title,
-      rating,
-      comment,
-      dishId,
-      postedAt: new Date().toISOString(),
-    });
-  }
-=======
   comment: string,
 ): Promise<PostReviewResponse> => {
   // if (process.env.NODE_ENV === 'test') {
@@ -177,7 +143,6 @@ export const postReview = async (
   //     postedAt: new Date().toISOString(),
   //   })
   // }
->>>>>>> main
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -204,21 +169,16 @@ export const postReview = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
+    .catch((err) => console.log(err))
+}
 
 export const fetchSearchResults = async (
   excludingFilters: Confinement['excludingFilters'],
   includingFilters: Confinement['includingFilters'],
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
-<<<<<<< HEAD
-  page: number
-): Promise<{ dishes: Array<Dish> }> => {
-=======
   page: number,
 ): Promise<FetchDishesResponse> => {
->>>>>>> main
   // Use mock data for testing and development
   // if (process.env.NODE_ENV === 'test') {
   //   return Promise.resolve({
@@ -258,5 +218,5 @@ export const fetchSearchResults = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
+    .catch((err) => console.log(err))
+}

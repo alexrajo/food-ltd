@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import Sidebar from 'src/components/Sidebar';
-import FoodGallery from 'src/components/home/FoodGallery';
-import Search from 'src/components/home/Search';
-import SelectedFilters from 'src/components/home/SelectedFilters';
-import SortBy from 'src/components/home/SortBy';
-import useSearch from 'src/hooks/useSearch';
+import { useEffect, useState } from 'react'
+import Sidebar from 'src/components/Sidebar'
+import FoodGallery from 'src/components/home/FoodGallery'
+import Search from 'src/components/home/Search'
+import SelectedFilters from 'src/components/home/SelectedFilters'
+import SortBy from 'src/components/home/SortBy'
+import useSearch from 'src/hooks/useSearch'
 
 /**
  * Holds all the components that show up on the main page.
@@ -20,14 +20,14 @@ export default function Home() {
     data,
     paginateTo,
     page,
-  } = useSearch();
-  const { dishes } = data || [];
+  } = useSearch()
+  const { data: dishes } = data || { data: [] }
 
-  const [pageInput, setPageInput] = useState(page);
+  const [pageInput, setPageInput] = useState(page)
 
   useEffect(() => {
-    setPageInput(page);
-  }, [page]);
+    setPageInput(page)
+  }, [page])
 
   return (
     <div className='flex w-full'>
@@ -40,8 +40,8 @@ export default function Home() {
         <SelectedFilters />
         <div className='flex flex-row justify-between'>
           <SortBy />
-          <div className=' flex flex-row gap-4 items-center'>
-            <p onClick={paginateBackwards} className=' flex p-2 cursor-pointer'>
+          <div className=' flex flex-row items-center gap-4'>
+            <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
               {'<'} Prevous
             </p>
             {/** Make input have the value of page */}
@@ -50,61 +50,61 @@ export default function Home() {
               id='page'
               onChange={(e) => {
                 if (e.target.value === '') {
-                  setPageInput(0);
-                  return;
+                  setPageInput(0)
+                  return
                 }
-                setPageInput(parseInt((e.target as HTMLInputElement).value));
+                setPageInput(parseInt((e.target as HTMLInputElement).value))
               }}
               onKeyDown={(e) => {
-                if (e.key !== 'Enter') return;
-                paginateTo(parseInt((e.target as HTMLInputElement).value));
+                if (e.key !== 'Enter') return
+                paginateTo(parseInt((e.target as HTMLInputElement).value))
               }}
-              className=' text-center w-10 h-10 rounded-md outline-none text-black'
+              className=' h-10 w-10 rounded-md text-center text-black outline-none'
               value={pageInput}
             />
             <p>av</p>
             <p>10</p>
-            <p onClick={paginateForwards} className=' flex p-2 cursor-pointer'>
+            <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
               Next {'>'}
             </p>
           </div>
         </div>
         <FoodGallery dishes={dishes} isLoading={isLoading} />
 
-        <div className=' flex flex-row gap-4 items-center w-full'>
-          <p onClick={paginateBackwards} className=' flex p-2 cursor-pointer'>
+        <div className=' flex w-full flex-row items-center gap-4'>
+          <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
             {'<'} Prevous
           </p>
           <p
-            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
+            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
             onClick={() => paginateTo(page + 1)}
           >
             {page + 1}
           </p>
           <p
             onClick={() => paginateTo(page + 2)}
-            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
+            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
           >
             {page + 2}
           </p>
           <p
             onClick={() => paginateTo(page + 3)}
-            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
+            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
           >
             {page + 3}
           </p>
           <p>...</p>
           <p
             onClick={() => paginateTo(10)}
-            className=' flex p-2 items-center justify-center border-2 rounded-full w-10 h-10 cursor-pointer'
+            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
           >
             {10}
           </p>
-          <p onClick={paginateForwards} className=' flex p-2 cursor-pointer'>
+          <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
             Next {'>'}
           </p>
         </div>
       </div>
     </div>
-  );
+  )
 }

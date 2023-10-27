@@ -1,15 +1,12 @@
 import useDish from 'src/hooks/useDish'
 import useReviews from 'src/hooks/useReviews'
 import { Review } from 'src/types/types'
-import stockFood from 'src/assets/mockFoodImage.jpg'
 import RatingDisplay from 'src/components/RatingDisplay'
 import ReviewDisplay from 'src/components/dish/ReviewDisplay'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { Link, useNavigate } from 'react-router-dom'
 import cn from 'src/utils/cn'
-import back from 'src/assets/back.svg'
-import { useHistory } from 'react-router-dom'
 import BackIcon from 'src/components/icons/BackIcon'
 
 /**
@@ -34,8 +31,8 @@ export default function DishPage() {
   const { data: dishData } = useDish()
   const { data: reviewsData, isLoading: reviewsAreLoading } = useReviews()
 
-  const { dish } = dishData || {}
-  const { reviews } = reviewsData || {}
+  const { data: dish } = dishData || {}
+  const { data: reviews } = reviewsData || {}
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()
