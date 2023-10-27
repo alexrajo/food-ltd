@@ -339,7 +339,7 @@ export type useSuggestionsReturnType = {
   /**
    * The search results
    */
-  data: { dishes: Dish[] } | undefined
+  data: { data: Dish[] } | undefined
   /**
    * Whether the user is typing or not
    */

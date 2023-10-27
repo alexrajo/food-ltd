@@ -21,7 +21,7 @@ export default function Home() {
     paginateTo,
     page,
   } = useSearch()
-  const { data: dishes } = data || { data: [] }
+  const { data: dishes, pages } = data || { data: [] }
 
   const [pageInput, setPageInput] = useState(page)
 
@@ -63,7 +63,7 @@ export default function Home() {
               value={pageInput}
             />
             <p>av</p>
-            <p>10</p>
+            <p>{pages || 1}</p>
             <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
               Next {'>'}
             </p>
@@ -95,10 +95,10 @@ export default function Home() {
           </p>
           <p>...</p>
           <p
-            onClick={() => paginateTo(10)}
+            onClick={() => paginateTo(pages || 1)}
             className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
           >
-            {10}
+            {pages || 1}
           </p>
           <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
             Next {'>'}
