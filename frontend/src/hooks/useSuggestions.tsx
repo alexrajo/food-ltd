@@ -44,7 +44,7 @@ function useSuggestions(): useSuggestionsReturnType {
     const timeout = setTimeout(() => {
       setKeyWord(searchInput);
       setTyping(false);
-    }, 500);
+    }, 100);
     return () => clearTimeout(timeout);
   }, [searchInput]);
 
