@@ -37,7 +37,7 @@ export default function Search(props: ComponentProps) {
 
   return (
     <div
-      className=' relative flex flex-col items-center'
+      className='relative flex flex-col items-center grow'
       onClick={() => {
         setShowSuggestions(false);
       }}
