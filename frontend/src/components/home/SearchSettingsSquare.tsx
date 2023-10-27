@@ -2,7 +2,6 @@
  * This is the little box next to the Search bar. Found in the dribble reference.
  * Not clear what should happen when clicked, but now it is here at least.
  */
-// flex items-center border-2 h-14 light:border-black dark:border-tertiarydark rounded-md p-1 w-full flex-row light:bg-white dark:bg-secondarydark
 export default function SearchSettingsSquare() {
   // TODO : find some purpose for this :)
   return (
