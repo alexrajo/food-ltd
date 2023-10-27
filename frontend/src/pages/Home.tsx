@@ -44,11 +44,14 @@ export default function Home() {
   return (
     <div className='flex w-full'>
       <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
-        <Search
-          onSearch={onSearch}
-          onChangeSearchInput={onChangeSearchInput}
-          searchInput={searchInput}
-        />
+        <div className='flex w-full gap-4'>
+          <Search
+            onSearch={onSearch}
+            onChangeSearchInput={onChangeSearchInput}
+            searchInput={searchInput}
+          />
+          <SearchSettingsSquare />
+        </div>
         <SelectedFilters />
         <div className='flex flex-row justify-between'>
           <SortBy />
