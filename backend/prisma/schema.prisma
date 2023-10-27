@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  previewFeatures = ["fullTextSearch", "views"]
 }
 
 datasource db {
@@ -22,13 +22,26 @@ model Dish {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model Review {
-  reviewId  Int      @id @default(autoincrement()) @map("review_id")
-  title     String
-  rating    Int
-  comment   String
-  dishId    Int      @map("dish_id")
-  postedAt DateTime @default(now()) @db.Timestamp(6) @map("posted_at")
-  dishes    Dish     @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
+  reviewId Int      @id @default(autoincrement()) @map("review_id")
+  title    String
+  rating   Int
+  comment  String
+  postedAt DateTime @default(now()) @map("posted_at") @db.Timestamp(6)
+  dishId   Int      @map("dish_id")
+  dishes   Dish     @relation(fields: [dishId], references: [dishId], onDelete: Cascade)
 
   @@map("reviews")
+}
+
+view DishWithReviewAggregate {
+  dishId             Int @unique @map("dish_id")
+  title               String? @map("title")
+  ingredients         String? @map("ingredients")
+  instructions        String? @map("instructions")
+  imageName          String? @map("image_name")
+  cleanedIngredients String? @map("cleaned_ingredients")
+  averageRating      Decimal? @db.Decimal @map("average_rating")
+  reviewCount        BigInt? @map("review_count")
+
+  @@map("dishes_with_review_aggregate")
 }

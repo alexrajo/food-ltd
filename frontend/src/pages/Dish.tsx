@@ -31,8 +31,8 @@ export default function DishPage() {
   const { data: dishData } = useDish()
   const { data: reviewsData, isLoading: reviewsAreLoading } = useReviews()
 
-  const { dish } = dishData || {}
-  const { reviews } = reviewsData || {}
+  const { data: dish } = dishData || {}
+  const { data: reviews } = reviewsData || {}
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()

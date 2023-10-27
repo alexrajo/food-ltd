@@ -23,6 +23,13 @@ CREATE TABLE IF NOT EXISTS reviews (
     CONSTRAINT rating_constraint CHECK (rating >= 1 AND rating <= 5)
 );
 
+CREATE VIEW dishes_with_review_aggregate AS (
+    SELECT dishes.dish_id, dishes.title, dishes.ingredients, dishes.instructions, dishes.image_name, dishes.cleaned_ingredients, AVG(reviews.rating) AS average_rating, COALESCE(COUNT(reviews.review_id), 0) AS review_count
+    FROM dishes
+    LEFT JOIN reviews ON dishes.dish_id = reviews.dish_id
+    GROUP BY dishes.dish_id
+);
+
 -- Read the data from the CSV file into the dishes table
 COPY dishes (dish_id, title, ingredients, instructions, image_name, cleaned_ingredients)
 FROM '/Users/alexrj/Documents/ProgrammingProjects/Web/prosjekt-2-webutvikling/backend/database/dishes.csv'
