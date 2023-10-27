@@ -97,7 +97,7 @@ export default function DishPage() {
                         className={cn(
                           'rounded-md border p-2',
                           temperatureUnit.value === 'fahrenheit' &&
-                            ' bg-tigereye text-white',
+                            ' bg-secondary text-white',
                         )}
                         type='button'
                       >
@@ -108,7 +108,7 @@ export default function DishPage() {
                         className={cn(
                           'rounded-md border p-2',
                           temperatureUnit.value === 'celsius' &&
-                            'bg-tigereye text-white',
+                            'bg-secondary text-white',
                         )}
                         type='button'
                       >
