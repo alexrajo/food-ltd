@@ -52,7 +52,7 @@ export default function Search(props: ComponentProps) {
   }
 
   return (
-    <div className=' relative flex flex-col items-center'>
+    <div className=' relative flex w-full flex-col items-center'>
       <div className='light:border-black light:bg-white flex h-14 w-full flex-row items-center rounded-md border-2 p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
           type='text'
