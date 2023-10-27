@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Sidebar from 'src/components/Sidebar'
 import FoodGallery from 'src/components/home/FoodGallery'
 import Search from 'src/components/home/Search'
@@ -21,13 +21,25 @@ export default function Home() {
     paginateTo,
     page,
   } = useSearch()
-  const { data: dishes, pages } = data || { data: [] }
+  const { data: dishes, pages: rawPages } = data || { data: [] }
+  const pages = rawPages || 1
 
   const [pageInput, setPageInput] = useState(page)
 
   useEffect(() => {
     setPageInput(page)
   }, [page])
+
+  const pageSuggestions = useMemo(
+    () => [
+      page > 2 ? 1 : undefined,
+      page - 1 > 0 ? page - 1 : undefined,
+      page,
+      page + 1 < pages ? page + 1 : undefined,
+      page < pages ? pages : undefined,
+    ],
+    [page, pages],
+  )
 
   return (
     <div className='flex w-full'>
@@ -75,31 +87,47 @@ export default function Home() {
           <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
             {'<'} Prevous
           </p>
-          <p
-            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
-            onClick={() => paginateTo(page + 1)}
-          >
-            {page + 1}
-          </p>
-          <p
-            onClick={() => paginateTo(page + 2)}
-            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
-          >
-            {page + 2}
-          </p>
-          <p
-            onClick={() => paginateTo(page + 3)}
-            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
-          >
-            {page + 3}
-          </p>
-          <p>...</p>
-          <p
-            onClick={() => paginateTo(pages || 1)}
-            className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
-          >
-            {pages || 1}
-          </p>
+          {pageSuggestions[0] && (
+            <p
+              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              onClick={() => paginateTo(pageSuggestions[0]!)}
+            >
+              {pageSuggestions[0]}
+            </p>
+          )}
+          {page > 2 && <p>...</p>}
+          {pageSuggestions[1] && (
+            <p
+              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              onClick={() => paginateTo(pageSuggestions[1]!)}
+            >
+              {pageSuggestions[1]}
+            </p>
+          )}
+          {pageSuggestions[2] && (
+            <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2 opacity-50'>
+              {pageSuggestions[2]}
+            </p>
+          )}
+          {pageSuggestions[3] && (
+            <p
+              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              onClick={() => paginateTo(pageSuggestions[3]!)}
+            >
+              {pageSuggestions[3]}
+            </p>
+          )}
+          {pageSuggestions[3] && pages && pages - pageSuggestions[3] > 1 && (
+            <p>...</p>
+          )}
+          {pageSuggestions[4] && (
+            <p
+              className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'
+              onClick={() => paginateTo(pageSuggestions[4]!)}
+            >
+              {pageSuggestions[4]}
+            </p>
+          )}
           <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
             Next {'>'}
           </p>
