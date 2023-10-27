@@ -76,22 +76,27 @@ export default function Home() {
             {'<'} Prevous
           </p>
           <p
-            className=' flex p-4 border-2 rounded-full aspect-square cursor-pointer'
+            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
             onClick={() => paginateTo(page + 1)}
           >
             {page + 1}
           </p>
           <p
             onClick={() => paginateTo(page + 2)}
-            className=' flex p-4 border-2 rounded-full aspect-square cursor-pointer'
+            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
           >
             {page + 2}
           </p>
-          <p className=' flex p-4 border-2 rounded-full aspect-square cursor-pointer'>{page + 3}</p>
+          <p
+            onClick={() => paginateTo(page + 3)}
+            className=' flex p-2 border-2 items-center justify-center rounded-full w-10 h-10 cursor-pointer'
+          >
+            {page + 3}
+          </p>
           <p>...</p>
           <p
             onClick={() => paginateTo(10)}
-            className=' flex p-4 border-2 rounded-full aspect-square cursor-pointer'
+            className=' flex p-2 items-center justify-center border-2 rounded-full w-10 h-10 cursor-pointer'
           >
             {10}
           </p>
