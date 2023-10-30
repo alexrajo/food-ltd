@@ -8,6 +8,25 @@ import logger from './middleware/logger';
 
 const prisma = new PrismaClient();
 
+type ReviewsRequestParams = {
+  dishId: number;
+  page: number;
+  pageSize?: number;
+};
+
+type DishRequestParams = {
+  id: number;
+};
+
+type DishesRequestParams = {
+  query: string;
+  page: number;
+  pageSize?: number;
+  includingFilters?: string[];
+  excludingFilters?: string[];
+  sortingPreference?: string;
+};
+
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type Dish {
@@ -48,9 +67,9 @@ const schema = buildSchema(`
   }
 
   type Query {
-    reviews(dishId: Int!, page: Int): ReviewsResponse
+    reviews(dishId: Int!, page: Int!, pageSize: Int): ReviewsResponse
     dish(id: Int!): DishResponse
-    dishes(query: String!, page: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): DishesResponse
+    dishes(query: String!, page: Int!, pageSize: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): DishesResponse
   }
 
   type Mutation {
@@ -65,18 +84,20 @@ const corsOptions = {
 
 // The root provides a resolver function for each API endpoint
 const root = {
-  reviews: async ({ dishId, page }: { dishId: number; page: number }) => {
+  reviews: async ({ dishId, page, pageSize }: ReviewsRequestParams) => {
+    pageSize = pageSize !== undefined ? pageSize : 10;
+
     const reviews = await prisma.review.findMany({
       where: {
         dishId: dishId,
       },
-      skip: Math.max(0, page - 1) * 10,
-      take: 10,
+      skip: Math.max(0, page - 1) * pageSize,
+      take: pageSize,
     });
     return reviews;
   },
 
-  dish: async ({ id }: { id: number }) => {
+  dish: async ({ id }: DishRequestParams) => {
     const dish = await prisma.dishWithReviewAggregate.findUnique({
       where: {
         dishId: id,
@@ -93,14 +114,14 @@ const root = {
   },
 
   // Free text search endpoint
-  dishes: async ({ query, page }: { query: string; page?: number }) => {
-    const pageSize = 10;
+  dishes: async ({ query, page, pageSize }: DishesRequestParams) => {
+    pageSize = pageSize !== undefined ? pageSize : 12;
     page = page !== undefined ? page : 1;
 
     if (query === '') {
       const data = await prisma.dishWithReviewAggregate.findMany({
-        skip: Math.max(0, page - 1) * 10,
-        take: 10,
+        skip: Math.max(0, page - 1) * pageSize,
+        take: pageSize,
       });
       const count = await prisma.dish.count();
       const responseDishes = data.map((dish) => ({
@@ -118,8 +139,8 @@ const root = {
             search: query.split(' ').join(' & '),
           },
         },
-        skip: Math.max(0, page - 1) * 10,
-        take: 10,
+        skip: Math.max(0, page - 1) * pageSize,
+        take: pageSize,
       });
       const count = await prisma.dish.count({
         where: {
@@ -139,7 +160,12 @@ const root = {
     }
   },
 
-  postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
+  postReview: async ({
+    dishId,
+    title,
+    rating,
+    comment,
+  }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
