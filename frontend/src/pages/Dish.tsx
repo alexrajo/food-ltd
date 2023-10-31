@@ -56,14 +56,14 @@ export default function DishPage() {
           onClick={() => {
             navigate(-1)
           }}
-          className=' flex cursor-pointer flex-row items-center gap-2 bg-secondarydark p-2'
+          className=' flex cursor-pointer flex-row items-center gap-2 bg-primary p-2 dark:bg-secondarydark'
         >
           <BackIcon />
           Back
         </div>
 
         <div className='flex flex-col gap-2 md:flex-row'>
-          <div className='light:bg-lime flex w-full basis-2/3 flex-col gap-10 p-4 dark:bg-secondarydark'>
+          <div className='flex w-full basis-2/3 flex-col gap-10 bg-white p-4 drop-shadow-md dark:bg-secondarydark'>
             <div className='flex flex-col gap-10 xl:flex-row'>
               <img
                 src={`http://it2810-43.idi.ntnu.no/images/${imageName}.jpg`}
@@ -131,7 +131,7 @@ export default function DishPage() {
               ))}
             </div>
           </div>
-          <div className='light:bg-lime h-fit w-full basis-1/3 p-10 dark:bg-secondarydark'>
+          <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
             <p className='text-center text-xl'>Ingredients</p>
             <p className='text-center text-lg text-grayed-text'>4 portions</p>
             <div>
@@ -152,7 +152,7 @@ export default function DishPage() {
           </div>
         </div>
         <div
-          className='light:bg-lime flex flex-col gap-10 p-10 dark:bg-secondarydark'
+          className='flex flex-col gap-10 bg-white p-10 drop-shadow-md dark:bg-secondarydark'
           id='reviews'
         >
           <div className='border-b pb-5'>

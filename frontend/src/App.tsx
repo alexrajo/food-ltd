@@ -7,11 +7,9 @@ export default function App() {
 
   return (
     <div className={`${colorMode == 'dark' ? 'dark' : ''}`}>
-      <div
-        className={`light:text-black flex h-screen flex-row dark:text-white`}
-      >
+      <div className={`flex h-screen flex-row text-black dark:text-white`}>
         <Navbar />
-        <div className='light:bg-primary flex h-full w-full dark:bg-primarydark'>
+        <div className='flex h-full w-full bg-white dark:bg-primarydark'>
           <Outlet />
         </div>
       </div>

@@ -20,7 +20,7 @@ export default function FoodDisplay(props: FoodDisplayProps) {
       to={`/dish/${id}`}
       className=' basis-1/1 p-2 sm:basis-1/2 lg:basis-1/3'
     >
-      <div className=' light:bg-white group relative flex cursor-pointer flex-col shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
+      <div className='group relative flex cursor-pointer flex-col bg-white shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
         <img
           alt='food'
           className='rounded-sm object-cover'

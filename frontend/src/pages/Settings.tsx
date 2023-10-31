@@ -35,7 +35,7 @@ export default function Settings() {
           onClick={toggleColorMode}
         >
           <p>Light mode</p>
-          <SliderIcon active={colorMode == 'dark'} />
+          <SliderIcon active={colorMode == 'light'} />
         </div>
         <div
           className=' mt-8 flex cursor-pointer items-center gap-10 px-10'

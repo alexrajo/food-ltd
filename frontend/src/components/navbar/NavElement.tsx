@@ -22,7 +22,7 @@ export default function NavElement(props: ComponentProps) {
       {icon}
       <p
         className={`flex ${
-          selected ? 'light:text-black dark:text-white' : 'text-gray-400'
+          selected ? 'text-black dark:text-white' : 'text-gray-400'
         } `}
       >
         {text}

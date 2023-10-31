@@ -53,10 +53,10 @@ export default function Search(props: ComponentProps) {
 
   return (
     <div className=' relative flex w-full flex-col items-center'>
-      <div className='light:border-black light:bg-white flex h-14 w-full flex-row items-center rounded-md border-2 p-1 dark:border-tertiarydark dark:bg-secondarydark'>
+      <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
           type='text'
-          className='light:text-black light:bg-white flex-grow rounded-full px-4 py-2 outline-none dark:bg-secondarydark dark:text-white'
+          className='flex-grow rounded-full bg-white px-4 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
           // onFocus={() => {
           //   setShowSuggestions(true);
@@ -86,7 +86,7 @@ export default function Search(props: ComponentProps) {
         )}
       </div>
       {showSuggestions && (
-        <div className=' light:bg-white absolute top-14 z-50 flex w-full dark:bg-secondarydark'>
+        <div className='absolute top-14 z-50 flex w-full bg-white drop-shadow-md dark:bg-secondarydark'>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <div
