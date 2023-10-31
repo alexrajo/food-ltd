@@ -78,7 +78,7 @@ export default function Home() {
               className=' h-10 w-10 rounded-md text-center text-black outline-none'
               value={pageInput}
             />
-            <p>av</p>
+            <p>of</p>
             <p>{pages || 1}</p>
             <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
               Next {'>'}

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import type { Review } from '@prisma/client';
+import type { Prisma, Review } from '@prisma/client';
 import express from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
@@ -22,9 +22,9 @@ type DishesRequestParams = {
   query: string;
   page: number;
   pageSize?: number;
-  includingFilters?: string[];
-  excludingFilters?: string[];
-  sortingPreference?: string;
+  includedIngredients?: string[];
+  excludedIngredients?: string[];
+  sortingPreference?: 'popular' | 'rating' | 'alphabetical';
 };
 
 // Construct a schema, using GraphQL schema language
@@ -69,7 +69,7 @@ const schema = buildSchema(`
   type Query {
     reviews(dishId: Int!, page: Int!, pageSize: Int): ReviewsResponse
     dish(id: Int!): DishResponse
-    dishes(query: String!, page: Int!, pageSize: Int, includingFilters: [String], excludingFilters: [String],  sortingPreference: String): DishesResponse
+    dishes(query: String!, page: Int!, pageSize: Int, includedIngredients: [String], excludedIngredients: [String],  sortingPreference: String): DishesResponse
   }
 
   type Mutation {
@@ -80,6 +80,18 @@ const schema = buildSchema(`
 const corsOptions = {
   origin: 'http://localhost:5173',
   optionsSuccessStatus: 200,
+};
+
+const SORTING_OPTIONS = {
+  alphabetical: {
+    title: 'asc',
+  },
+  popular: {
+    reviewCount: 'desc',
+  },
+  rating: {
+    averageRating: 'desc',
+  },
 };
 
 // The root provides a resolver function for each API endpoint
@@ -114,14 +126,48 @@ const root = {
   },
 
   // Free text search endpoint
-  dishes: async ({ query, page, pageSize }: DishesRequestParams) => {
+  dishes: async ({
+    query,
+    page,
+    pageSize,
+    sortingPreference,
+    includedIngredients,
+    excludedIngredients,
+  }: DishesRequestParams) => {
     pageSize = pageSize !== undefined ? pageSize : 12;
     page = page !== undefined ? page : 1;
+    includedIngredients = includedIngredients !== undefined ? includedIngredients : [];
+    excludedIngredients = excludedIngredients !== undefined ? excludedIngredients : [];
+
+    const sortingOptions: Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput | undefined =
+      sortingPreference !== undefined
+        ? (SORTING_OPTIONS[
+            sortingPreference
+          ] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
+        : undefined;
+
+    const includedIngredientsConditions = includedIngredients.map((ingredient) => ({
+      ingredients: {
+        contains: `%${ingredient}%`,
+      },
+    }));
+
+    const excludedIngredientsConditions = excludedIngredients.map((ingredient) => ({
+      ingredients: {
+        not: {
+          contains: `%${ingredient}%`,
+        },
+      },
+    }));
 
     if (query === '') {
       const data = await prisma.dishWithReviewAggregate.findMany({
+        where: {
+          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+        },
         skip: Math.max(0, page - 1) * pageSize,
         take: pageSize,
+        orderBy: sortingOptions,
       });
       const count = await prisma.dish.count();
       const responseDishes = data.map((dish) => ({
@@ -138,9 +184,11 @@ const root = {
           title: {
             search: query.split(' ').join(' & '),
           },
+          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
         },
         skip: Math.max(0, page - 1) * pageSize,
         take: pageSize,
+        orderBy: sortingOptions,
       });
       const count = await prisma.dish.count({
         where: {
@@ -160,12 +208,7 @@ const root = {
     }
   },
 
-  postReview: async ({
-    dishId,
-    title,
-    rating,
-    comment,
-  }: Omit<Review, 'reviewId'>) => {
+  postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
