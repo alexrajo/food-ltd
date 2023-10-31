@@ -32,7 +32,9 @@ function useDish(): useDishReturnType {
     queryFn: () => fetchDish(id),
   })
 
-  return { data, isLoading, error }
+  const dishData = data && data.dish
+
+  return { data: dishData, isLoading, error }
 }
 
 export default useDish

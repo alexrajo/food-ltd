@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
-import { fetchSearchResults } from 'src/utils/api-calls';
-import { useAppSelector } from './useAppRedux';
-import { useSuggestionsReturnType } from './HookTypes';
+import { useQuery } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
+import { fetchSearchResults } from 'src/utils/api-calls'
+import { useAppSelector } from './useAppRedux'
+import { useSuggestionsReturnType } from './HookTypes'
 
 /**
  * Hooks which allows to search for dishes
@@ -20,49 +20,58 @@ import { useSuggestionsReturnType } from './HookTypes';
  */
 function useSuggestions(): useSuggestionsReturnType {
   /** Raw user input form html element */
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>('')
 
-  const [keyWord, setKeyWord] = useState<string>('');
+  const [keyWord, setKeyWord] = useState<string>('')
 
-  const [typing, setTyping] = useState<boolean>(false);
+  const [typing, setTyping] = useState<boolean>(false)
 
   /** Grab the confinements from redux store */
-  const { includingFilters, excludingFilters, sortingPreference } = useAppSelector(
-    (state) => state.confinements
-  );
+  const { includingFilters, excludingFilters, sortingPreference } =
+    useAppSelector((state) => state.confinements)
 
   /** Fetch the data from the api */
   const { isLoading, error, data } = useQuery({
     queryKey: ['suggestedSearch', keyWord, includingFilters, excludingFilters],
     queryFn: () =>
-      fetchSearchResults(includingFilters, excludingFilters, sortingPreference, keyWord, 1),
+      fetchSearchResults(
+        includingFilters,
+        excludingFilters,
+        sortingPreference,
+        keyWord,
+        1,
+      ),
     keepPreviousData: true,
-  });
+  })
 
   useEffect(() => {
-    setTyping(true);
+    setTyping(true)
     const timeout = setTimeout(() => {
-      setKeyWord(searchInput);
-      setTyping(false);
-    }, 500);
-    return () => clearTimeout(timeout);
-  }, [searchInput]);
+      setKeyWord(searchInput)
+      setTyping(false)
+    }, 100)
+    return () => clearTimeout(timeout)
+  }, [searchInput])
 
-  const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChangeSearchInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     /** Destruct */
-    const { value } = event.target;
+    const { value } = event.target
     /** Update the state */
-    setSearchInput(value);
-  };
+    setSearchInput(value)
+  }
+
+  const returnData = data ? data.dishes : undefined
 
   return {
     searchInput,
     onChangeSearchInput,
     isLoading,
     error,
-    data,
+    data: returnData,
     typing,
-  };
+  }
 }
 
-export default useSuggestions;
+export default useSuggestions

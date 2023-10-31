@@ -1,29 +1,29 @@
-import { Dish, Review } from 'src/types/types';
+import { Dish, Review } from 'src/types/types'
 
 export type useDishReturnType = {
   /**
    * The data about the dish
    */
-  data: { dish: Dish } | undefined;
+  data: { data: Dish } | undefined
   /**
    * If the data is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * If there is an error
    */
-  error: unknown;
-};
+  error: unknown
+}
 
 export type usePostReviewReturnType = {
   /**
    * The error message
    */
-  error: string;
+  error: string
   /**
    * If the data is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * Sends a review to the backend
    * @returns {void}
@@ -37,7 +37,7 @@ export type usePostReviewReturnType = {
    * )
    * }
    */
-  writeReview: () => void;
+  writeReview: () => void
   /**
    * Update the review text
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -53,7 +53,7 @@ export type usePostReviewReturnType = {
    * }
    *
    */
-  onChangeReviewInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeReviewInput: (event: React.ChangeEvent<HTMLInputElement>) => void
   /**
    * Update the rating
    * @param {React.ChangeEvent<HTMLInputElement>} event
@@ -69,22 +69,22 @@ export type usePostReviewReturnType = {
    * }
    *
    */
-  onChangeRatingInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+  onChangeRatingInput: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
 
 export type useReviewsReturnType = {
   /**
    * The reviews of a dish
    */
-  data: { reviews: Review[] } | undefined;
+  data: { data: Review[] } | undefined
   /**
    * If the data is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * If there an error occured while fetching the data
    */
-  error: unknown;
+  error: unknown
   /**
    * Load more to the next page of reviews
    * @returns {void}
@@ -99,8 +99,8 @@ export type useReviewsReturnType = {
    * }
    *
    */
-  loadMore: () => void;
-};
+  loadMore: () => void
+}
 
 export type useSortReturnType = [
   /**
@@ -135,13 +135,13 @@ export type useSortReturnType = [
    *
    */
   onChangeSortingPreference: (option: string) => void,
-];
+]
 
 export type useFilterReturnType = {
   /** All the included filters */
-  includedFilters: string[];
+  includedFilters: string[]
   /** All the excluded filters */
-  excludedFilters: string[];
+  excludedFilters: string[]
   /** Called when user wishes to include a filter
    * @param {string} option - The filter to include
    * @returns {void}
@@ -156,7 +156,7 @@ export type useFilterReturnType = {
    * }
    *
    */
-  includeFilter: (option: string) => void;
+  includeFilter: (option: string) => void
   /**
    * Removes an included filter
    * @param {string} option - The included filter to remove
@@ -171,7 +171,7 @@ export type useFilterReturnType = {
    * )
    * }
    */
-  removeIncludedFilter: (option: string) => void;
+  removeIncludedFilter: (option: string) => void
   /**
    * Adds an excluded filter
    * @param {string} option - The filter to exclude
@@ -186,7 +186,7 @@ export type useFilterReturnType = {
    * )
    * }
    */
-  excludeFilter: (option: string) => void;
+  excludeFilter: (option: string) => void
   /**
    * Removes an excluded filter
    * @param {string} option - The excluded filter to remove
@@ -201,19 +201,19 @@ export type useFilterReturnType = {
    * )
    * }
    */
-  removeExcludedFilter: (option: string) => void;
+  removeExcludedFilter: (option: string) => void
   /**
    * Resets all filters
    * @returns {void}
    */
-  resetFilters: () => void;
-};
+  resetFilters: () => void
+}
 
 export type useSearchReturnType = {
   /**
    * The raw user input
    */
-  searchInput: string;
+  searchInput: string
   /**
    * Update the user input
    * @param {React.ChangeEvent<HTMLInputElement>} event - The event from the html element
@@ -228,19 +228,19 @@ export type useSearchReturnType = {
    * )
    * }
    */
-  onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void
   /**
    * If the data is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * If there is an error
    */
-  error: unknown;
+  error: unknown
   /**
    * The search results
    */
-  data: { dishes: Dish[] } | undefined;
+  data: { pages: number; data: Dish[] } | undefined
   /**
    * Load more to the next page of search results
    * @returns {void}
@@ -255,7 +255,7 @@ export type useSearchReturnType = {
    * }
    *
    */
-  paginateForwards: () => void;
+  paginateForwards: () => void
   /**
    * Load more to the previous page of search results
    * @returns {void}
@@ -270,7 +270,7 @@ export type useSearchReturnType = {
    * }
    *
    */
-  paginateBackwards: () => void;
+  paginateBackwards: () => void
   /**
    * Load a specific page of search results
    * @param {number} page - The page to load
@@ -286,7 +286,7 @@ export type useSearchReturnType = {
    * }
    *
    */
-  paginateTo: (page: number) => void;
+  paginateTo: (page: number) => void
   /**
    * Refetch the search results
    * @returns {void}
@@ -301,18 +301,18 @@ export type useSearchReturnType = {
    * }
    *
    */
-  onSearch: () => void;
+  onSearch: () => void
   /**
    * The current page of search results
    */
-  page: number;
-};
+  page: number
+}
 
 export type useSuggestionsReturnType = {
   /**
    * The raw user input
    */
-  searchInput: string;
+  searchInput: string
   /**
    * Update the user input
    * @param {React.ChangeEvent<HTMLInputElement>} event - The event from the html element
@@ -327,21 +327,21 @@ export type useSuggestionsReturnType = {
    * )
    * }
    */
-  onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void
   /**
    * If the data is loading
    */
-  isLoading: boolean;
+  isLoading: boolean
   /**
    * If there is an error
    */
-  error: unknown;
+  error: unknown
   /**
    * The search results
    */
-  data: { dishes: Dish[] } | undefined;
+  data: { data: Dish[] } | undefined
   /**
    * Whether the user is typing or not
    */
-  typing: boolean;
-};
+  typing: boolean
+}

@@ -1,86 +1,164 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import search from 'src/assets/searchIcon.svg';
-import useSearch from 'src/hooks/useSearch';
-import useSuggestions from 'src/hooks/useSuggestions';
+import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import search from 'src/assets/searchIcon.svg'
+import useSearchHistory from 'src/hooks/useSearchHistory'
+import useSuggestions from 'src/hooks/useSuggestions'
+import historyIcon from 'src/assets/history.svg'
+import x from 'src/assets/x.svg'
 
 /**
  * The large search bar on the main page.
  */
 type ComponentProps = {
-  onSearch: () => void;
-  onChangeSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  searchInput: string;
-};
+  onSearch: () => void
+  onChangeSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void
+  searchInput: string
+}
 export default function Search(props: ComponentProps) {
-  const { onSearch, onChangeSearchInput, searchInput } = props;
+  const { onSearch, onChangeSearchInput, searchInput } = props
 
-  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
+
+  const navigate = useNavigate()
+
+  const {
+    addSearchHistory,
+    clearSearchHistory,
+    removeSearchHistory,
+    searchHistory,
+  } = useSearchHistory()
 
   const {
     onChangeSearchInput: onChangeSearchInputSuggestions,
     searchInput: searchInputSuggestions,
-    data: suggested,
-  } = useSuggestions();
+    data: suggestedData,
+  } = useSuggestions()
+
+  const suggested = suggestedData ? suggestedData.data : []
 
   useEffect(() => {
-    if (searchInput.length > 0) {
-      setShowSuggestions(true);
+    if (searchInput.length > 0 || searchHistory.length > 0) {
+      setShowSuggestions(true)
     }
-  }, [searchInput]);
+  }, [searchInput])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') return;
-    setShowSuggestions(false);
-    onSearch();
-  };
+    if (e.key !== 'Enter') return
+    setShowSuggestions(false)
+    if (searchInput.length !== 0) {
+      addSearchHistory(searchInput)
+    }
+    onSearch()
+  }
 
   return (
-    <div
-      className=' relative flex flex-col items-center'
-      onClick={() => {
-        setShowSuggestions(false);
-      }}
-    >
-      <div className='flex items-center border-2 h-14 light:border-black dark:border-tertiarydark rounded-md p-1 w-full flex-row light:bg-white dark:bg-secondarydark'>
-        <img src={search} alt='searchIcon' className='w-6 h-6' />
+    <div className=' relative flex w-full flex-col items-center'>
+      <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
           type='text'
-          className='flex-grow px-4 py-2 rounded-full outline-none light:text-black dark:text-white light:bg-white dark:bg-secondarydark'
+          className='flex-grow rounded-full bg-white px-4 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
+          // onFocus={() => {
+          //   setShowSuggestions(true);
+          // }}
+          onBlur={() => {
+            setShowSuggestions(false)
+          }}
           value={searchInput}
           onChange={(e) => {
-            onChangeSearchInput(e);
-            onChangeSearchInputSuggestions(e);
+            onChangeSearchInput(e)
+            onChangeSearchInputSuggestions(e)
           }}
           onKeyDown={handleKeyDown}
         />
+        {searchInput.length > 0 && (
+          <img
+            src={x}
+            alt='x'
+            className='h-6 w-6 hover:cursor-pointer'
+            onMouseDown={() => {
+              onChangeSearchInput({
+                target: { value: '' },
+              } as React.ChangeEvent<HTMLInputElement>)
+              setShowSuggestions(false)
+            }}
+          />
+        )}
       </div>
       {showSuggestions && (
-        <div className=' light:bg-white dark:bg-secondarydark flex absolute top-16 w-full z-50'>
-          <div className='flex flex-col w-full'>
-            <div className='flex flex-row gap-4 items-center p-4'>
-              <img src={search} alt='searchIcon' className='w-6 h-6' />
-              <p>{searchInputSuggestions}</p>
-            </div>
-            {suggested?.dishes?.length === 0 && (
-              <div className='flex flex-row justify-between items-center p-4'>
-                <p>No suggestions</p>
+        <div className='absolute top-14 z-50 flex w-full bg-white drop-shadow-md dark:bg-secondarydark'>
+          <div className='flex w-full flex-col'>
+            {searchInputSuggestions && (
+              <div
+                className='flex flex-row items-center gap-4 p-4 hover:cursor-pointer hover:bg-tertiarydark'
+                onMouseDown={() => {
+                  addSearchHistory(searchInput)
+                  setShowSuggestions(false)
+                  onSearch()
+                }}
+              >
+                <img src={search} alt='searchIcon' className='h-6 w-6' />
+                <p>{searchInputSuggestions}</p>
               </div>
             )}
-            {suggested?.dishes?.splice(0, 5).map((dish) => {
+            {suggested.length === 0 && searchHistory && (
+              <>
+                <div className='flex flex-row items-center justify-between p-2'>
+                  <p className=' '>No suggestions</p>
+                  <p
+                    onClick={() => {
+                      clearSearchHistory()
+                    }}
+                    className='cursor-pointer underline'
+                  >
+                    Clear history
+                  </p>
+                </div>
+                {searchHistory.map((search) => {
+                  return (
+                    <div className='flex flex-row items-center justify-between p-2'>
+                      <div className=' flex flex-row items-center gap-2 '>
+                        <img
+                          src={historyIcon}
+                          alt='searchIcon'
+                          className='h-6 w-6'
+                        />
+                        <p className=' '>{search}</p>
+                      </div>
+                      <p
+                        onMouseDown={() => {
+                          removeSearchHistory(search)
+                        }}
+                        className='cursor-pointer underline'
+                      >
+                        Remove
+                      </p>
+                    </div>
+                  )
+                })}
+              </>
+            )}
+            {suggested.splice(0, 5).map((dish) => {
               return (
-                <Link
-                  to={`/dish/${dish.dishId}`}
-                  className='flex flex-row justify-between items-center p-2'
+                <div
+                  onMouseDown={() => {
+                    navigate(`/dish/${dish.dishId}`)
+                  }}
+                  // to={`/dish/${dish.dishId}`}
+                  className='flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-tertiarydark'
                 >
+                  <img
+                    src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
+                    alt='dish'
+                    className='h-10 w-10 object-cover'
+                  />
                   <p className=' '>{dish.title}</p>
-                </Link>
-              );
+                </div>
+              )
             })}
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }

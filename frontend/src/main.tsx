@@ -9,6 +9,8 @@ import App from 'src/App'
 import 'src/index.css'
 import Home from 'src/pages/Home'
 import DishPage from './pages/Dish'
+import Favorites from 'src/pages/Favorites'
+import Settings from 'src/pages/Settings'
 
 const router = createBrowserRouter([
   {
@@ -29,12 +31,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/favorites',
-        element: <>Favorites</>,
+        element: <Favorites />,
+      },
+      {
+        path: '/search',
+        element: <>Settings</>,
       },
       {
         path: '/settings',
-        element: <>Settings</>,
-      }
+        element: <Settings />,
+      },
     ],
   },
 ])

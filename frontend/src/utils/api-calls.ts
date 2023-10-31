@@ -1,15 +1,42 @@
 import { Confinement } from 'src/redux/confinementReducer'
 import { Dish, Review } from 'src/types/types'
-import mock_data from '../assets/mockdata.json'
+// import mock_data from '../assets/mockdata.json'
 
 const URL = 'http://127.0.0.1:4000/graphql'
+
+type FetchDishResponse = {
+  dish: {
+    data: Dish
+  }
+}
+
+type FetchDishesResponse = {
+  dishes: {
+    data: Array<Dish>
+    pages: number
+  }
+}
+
+type FetchReviewsResponse = {
+  reviews: {
+    data: Array<Review>
+  }
+}
+
+type PostReviewResponse = {
+  postReview: {
+    data: Review
+  }
+}
 
 /**
  * Fetches the dish from the database
  * @param dishId The id of the dish to fetch
  * @returns The dish
  */
-export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
+export const fetchDish = async (
+  dishId?: string,
+): Promise<FetchDishResponse> => {
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
@@ -30,10 +57,14 @@ export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
       query: `
                 query ($dishId: Int!) {
                   dish(id: $dishId) {
-                      title
-                      ingredients
-                      instructions
-                      imageName
+                      data {
+                        title
+                        ingredients
+                        instructions
+                        imageName
+                        averageRating
+                        reviewCount
+                      }
                   }
                 }
                 `,
@@ -50,18 +81,19 @@ export const fetchDish = async (dishId?: string): Promise<{ dish: Dish }> => {
 export const fetchReviews = async (
   page: number,
   dishId?: string,
-): Promise<{ reviews: Array<Review> }> => {
+  pageSize?: number,
+): Promise<FetchReviewsResponse> => {
   const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
 
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve({
-      reviews:
-        mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
-    })
-  }
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     reviews:
+  //       mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -69,19 +101,21 @@ export const fetchReviews = async (
     },
     body: JSON.stringify({
       query: `
-                query ($dishId: Int!, $page: Int) {
-                    reviews(dishId: $dishId, page: $page) {
+                query ($dishId: Int!, $page: Int!, $pageSize: Int) {
+                    reviews(dishId: $dishId, page: $page, pageSize: $pageSize) {
+                      data {
                         reviewId
                         title
                         rating
                         comment
-                        postedAt
+                      }
                     }
                 }
             `,
       variables: {
         dishId: dishIdNumber,
         page,
+        pageSize,
       },
     }),
   })
@@ -100,17 +134,17 @@ export const postReview = async (
   title: string,
   rating: number,
   comment: string,
-): Promise<Review> => {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve({
-      reviewId: 1,
-      title,
-      rating,
-      comment,
-      dishId,
-      postedAt: new Date().toISOString(),
-    })
-  }
+): Promise<PostReviewResponse> => {
+  // if (process.env.NODE_ENV === 'test') {
+  //   return Promise.resolve({
+  //     reviewId: 1,
+  //     title,
+  //     rating,
+  //     comment,
+  //     dishId,
+  //     postedAt: new Date().toISOString(),
+  //   })
+  // }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -120,7 +154,10 @@ export const postReview = async (
       query: `
                 mutation ($dishId: Int!, $title: String!, $rating: Int!, $comment: String!) {
                     postReview(dishId: $dishId, title: $title, rating: $rating, comment: $comment) {
-                        review
+                        data {
+                          reviewId
+                          title
+                        }
                     }
                 }
                 `,
@@ -143,7 +180,8 @@ export const fetchSearchResults = async (
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
   page: number,
-): Promise<{ dishes: Array<Dish> }> => {
+  pageSize?: number,
+): Promise<FetchDishesResponse> => {
   // Use mock data for testing and development
   // if (process.env.NODE_ENV === 'test') {
   //   return Promise.resolve({
@@ -159,11 +197,16 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-              query ($keyWord: String!, $page: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
-                dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
-                  dishId
-                  title
-                  imageName
+              query ($keyWord: String!, $page: Int!, $pageSize: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
+                dishes(query: $keyWord, page: $page, pageSize: $pageSize, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
+                  data {
+                    dishId
+                    title
+                    imageName
+                    averageRating
+                    reviewCount
+                  }
+                  pages
                 }
               }
       `,
@@ -173,6 +216,7 @@ export const fetchSearchResults = async (
         sortingPreference,
         keyWord,
         page,
+        pageSize,
       },
     }),
   })

@@ -1,13 +1,20 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import FilterMenu from './components/sidebar/FilterMenu';
+import { Outlet } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import { useAppSelector } from 'src/hooks/useAppRedux'
+import Sidebar from 'src/components/Sidebar'
 
 export default function App() {
+  const colorMode = useAppSelector((state) => state.theme.value)
+
   return (
-    <div className='flex flex-row h-screen light:text-black dark:text-white light:bg-lemon dark:bg-primarydark'>
-      <Navbar />
-      <Outlet />
-      <FilterMenu />
+    <div className={`${colorMode == 'dark' ? 'dark' : ''}`}>
+      <div className={`flex h-screen flex-row text-black dark:text-white`}>
+        <Navbar />
+        <div className='flex h-full w-full bg-white dark:bg-primarydark'>
+          <Outlet />
+        </div>
+        <Sidebar />
+      </div>
     </div>
-  );
+  )
 }

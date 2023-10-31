@@ -1,27 +1,27 @@
-import useSearch from 'src/hooks/useSearch';
-import FoodDisplaySkeleton from 'src/components/home/FoodDisplaySkeleton';
-import FoodDisplay from 'src/components/home/FoodDisplay';
-import Lottie from 'lottie-react';
-import empty from 'src/assets/empty.json';
-import { Dish } from 'src/types/types';
+import useSearch from 'src/hooks/useSearch'
+import FoodDisplaySkeleton from 'src/components/home/FoodDisplaySkeleton'
+import FoodDisplay from 'src/components/home/FoodDisplay'
+import Lottie from 'lottie-react'
+import empty from 'src/assets/empty.json'
+import { Dish } from 'src/types/types'
 
 /**
  * Container for all FoodDisplay components on the main page.
  */
 type ComponentProps = {
-  isLoading: boolean;
-  dishes: Dish[];
-};
+  isLoading: boolean
+  dishes: Dish[]
+}
 export default function FoodGallery(props: ComponentProps) {
-  const { isLoading, dishes } = props;
+  const { isLoading, dishes } = props
 
   if (dishes === undefined || dishes.length == 0) {
     return (
-      <div className='flex w-full h-full items-center justify-center flex-col'>
+      <div className='flex h-full w-full flex-col items-center justify-center'>
         <p className='text-2xl'>No dishes found</p>
-        <Lottie animationData={empty} loop={false} className=' w-1/2' />
+        <Lottie animationData={empty} loop={false} className=' h-1/2 w-1/2' />
       </div>
-    );
+    )
   }
 
   if (isLoading) {
@@ -31,7 +31,7 @@ export default function FoodGallery(props: ComponentProps) {
           <FoodDisplaySkeleton key={i} />
         ))}
       </div>
-    );
+    )
   }
 
   return (
@@ -40,5 +40,5 @@ export default function FoodGallery(props: ComponentProps) {
         dishes !== null &&
         dishes.map((dish) => <FoodDisplay key={dish.dishId} dish={dish} />)}
     </div>
-  );
+  )
 }

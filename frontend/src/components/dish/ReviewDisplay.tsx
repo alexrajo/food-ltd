@@ -1,17 +1,15 @@
-import type { Review } from 'src/types/types'
-import RatingDisplay from '../RatingDisplay'
+import type { Review } from 'src/types/types';
+import RatingDisplay from '../RatingDisplay';
 
 type ReviewDisplayProps = {
-  review: Review
-}
-/**
- * Displays the content of an individual user rating. Used on each dish page. 
- */
-export default function ReviewDisplay(props: ReviewDisplayProps) {
-  const { review } = props
-  const { reviewId, title, rating, comment, postedAt: postedAtUnix } = review
+  review: Review;
+};
 
-  const postedAt = new Date(parseInt(postedAtUnix)).toUTCString()
+export default function ReviewDisplay(props: ReviewDisplayProps) {
+  const { review } = props;
+  const { reviewId, title, rating, comment, postedAt: postedAtUnix } = review;
+
+  const postedAt = new Date(parseInt(postedAtUnix)).toUTCString();
 
   return (
     <div key={reviewId} className='flex flex-col gap-5 rounded-md border p-5'>
@@ -24,5 +22,5 @@ export default function ReviewDisplay(props: ReviewDisplayProps) {
       <p>{comment}</p>
       <p className='text-grayed-text'>Posted at {postedAt}</p>
     </div>
-  )
+  );
 }
