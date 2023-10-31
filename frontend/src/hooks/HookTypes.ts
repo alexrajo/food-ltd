@@ -302,4 +302,46 @@ export type useSearchReturnType = {
    *
    */
   onSearch: () => void
+  /**
+   * The current page of search results
+   */
+  page: number
+}
+
+export type useSuggestionsReturnType = {
+  /**
+   * The raw user input
+   */
+  searchInput: string
+  /**
+   * Update the user input
+   * @param {React.ChangeEvent<HTMLInputElement>} event - The event from the html element
+   * @returns {void}
+   * @example
+   * const MyComponent = () => {
+   * const { onChangeSearchInput } = useSearch();
+   * return (
+   * <div>
+   *  <input type="text" onChange={(event) => onChangeSearchInput(event)} />
+   * </div>
+   * )
+   * }
+   */
+  onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * If the data is loading
+   */
+  isLoading: boolean
+  /**
+   * If there is an error
+   */
+  error: unknown
+  /**
+   * The search results
+   */
+  data: { data: Dish[] } | undefined
+  /**
+   * Whether the user is typing or not
+   */
+  typing: boolean
 }

@@ -1,12 +1,17 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import { useAppSelector } from 'src/hooks/useAppRedux'
 
 export default function App() {
+  const colorMode = useAppSelector((state) => state.theme.value)
+
   return (
-    <div className='h-screen select-none overflow-hidden bg-stone-300 text-primary-text'>
-      <Navbar className='row col-span-2' />
-      <div className='flex h-full'>
-        <Outlet />
+    <div className={`${colorMode == 'dark' ? 'dark' : ''}`}>
+      <div className={`flex h-screen flex-row text-black dark:text-white`}>
+        <Navbar />
+        <div className='flex h-full w-full bg-white dark:bg-primarydark'>
+          <Outlet />
+        </div>
       </div>
     </div>
   )

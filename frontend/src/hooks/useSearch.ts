@@ -1,6 +1,6 @@
 import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
 import { setKeyWord } from 'src/redux/confinementReducer'
 import { useAppDispatch, useAppSelector } from './useAppRedux'
@@ -22,9 +22,9 @@ import { useSearchReturnType } from './HookTypes'
  */
 function useSearch(): useSearchReturnType {
   /** Raw user input form html element */
-  const [searchInput, setSearchInput] = React.useState<string>('')
+  const [searchInput, setSearchInput] = useState<string>('')
   /** Page number to allow pagination */
-  const [page, setPage] = React.useState<number>(1)
+  const [page, setPage] = useState<number>(1)
 
   /** Grab the confinements from redux store */
   const { includingFilters, excludingFilters, keyWord, sortingPreference } =
@@ -53,18 +53,18 @@ function useSearch(): useSearchReturnType {
     keepPreviousData: true,
   })
 
-  useEffect(() => {
-    /** Set a timeout to avoid calling the api too often */
-    const timeout = setTimeout(() => {
-      dispatch(setKeyWord(searchInput))
-    }, SEARCH_TIMEOUT_MS)
-    /** Clear the timeout if the user types too fast */
-    return () => clearTimeout(timeout)
-  }, [searchInput])
+  // useEffect(() => {
+  //   /** Set a timeout to avoid calling the api too often */
+  //   const timeout = setTimeout(() => {
+  //     dispatch(setKeyWord(searchInput));
+  //   }, SEARCH_TIMEOUT_MS);
+  //   /** Clear the timeout if the user types too fast */
+  //   return () => clearTimeout(timeout);
+  // }, [searchInput]);
 
   /** Reset the page number whenever confinements changes */
   useEffect(() => {
-    setPage(0)
+    setPage(1)
   }, [includingFilters, excludingFilters, keyWord, sortingPreference])
 
   /**
@@ -72,6 +72,7 @@ function useSearch(): useSearchReturnType {
    * on the current confinements
    */
   const onSearch = () => {
+    dispatch(setKeyWord(searchInput))
     refetch()
   }
 
@@ -89,7 +90,7 @@ function useSearch(): useSearchReturnType {
    * and refetches the data
    */
   const paginateForwards = () => {
-    if (data?.dishes.data.length === 0) {
+    if (data?.dishes.data.length === 0 || data?.dishes.pages === page) {
       return
     }
     setPage((prev) => prev + 1)
@@ -100,7 +101,7 @@ function useSearch(): useSearchReturnType {
    * and refetches the data
    */
   const paginateBackwards = () => {
-    if (page === 0) {
+    if (page === 1) {
       return
     }
     setPage((prev) => prev - 1)
@@ -126,6 +127,7 @@ function useSearch(): useSearchReturnType {
     paginateForwards,
     paginateBackwards,
     onSearch,
+    page,
   }
 }
 
