@@ -81,6 +81,7 @@ export const fetchDish = async (
 export const fetchReviews = async (
   page: number,
   dishId?: string,
+  pageSize?: number,
 ): Promise<FetchReviewsResponse> => {
   const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
 
@@ -100,8 +101,8 @@ export const fetchReviews = async (
     },
     body: JSON.stringify({
       query: `
-                query ($dishId: Int!, $page: Int) {
-                    reviews(dishId: $dishId, page: $page) {
+                query ($dishId: Int!, $page: Int!, $pageSize: Int) {
+                    reviews(dishId: $dishId, page: $page, pageSize: $pageSize) {
                       data {
                         reviewId
                         title
@@ -114,6 +115,7 @@ export const fetchReviews = async (
       variables: {
         dishId: dishIdNumber,
         page,
+        pageSize,
       },
     }),
   })
@@ -178,6 +180,7 @@ export const fetchSearchResults = async (
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
   page: number,
+  pageSize?: number,
 ): Promise<FetchDishesResponse> => {
   // Use mock data for testing and development
   // if (process.env.NODE_ENV === 'test') {
@@ -194,8 +197,8 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-              query ($keyWord: String!, $page: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
-                dishes(query: $keyWord, page: $page, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
+              query ($keyWord: String!, $page: Int!, $pageSize: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
+                dishes(query: $keyWord, page: $page, pageSize: $pageSize, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
                   data {
                     dishId
                     title
@@ -213,6 +216,7 @@ export const fetchSearchResults = async (
         sortingPreference,
         keyWord,
         page,
+        pageSize,
       },
     }),
   })
