@@ -169,7 +169,11 @@ const root = {
         take: pageSize,
         orderBy: sortingOptions,
       });
-      const count = await prisma.dish.count();
+      const count = await prisma.dish.count({
+        where: {
+          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+        },
+      });
       const responseDishes = data.map((dish) => ({
         ...dish,
         reviewCount: Number(dish.reviewCount),
@@ -195,6 +199,7 @@ const root = {
           title: {
             search: query.split(' ').join(' & '),
           },
+          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
         },
       });
       const responseDishes = data.map((dish) => ({
