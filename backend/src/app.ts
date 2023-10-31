@@ -5,6 +5,7 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLScalarType, Kind, buildSchema } from 'graphql';
 import logger from './middleware/logger';
+import { getDishesSearchQuery, getIngredientConstraints } from './utils/dbSearch';
 
 const prisma = new PrismaClient();
 
@@ -25,6 +26,13 @@ type DishesRequestParams = {
   includedIngredients?: string[];
   excludedIngredients?: string[];
   sortingPreference?: 'popular' | 'rating' | 'alphabetical';
+};
+
+type AllowedIngredientsRequestParams = {
+  query: string;
+  includedIngredients: string[];
+  excludedIngredients: string[];
+  optionalIngredients: string[];
 };
 
 // Construct a schema, using GraphQL schema language
@@ -62,6 +70,15 @@ const schema = buildSchema(`
     data: [Dish]
   }
 
+  type AllowedIngredientCountsData {
+    includedIngredients: String
+    excludedIngredients: String
+  }
+
+  type AllowedIngredientCountsResponse {
+    data: AllowedIngredientCountsData
+  }
+
   type PostReviewResponse {
     data: Review
   }
@@ -70,6 +87,7 @@ const schema = buildSchema(`
     reviews(dishId: Int!, page: Int!, pageSize: Int): ReviewsResponse
     dish(id: Int!): DishResponse
     dishes(query: String!, page: Int!, pageSize: Int, includedIngredients: [String], excludedIngredients: [String],  sortingPreference: String): DishesResponse
+    allowedIngredientCounts(query: String!, includedIngredients: [String]!, excludedIngredients: [String]!, optionalIngredients: [String]!): AllowedIngredientCountsResponse
   }
 
   type Mutation {
@@ -136,8 +154,6 @@ const root = {
   }: DishesRequestParams) => {
     pageSize = pageSize !== undefined ? pageSize : 12;
     page = page !== undefined ? page : 1;
-    includedIngredients = includedIngredients !== undefined ? includedIngredients : [];
-    excludedIngredients = excludedIngredients !== undefined ? excludedIngredients : [];
 
     const sortingOptions: Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput | undefined =
       sortingPreference !== undefined
@@ -146,24 +162,12 @@ const root = {
           ] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
         : undefined;
 
-    const includedIngredientsConditions = includedIngredients.map((ingredient) => ({
-      ingredients: {
-        contains: `%${ingredient}%`,
-      },
-    }));
-
-    const excludedIngredientsConditions = excludedIngredients.map((ingredient) => ({
-      ingredients: {
-        not: {
-          contains: `%${ingredient}%`,
-        },
-      },
-    }));
+    const ingredientConstraints = getIngredientConstraints(includedIngredients, excludedIngredients);
 
     if (query === '') {
       const data = await prisma.dishWithReviewAggregate.findMany({
         where: {
-          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+          AND: ingredientConstraints,
         },
         skip: Math.max(0, page - 1) * pageSize,
         take: pageSize,
@@ -171,7 +175,7 @@ const root = {
       });
       const count = await prisma.dish.count({
         where: {
-          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+          AND: ingredientConstraints,
         },
       });
       const responseDishes = data.map((dish) => ({
@@ -188,7 +192,7 @@ const root = {
           title: {
             search: query.split(' ').join(' & '),
           },
-          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+          AND: ingredientConstraints,
         },
         skip: Math.max(0, page - 1) * pageSize,
         take: pageSize,
@@ -197,9 +201,9 @@ const root = {
       const count = await prisma.dish.count({
         where: {
           title: {
-            search: query.split(' ').join(' & '),
+            search: getDishesSearchQuery(query),
           },
-          AND: [...includedIngredientsConditions, ...excludedIngredientsConditions],
+          AND: ingredientConstraints,
         },
       });
       const responseDishes = data.map((dish) => ({
@@ -211,6 +215,67 @@ const root = {
         data: responseDishes,
       };
     }
+  },
+
+  allowedIngredientCounts: async ({
+    query,
+    includedIngredients,
+    excludedIngredients,
+    optionalIngredients,
+  }: AllowedIngredientsRequestParams) => {
+    //Explicitly define the types of the variables to a dictionary where the key is a string and the value is a number
+    let includedIngredientCounts: { [key: string]: number } = {};
+    let excludedIngredientCounts: { [key: string]: number } = {};
+
+    const ingredientConstraints = getIngredientConstraints(includedIngredients, excludedIngredients);
+
+    // Loop through all optional ingredients and count the resulting dishes when they are included or excluded
+    if (query === '') {
+      for (const [_, ingredient] of optionalIngredients.entries()) {
+        const includedCount = await prisma.dish.count({
+          where: {
+            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
+          },
+        });
+        const excludedCount = await prisma.dish.count({
+          where: {
+            AND: [...ingredientConstraints, { ingredients: { not: { contains: `%${ingredient}%` } } }],
+          },
+        });
+        includedIngredientCounts[ingredient] = includedCount;
+        excludedIngredientCounts[ingredient] = excludedCount;
+      }
+    } else {
+      for (const [_, ingredient] of optionalIngredients.entries()) {
+        const includedCount = await prisma.dish.count({
+          where: {
+            title: {
+              search: getDishesSearchQuery(query),
+            },
+            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
+          },
+        });
+        const excludedCount = await prisma.dish.count({
+          where: {
+            title: {
+              search: getDishesSearchQuery(query),
+            },
+            AND: [...ingredientConstraints, { ingredients: { not: { contains: `%${ingredient}%` } } }],
+          },
+        });
+
+        includedIngredientCounts[ingredient] = includedCount;
+        excludedIngredientCounts[ingredient] = excludedCount;
+      }
+    }
+
+    // Return the counts as stringified JSON objects, so that they can be parsed on the frontend
+    return {
+      data: {
+        includedIngredients: JSON.stringify(includedIngredientCounts),
+        excludedIngredients: JSON.stringify(excludedIngredientCounts),
+      },
+    };
   },
 
   postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
