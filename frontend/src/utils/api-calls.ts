@@ -23,6 +23,15 @@ type FetchReviewsResponse = {
   }
 }
 
+type FetchIngredientFilterCountsResponse = {
+  allowedIngredientCounts: {
+    data: {
+      includedIngredients: string
+      excludedIngredients: string
+    }
+  }
+}
+
 type PostReviewResponse = {
   postReview: {
     data: Review
@@ -175,8 +184,8 @@ export const postReview = async (
 }
 
 export const fetchSearchResults = async (
-  excludingFilters: Confinement['excludingFilters'],
-  includingFilters: Confinement['includingFilters'],
+  excludedIngredients: Confinement['excludedIngredients'],
+  includedIngredients: Confinement['includedIngredients'],
   sortingPreference: Confinement['sortingPreference'],
   keyWord: string,
   page: number,
@@ -197,8 +206,8 @@ export const fetchSearchResults = async (
     },
     body: JSON.stringify({
       query: `
-              query ($keyWord: String!, $page: Int!, $pageSize: Int, $includingFilters: [String], $excludingFilters: [String], $sortingPreference: String) {
-                dishes(query: $keyWord, page: $page, pageSize: $pageSize, includingFilters: $includingFilters, excludingFilters: $excludingFilters, sortingPreference: $sortingPreference) {
+              query ($keyWord: String!, $page: Int!, $pageSize: Int, $includedIngredients: [String], $excludedIngredients: [String], $sortingPreference: String) {
+                dishes(query: $keyWord, page: $page, pageSize: $pageSize, includedIngredients: $includedIngredients, excludedIngredients: $excludedIngredients, sortingPreference: $sortingPreference) {
                   data {
                     dishId
                     title
@@ -211,12 +220,47 @@ export const fetchSearchResults = async (
               }
       `,
       variables: {
-        excludingFilters,
-        includingFilters,
+        excludedIngredients,
+        includedIngredients,
         sortingPreference,
         keyWord,
         page,
         pageSize,
+      },
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
+}
+
+export const fetchIngredientFilterCounts = async (
+  query: string,
+  excludedIngredients: Confinement['excludedIngredients'],
+  includedIngredients: Confinement['includedIngredients'],
+  ingredientOptions: string[],
+): Promise<FetchIngredientFilterCountsResponse> => {
+  return fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+              query ($query: String!, $includedIngredients: [String], $excludedIngredients: [String], $ingredientOptions: [String]) {
+                allowedIngredientCounts(query: $query, includedIngredients: $includedIngredients, excludedIngredients: $excludedIngredients, ingredientOptions: $ingredientOptions) {
+                  data {
+                    includedIngredients
+                    excludedIngredients
+                  }
+                }
+              }
+      `,
+      variables: {
+        query,
+        excludedIngredients,
+        includedIngredients,
+        ingredientOptions,
       },
     }),
   })

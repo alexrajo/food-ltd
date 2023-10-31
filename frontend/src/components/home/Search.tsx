@@ -36,12 +36,6 @@ export default function Search(props: ComponentProps) {
 
   const suggested = suggestedData ? suggestedData.data : []
 
-  useEffect(() => {
-    if (searchInput.length > 0 || searchHistory.length > 0) {
-      setShowSuggestions(true)
-    }
-  }, [searchInput])
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
     setShowSuggestions(false)
@@ -65,6 +59,7 @@ export default function Search(props: ComponentProps) {
             setShowSuggestions(false)
           }}
           value={searchInput}
+          onFocus={() => setShowSuggestions(true)}
           onChange={(e) => {
             onChangeSearchInput(e)
             onChangeSearchInputSuggestions(e)
