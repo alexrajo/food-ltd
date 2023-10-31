@@ -2,15 +2,15 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface Confinement {
   sortingPreference: string
-  includingFilters: string[]
-  excludingFilters: string[]
+  includedIngredients: string[]
+  excludedIngredients: string[]
   keyWord: string
 }
 
 const initialState: Confinement = {
   sortingPreference: 'none',
-  includingFilters: [],
-  excludingFilters: [],
+  includedIngredients: [],
+  excludedIngredients: [],
   keyWord: '',
 }
 
@@ -22,24 +22,24 @@ export const confinementReducer = createSlice({
       state.sortingPreference = action.payload
     },
     includeFilter: (state, action: PayloadAction<string>) => {
-      state.includingFilters = [...state.includingFilters, action.payload]
+      state.includedIngredients = [...state.includedIngredients, action.payload]
     },
     removeIncludedFilter: (state, action: PayloadAction<string>) => {
-      state.includingFilters = state.includingFilters.filter(
+      state.includedIngredients = state.includedIngredients.filter(
         (filter) => filter !== action.payload,
       )
     },
     excludeFilter: (state, action: PayloadAction<string>) => {
-      state.excludingFilters = [...state.excludingFilters, action.payload]
+      state.excludedIngredients = [...state.excludedIngredients, action.payload]
     },
     removeExcludedFilter: (state, action: PayloadAction<string>) => {
-      state.excludingFilters = state.excludingFilters.filter(
+      state.excludedIngredients = state.excludedIngredients.filter(
         (filter) => filter !== action.payload,
       )
     },
     resetAllFilters: (state) => {
-      state.includingFilters = []
-      state.excludingFilters = []
+      state.includedIngredients = []
+      state.excludedIngredients = []
     },
     setKeyWord: (state, action: PayloadAction<string>) => {
       state.keyWord = action.payload
