@@ -28,11 +28,11 @@ type DishesRequestParams = {
   sortingPreference?: 'popular' | 'rating' | 'alphabetical';
 };
 
-type AllowedIngredientsRequestParams = {
+type IngredientFilterCountsRequestParams = {
   query: string;
   includedIngredients: string[];
   excludedIngredients: string[];
-  optionalIngredients: string[];
+  ingredientOptions: string[];
 };
 
 // Construct a schema, using GraphQL schema language
@@ -70,13 +70,13 @@ const schema = buildSchema(`
     data: [Dish]
   }
 
-  type AllowedIngredientCountsData {
+  type IngredientFilterCountsData {
     includedIngredients: String
     excludedIngredients: String
   }
 
-  type AllowedIngredientCountsResponse {
-    data: AllowedIngredientCountsData
+  type IngredientFilterCountsResponse {
+    data: IngredientFilterCountsData
   }
 
   type PostReviewResponse {
@@ -87,7 +87,7 @@ const schema = buildSchema(`
     reviews(dishId: Int!, page: Int!, pageSize: Int): ReviewsResponse
     dish(id: Int!): DishResponse
     dishes(query: String!, page: Int!, pageSize: Int, includedIngredients: [String], excludedIngredients: [String],  sortingPreference: String): DishesResponse
-    allowedIngredientCounts(query: String!, includedIngredients: [String]!, excludedIngredients: [String]!, optionalIngredients: [String]!): AllowedIngredientCountsResponse
+    ingredientFilterCounts(query: String!, includedIngredients: [String]!, excludedIngredients: [String]!, ingredientOptions: [String]!): IngredientFilterCountsResponse
   }
 
   type Mutation {
@@ -217,12 +217,12 @@ const root = {
     }
   },
 
-  allowedIngredientCounts: async ({
+  ingredientFilterCounts: async ({
     query,
     includedIngredients,
     excludedIngredients,
-    optionalIngredients,
-  }: AllowedIngredientsRequestParams) => {
+    ingredientOptions,
+  }: IngredientFilterCountsRequestParams) => {
     //Explicitly define the types of the variables to a dictionary where the key is a string and the value is a number
     let includedIngredientCounts: { [key: string]: number } = {};
     let excludedIngredientCounts: { [key: string]: number } = {};
@@ -231,7 +231,7 @@ const root = {
 
     // Loop through all optional ingredients and count the resulting dishes when they are included or excluded
     if (query === '') {
-      for (const [_, ingredient] of optionalIngredients.entries()) {
+      for (const [_, ingredient] of ingredientOptions.entries()) {
         const includedCount = await prisma.dish.count({
           where: {
             AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
@@ -246,7 +246,7 @@ const root = {
         excludedIngredientCounts[ingredient] = excludedCount;
       }
     } else {
-      for (const [_, ingredient] of optionalIngredients.entries()) {
+      for (const [_, ingredient] of ingredientOptions.entries()) {
         const includedCount = await prisma.dish.count({
           where: {
             title: {

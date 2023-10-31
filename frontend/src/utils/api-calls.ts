@@ -23,6 +23,15 @@ type FetchReviewsResponse = {
   }
 }
 
+type FetchIngredientFilterCountsResponse = {
+  allowedIngredientCounts: {
+    data: {
+      includedIngredients: string
+      excludedIngredients: string
+    }
+  }
+}
+
 type PostReviewResponse = {
   postReview: {
     data: Review
@@ -217,6 +226,41 @@ export const fetchSearchResults = async (
         keyWord,
         page,
         pageSize,
+      },
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
+}
+
+export const fetchIngredientFilterCounts = async (
+  query: string,
+  excludedIngredients: Confinement['excludedIngredients'],
+  includedIngredients: Confinement['includedIngredients'],
+  ingredientOptions: string[],
+): Promise<FetchIngredientFilterCountsResponse> => {
+  return fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+              query ($query: String!, $includedIngredients: [String], $excludedIngredients: [String], $ingredientOptions: [String]) {
+                allowedIngredientCounts(query: $query, includedIngredients: $includedIngredients, excludedIngredients: $excludedIngredients, ingredientOptions: $ingredientOptions) {
+                  data {
+                    includedIngredients
+                    excludedIngredients
+                  }
+                }
+              }
+      `,
+      variables: {
+        query,
+        excludedIngredients,
+        includedIngredients,
+        ingredientOptions,
       },
     }),
   })
