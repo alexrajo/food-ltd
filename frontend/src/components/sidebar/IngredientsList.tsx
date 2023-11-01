@@ -1,0 +1,17 @@
+import IngredientBox from 'src/components/sidebar/IngredientBox'
+import { Ingredient } from 'src/types/types'
+
+type ComponentProps = {
+  ingredients: Ingredient[]
+}
+export default function IngredientsList(props: ComponentProps) {
+  const { ingredients } = props
+
+  return (
+    <div className='flex flex-wrap gap-4'>
+      {ingredients.map((ingredient) => (
+        <IngredientBox name={ingredient.name} />
+      ))}
+    </div>
+  )
+}
