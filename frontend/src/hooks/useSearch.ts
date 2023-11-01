@@ -22,13 +22,17 @@ import { useSearchReturnType } from './HookTypes'
  */
 function useSearch(): useSearchReturnType {
   /** Raw user input form html element */
-  const [searchInput, setSearchInput] = useState<string>('')
+  const searchInput = useAppSelector((state) => state.confinements.keyWord)
   /** Page number to allow pagination */
   const [page, setPage] = useState<number>(1)
 
   /** Grab the confinements from redux store */
-  const { includingFilters, excludingFilters, keyWord, sortingPreference } =
-    useAppSelector((state) => state.confinements)
+  const {
+    includedIngredients,
+    excludedIngredients,
+    keyWord,
+    sortingPreference,
+  } = useAppSelector((state) => state.confinements)
 
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch()
@@ -39,13 +43,14 @@ function useSearch(): useSearchReturnType {
       'searchResults',
       keyWord,
       page,
-      includingFilters,
-      excludingFilters,
+      includedIngredients,
+      excludedIngredients,
+      sortingPreference,
     ],
     queryFn: () =>
       fetchSearchResults(
-        includingFilters,
-        excludingFilters,
+        excludedIngredients,
+        includedIngredients,
         sortingPreference,
         keyWord,
         page,
@@ -65,7 +70,7 @@ function useSearch(): useSearchReturnType {
   /** Reset the page number whenever confinements changes */
   useEffect(() => {
     setPage(1)
-  }, [includingFilters, excludingFilters, keyWord, sortingPreference])
+  }, [includedIngredients, excludedIngredients, keyWord, sortingPreference])
 
   /**
    * This function refetches the searchresults based
@@ -82,7 +87,7 @@ function useSearch(): useSearchReturnType {
     /** Destruct */
     const { value } = event.target
     /** Update the state */
-    setSearchInput(value)
+    dispatch(setKeyWord(value))
   }
 
   /**
