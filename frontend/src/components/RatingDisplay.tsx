@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 type RatingDisplayProps = {
   rating?: number | null
   isInput?: boolean
-  setRating?: Dispatch<SetStateAction<number>>
+  setRating?: Dispatch<SetStateAction<number | undefined>>
 }
 
 /**
@@ -42,6 +42,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                   (isGrayed && outlineStar) ||
                   star
                 }
+                className={isInput ? 'cursor-pointer' : ''}
               />
             )
           }
@@ -54,6 +55,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                 (isGrayed && outlineStar) ||
                 star
               }
+              className={isInput ? 'cursor-pointer' : ''}
               onMouseEnter={() => setRating(index + 1)}
               onMouseLeave={() => setRating(receivedRating)}
               onClick={() => setRatingProp && setRatingProp(index + 1)}

@@ -18,6 +18,8 @@ export default {
         primarydark: '#212121',
         secondarydark: '#424242',
         tertiarydark: '#616161',
+        error: '#B00020',
+        errordark: '#D32F2F',
       },
     },
   },

@@ -1,38 +1,104 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { ErrorMessage, Field, FieldProps, Formik, FormikErrors } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { Form, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
 import usePostReview from 'src/hooks/usePostReview'
+
+function RatingInput(props: FieldProps<any>) {
+  const { field, form } = props
+  const { value } = field
+  const [ratingInput, setRatingInput] = useState<number>()
+
+  useEffect(() => {
+    form.setFieldValue(value, ratingInput)
+  }, [ratingInput])
+
+  return (
+    <RatingDisplay rating={ratingInput} setRating={setRatingInput} isInput />
+  )
+}
 
 export default function WriteReview() {
   const { id } = useParams()
 
-  const [ratingInput, setRatingInput] = useState<number>(0)
-
-  const { writeReview, onChangeRatingInput, error, onChangeReviewInput } =
-    usePostReview(id)
+  // const { writeReview, onChangeRatingInput, error, onChangeReviewInput } =
+  //   usePostReview(id)
 
   return (
-    <div className='flex h-full w-96 flex-col overflow-y-scroll p-4 md:p-20'>
-      <h1>Tittel</h1>
-      <input
-        type='text'
-        name='title'
-        id='title'
-        className=' dark:bg-secondarydark'
-      />
-      <h1>Comment</h1>
-      <textarea
-        className=' dark:bg-secondarydark'
-        type='text'
-        onChangeText={onChangeReviewInput}
-        name='title'
-        id='title'
-      />
-      <h1>Rating</h1>
-      {error && <p>{error}</p>}
-      <RatingDisplay rating={ratingInput} setRating={setRatingInput} isInput />
-      <button onClick={writeReview}>Send</button>
+    <div className='flex h-full w-full flex-col items-center justify-center overflow-y-scroll bg-primary dark:bg-primarydark'>
+      <div className='flex w-96 flex-col bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
+        <p className='text-xl'>Post a review</p>
+        <Formik
+          initialValues={{
+            title: '',
+            comment: '',
+            rating: undefined,
+          }}
+          validate={(values) => {
+            const errors: FormikErrors<any> = {}
+            if (values.title === '') {
+              errors.title = 'Required'
+            }
+            if (values.comment === '') {
+              errors.comment = 'Required'
+            }
+            if (values.rating === undefined) {
+              errors.rating = 'Required'
+            }
+            return errors
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log('Submit')
+            setSubmitting(false)
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form className='mt-10 flex flex-col gap-5'>
+              <div className='flex flex-col'>
+                <label htmlFor='title'>Title</label>
+                <Field type='text' name='title' className='border p-2' />
+                <ErrorMessage
+                  name='title'
+                  component='div'
+                  className='text-error dark:text-errordark'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor='comment'>Comment</label>
+                <Field
+                  as='textarea'
+                  name='comment'
+                  className='resize-none border p-2'
+                  rows={5}
+                />
+                <ErrorMessage
+                  name='comment'
+                  component='div'
+                  className='text-error dark:text-errordark'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor='rating'>Rating</label>
+                <Field name='rating' component={RatingInput} />
+                <ErrorMessage
+                  name='rating'
+                  component='div'
+                  className='text-error dark:text-errordark'
+                />
+              </div>
+              <div className='flex justify-center'>
+                <button
+                  type='submit'
+                  disabled={isSubmitting}
+                  className='w-fit rounded-md border p-3'
+                >
+                  Submit
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   )
 }
