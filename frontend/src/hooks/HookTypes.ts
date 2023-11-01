@@ -345,3 +345,23 @@ export type useSuggestionsReturnType = {
    */
   typing: boolean
 }
+
+// Generate this based on the hook below that uses the returntype
+export type useAutoCompleteReturnType = {
+  /**
+   * If the data is loading
+   */
+  isLoading: boolean
+  /**
+   * The included ingredients
+   */
+  parsedIncludedIngredients: {
+    [key: string]: number
+  }
+  /**
+   * The excluded ingredients
+   */
+  parsedExcludedIngredients: {
+    [key: string]: number
+  }
+}
