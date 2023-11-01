@@ -3,7 +3,7 @@ import halfStar from 'src/assets/half-star.svg'
 import outlineStar from 'src/assets/outline-star.svg'
 
 type RatingDisplayProps = {
-  rating?: number
+  rating?: number | null
 }
 
 /**
@@ -14,7 +14,9 @@ type RatingDisplayProps = {
 export default function RatingDisplay(props: RatingDisplayProps) {
   const { rating: inputRating } = props
   const rating =
-    inputRating === undefined || Number.isNaN(inputRating)
+    inputRating === undefined ||
+    inputRating === null ||
+    Number.isNaN(inputRating)
       ? 0
       : Math.max(1, Math.min(5, Math.floor(inputRating * 10 + 0.5) / 10))
 
