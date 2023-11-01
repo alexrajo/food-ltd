@@ -1,9 +1,12 @@
 import star from 'src/assets/star.svg'
 import halfStar from 'src/assets/half-star.svg'
 import outlineStar from 'src/assets/outline-star.svg'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 type RatingDisplayProps = {
-  rating?: number
+  rating?: number | null
+  isInput?: boolean
+  setRating?: Dispatch<SetStateAction<number>>
 }
 
 /**
@@ -12,11 +15,16 @@ type RatingDisplayProps = {
  * @returns The component that displays the rating
  */
 export default function RatingDisplay(props: RatingDisplayProps) {
-  const { rating: inputRating } = props
-  const rating =
-    inputRating === undefined || Number.isNaN(inputRating)
+  const { rating: inputRating, isInput, setRating: setRatingProp } = props
+
+  const receivedRating =
+    inputRating === undefined ||
+    inputRating === null ||
+    Number.isNaN(inputRating)
       ? 0
-      : Math.max(1, Math.min(5, Math.floor(inputRating * 10 + 0.5) / 10))
+      : Math.max(1, Math.min(5, Math.floor(inputRating! * 10 + 0.5) / 10))
+
+  const [rating, setRating] = useState(receivedRating)
 
   return (
     <div className='flex flex-row items-center gap-3'>
@@ -24,6 +32,19 @@ export default function RatingDisplay(props: RatingDisplayProps) {
         {Array.from(Array(5).keys()).map((number, index) => {
           const isGrayed = Math.ceil(rating - 0.3) < index + 1
           const isHalf = rating - index > 0.3 && rating - index < 0.7
+          if (!isInput) {
+            return (
+              <img
+                alt='star'
+                key={number}
+                src={
+                  (isGrayed && isHalf && halfStar) ||
+                  (isGrayed && outlineStar) ||
+                  star
+                }
+              />
+            )
+          }
           return (
             <img
               alt='star'
@@ -33,6 +54,9 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                 (isGrayed && outlineStar) ||
                 star
               }
+              onMouseEnter={() => setRating(index + 1)}
+              onMouseLeave={() => setRating(receivedRating)}
+              onClick={() => setRatingProp && setRatingProp(index + 1)}
             />
           )
         })}
