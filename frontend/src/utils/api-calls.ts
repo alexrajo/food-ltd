@@ -25,7 +25,7 @@ type FetchReviewsResponse = {
 }
 
 export type FetchIngredientFilterCountsResponse = {
-  allowedIngredientCounts: {
+  ingredientFilterCounts: {
     data: {
       includedIngredients: string
       excludedIngredients: string
