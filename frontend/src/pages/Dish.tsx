@@ -50,7 +50,7 @@ export default function DishPage() {
     return <></>
   }
   return (
-    <div className='h-full w-full overflow-y-scroll p-20'>
+    <div className='h-full w-full overflow-y-scroll p-4 md:p-20'>
       <div className=' flex flex-col gap-2'>
         <div
           onClick={() => {
