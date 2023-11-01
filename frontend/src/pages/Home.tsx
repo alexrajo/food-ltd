@@ -5,7 +5,10 @@ import Search from 'src/components/home/Search'
 import SearchSettingsSquare from 'src/components/home/SearchSettingsSquare'
 import SelectedFilters from 'src/components/home/SelectedFilters'
 import SortBy from 'src/components/home/SortBy'
+import { useAppDispatch } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
+import menu from 'src/assets/menu.svg'
+import { openNavbar } from 'src/redux/modalsReducer'
 
 /**
  * Holds all the components that show up on the main page.
@@ -42,10 +45,28 @@ export default function Home() {
     [page, pages],
   )
 
+  const dispatch = useAppDispatch()
+
   return (
     <div className='flex w-full'>
-      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
+      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-2 sm:p-20'>
         <div className='flex w-full gap-4'>
+          <button
+            onMouseDown={() => {
+              dispatch(openNavbar())
+            }}
+            type='button'
+            className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark lg:hidden '
+          >
+            <img
+              src={menu}
+              alt='menu'
+              className='flex h-6 w-6 hover:cursor-pointer '
+              onMouseDown={() => {
+                dispatch(openNavbar())
+              }}
+            />
+          </button>
           <Search
             onSearch={onSearch}
             onChangeSearchInput={onChangeSearchInput}
@@ -54,7 +75,7 @@ export default function Home() {
           <SearchSettingsSquare />
         </div>
         <SelectedFilters />
-        <div className='flex flex-row justify-between'>
+        <div className='flex flex-col justify-between md:flex-row'>
           <SortBy />
           <div className=' flex flex-row items-center gap-4'>
             <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
