@@ -1,16 +1,16 @@
 import { ErrorMessage, Field, FieldProps, Formik, FormikErrors } from 'formik'
-import React, { useEffect, useState } from 'react'
-import { Form, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Form, useNavigate, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
-import usePostReview from 'src/hooks/usePostReview'
+import { postReview } from 'src/utils/api-calls'
 
 function RatingInput(props: FieldProps<any>) {
   const { field, form } = props
-  const { value } = field
+  const { name } = field
   const [ratingInput, setRatingInput] = useState<number>()
 
   useEffect(() => {
-    form.setFieldValue(value, ratingInput)
+    form.setFieldValue(name, ratingInput)
   }, [ratingInput])
 
   return (
@@ -19,10 +19,9 @@ function RatingInput(props: FieldProps<any>) {
 }
 
 export default function WriteReview() {
+  const navigate = useNavigate()
   const { id } = useParams()
-
-  // const { writeReview, onChangeRatingInput, error, onChangeReviewInput } =
-  //   usePostReview(id)
+  const dishId = id !== undefined ? parseInt(id) : undefined
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center overflow-y-scroll bg-primary dark:bg-primarydark'>
@@ -47,16 +46,32 @@ export default function WriteReview() {
             }
             return errors
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             console.log('Submit')
+            if (dishId !== undefined && values.rating !== undefined) {
+              const response = await postReview(
+                dishId,
+                values.title,
+                values.rating,
+                values.comment,
+              )
+              console.log(response)
+              navigate(-1)
+            } else {
+              console.warn('dishId and rating are required')
+            }
             setSubmitting(false)
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, submitForm }) => (
             <Form className='mt-10 flex flex-col gap-5'>
               <div className='flex flex-col'>
                 <label htmlFor='title'>Title</label>
-                <Field type='text' name='title' className='border p-2' />
+                <Field
+                  type='text'
+                  name='title'
+                  className='border p-2 dark:text-black'
+                />
                 <ErrorMessage
                   name='title'
                   component='div'
@@ -68,7 +83,7 @@ export default function WriteReview() {
                 <Field
                   as='textarea'
                   name='comment'
-                  className='resize-none border p-2'
+                  className='resize-none border p-2 dark:text-black'
                   rows={5}
                 />
                 <ErrorMessage
@@ -91,6 +106,7 @@ export default function WriteReview() {
                   type='submit'
                   disabled={isSubmitting}
                   className='w-fit rounded-md border p-3'
+                  onClick={submitForm}
                 >
                   Submit
                 </button>

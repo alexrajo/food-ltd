@@ -33,7 +33,7 @@ function useReviews(): useReviewsReturnType {
 
   /** Fetch the data */
   const { data, isLoading, error } = useQuery({
-    queryKey: ['reviews', page],
+    queryKey: ['reviews', id, page],
     queryFn: () => fetchReviews(page, id),
     keepPreviousData: true,
   })

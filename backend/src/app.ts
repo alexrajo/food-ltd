@@ -108,7 +108,7 @@ const SORTING_OPTIONS = {
     reviewCount: 'desc',
   },
   rating: {
-    averageRating: 'desc',
+    averageRating: { sort: 'desc', nulls: 'last' },
   },
 };
 
@@ -124,7 +124,7 @@ const root = {
       skip: Math.max(0, page - 1) * pageSize,
       take: pageSize,
     });
-    return reviews;
+    return { data: reviews };
   },
 
   dish: async ({ id }: DishRequestParams) => {

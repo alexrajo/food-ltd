@@ -39,12 +39,14 @@ export default function DishPage() {
 
   const navigate = useNavigate()
 
-  const { dishId, title, ingredients, instructions, imageName } = dish || {}
-
-  const rating =
-    reviewsAreLoading || !reviews
-      ? undefined
-      : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  const {
+    dishId,
+    title,
+    ingredients,
+    instructions,
+    imageName,
+    averageRating: rating,
+  } = dish || {}
 
   if (!dish) {
     return <></>
