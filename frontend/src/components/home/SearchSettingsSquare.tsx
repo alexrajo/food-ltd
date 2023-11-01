@@ -1,12 +1,30 @@
+import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
+import {
+  closeFilterMenu,
+  openFilterMenu,
+  setClosed,
+  setOpen,
+} from 'src/redux/modalsReducer'
+
 /**
  * This is the little box next to the Search bar. Found in the dribble reference.
  * Not clear what should happen when clicked, but now it is here at least.
  */
 export default function SearchSettingsSquare() {
   // TODO : find some purpose for this :)
+
+  const dispatch = useAppDispatch()
+  const open = useAppSelector((state) => state.modals.filterMenu)
+
   return (
     <button
-      onClick={() => {}}
+      onClick={() => {
+        if (open) {
+          dispatch(closeFilterMenu())
+        } else {
+          dispatch(openFilterMenu())
+        }
+      }}
       type='button'
       className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark '
     >
