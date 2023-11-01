@@ -13,17 +13,15 @@ import { Ingredient } from 'src/types/types'
  * Hooks which allows to modify the list of filters
  * @example
  * const MyComponent = () => {
- * const { includeFilter, removeIncludedFilter, excludeFilter, removeExcludedFilter, resetFilters } = useFilter();
+ * const { includedIngredients, excludedIngredients, removeIncludedIngredient, excludeIngredient, removeExcludedIngredient, resetFilters, includeIngredient } = useFilter();
  * return (
  * <div>
- *    <button onClick={() => includeFilter('Vegan')}>Add Vegan</button>
- *    <button onClick={() => removeIncludedFilter('Vegan')}>Remove Vegan</button>
- *    <button onClick={() => excludeFilter('Vegan')}>Add Vegan</button>
- *    <button onClick={() => removeExcludedFilter('Vegan')}>Remove Vegan</button>
- *    <button onClick={() => resetFilters()}>Reset Filters</button>
+ * <button onClick={() => includeIngredient('Vegan')}>Add Vegan</button>
+ * <button onClick={() => removeIncludedIngredient('Vegan')}>Remove Vegan</button>
+ * <button onClick={() => excludeIngredient('Vegan')}>Add Vegan</button>
+ * <button onClick={() => removeExcludedIngredient('Vegan')}>Remove Vegan</button>
+ * <button onClick={() => resetFilters()}>Reset</button>
  * </div>
- * )
- * }
  * @returns {useFilterReturnType}
  * @category Hooks
  */
