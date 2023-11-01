@@ -27,16 +27,21 @@ function useSuggestions(): useSuggestionsReturnType {
   const [typing, setTyping] = useState<boolean>(false)
 
   /** Grab the confinements from redux store */
-  const { includingFilters, excludingFilters, sortingPreference } =
+  const { includedIngredients, excludedIngredients, sortingPreference } =
     useAppSelector((state) => state.confinements)
 
   /** Fetch the data from the api */
   const { isLoading, error, data } = useQuery({
-    queryKey: ['suggestedSearch', keyWord, includingFilters, excludingFilters],
+    queryKey: [
+      'suggestedSearch',
+      keyWord,
+      includedIngredients,
+      excludedIngredients,
+    ],
     queryFn: () =>
       fetchSearchResults(
-        includingFilters,
-        excludingFilters,
+        includedIngredients,
+        excludedIngredients,
         sortingPreference,
         keyWord,
         1,
