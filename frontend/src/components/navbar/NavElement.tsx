@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { useAppDispatch } from 'src/hooks/useAppRedux'
+import { closeFilterMenu, closeNavbar } from 'src/redux/modalsReducer'
 
 type ComponentProps = {
   icon: React.ReactNode
@@ -14,9 +16,14 @@ export default function NavElement(props: ComponentProps) {
 
   const selected = link == location.pathname
 
+  const dispatch = useAppDispatch()
   return (
     <Link
       to={link}
+      onClick={() => {
+        dispatch(closeNavbar())
+        dispatch(closeFilterMenu())
+      }}
       className=' relative flex w-72 flex-row items-center gap-2 px-20 '
     >
       {icon}
