@@ -17,3 +17,8 @@ export type Review = {
   postedAt: string
   dishId: number
 }
+
+export type Ingredient = {
+  id: number
+  name: string
+}

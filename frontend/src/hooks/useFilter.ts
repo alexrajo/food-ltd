@@ -7,32 +7,31 @@ import {
 } from 'src/redux/confinementReducer'
 import { useAppDispatch, useAppSelector } from './useAppRedux'
 import { useFilterReturnType } from './HookTypes'
+import { Ingredient } from 'src/types/types'
 
 /**
  * Hooks which allows to modify the list of filters
  * @example
  * const MyComponent = () => {
- * const { includeFilter, removeIncludedFilter, excludeFilter, removeExcludedFilter, resetFilters } = useFilter();
+ * const { includedIngredients, excludedIngredients, removeIncludedIngredient, excludeIngredient, removeExcludedIngredient, resetFilters, includeIngredient } = useFilter();
  * return (
  * <div>
- *    <button onClick={() => includeFilter('Vegan')}>Add Vegan</button>
- *    <button onClick={() => removeIncludedFilter('Vegan')}>Remove Vegan</button>
- *    <button onClick={() => excludeFilter('Vegan')}>Add Vegan</button>
- *    <button onClick={() => removeExcludedFilter('Vegan')}>Remove Vegan</button>
- *    <button onClick={() => resetFilters()}>Reset Filters</button>
+ * <button onClick={() => includeIngredient('Vegan')}>Add Vegan</button>
+ * <button onClick={() => removeIncludedIngredient('Vegan')}>Remove Vegan</button>
+ * <button onClick={() => excludeIngredient('Vegan')}>Add Vegan</button>
+ * <button onClick={() => removeExcludedIngredient('Vegan')}>Remove Vegan</button>
+ * <button onClick={() => resetFilters()}>Reset</button>
  * </div>
- * )
- * }
  * @returns {useFilterReturnType}
  * @category Hooks
  */
 export default function useFilter(): useFilterReturnType {
   /** Grab the states from redux store */
-  const includedFilters = useAppSelector(
-    (state) => state.confinements.includingFilters,
+  const includedIngredients = useAppSelector(
+    (state) => state.confinements.includedIngredients,
   )
-  const excludedFilters = useAppSelector(
-    (state) => state.confinements.excludingFilters,
+  const excludedIngredients = useAppSelector(
+    (state) => state.confinements.excludedIngredients,
   )
 
   /** Allows to modify the redux store */
@@ -52,12 +51,12 @@ export default function useFilter(): useFilterReturnType {
    * }
    *
    */
-  const includeFilter = (option: string): void => {
+  const includeIngredient = (option: Ingredient): void => {
     /**
      * Check to see if the filter is already in the list
      */
-    if (!includedFilters.includes(option)) {
-      dispatch(includeReduxFilter(option as string))
+    if (!includedIngredients.includes(option)) {
+      dispatch(includeReduxFilter(option))
     }
   }
 
@@ -75,11 +74,11 @@ export default function useFilter(): useFilterReturnType {
    * )
    * }
    */
-  const removeIncludedFilter = (option: string): void => {
+  const removeIncludedIngredient = (option: Ingredient): void => {
     /**
      * If the filter is already in the list, remove it
      */
-    if (includedFilters.includes(option)) {
+    if (includedIngredients.includes(option)) {
       dispatch(removeReduxIncludedFilter(option))
     }
   }
@@ -98,12 +97,12 @@ export default function useFilter(): useFilterReturnType {
    * )
    * }
    */
-  const excludeFilter = (option: string): void => {
+  const excludeIngredient = (option: Ingredient): void => {
     /**
      * Check to see if the filter is already in the list
      */
-    if (!excludedFilters.includes(option)) {
-      dispatch(excludeReduxFilter(option as string))
+    if (!excludedIngredients.includes(option)) {
+      dispatch(excludeReduxFilter(option))
     }
   }
 
@@ -121,11 +120,11 @@ export default function useFilter(): useFilterReturnType {
    * )
    * }
    */
-  const removeExcludedFilter = (option: string): void => {
+  const removeExcludedIngredient = (option: Ingredient): void => {
     /**
      * If the filter is already in the list, remove it
      */
-    if (excludedFilters.includes(option)) {
+    if (excludedIngredients.includes(option)) {
       dispatch(removeReduxExcludedFilter(option))
     }
   }
@@ -139,12 +138,12 @@ export default function useFilter(): useFilterReturnType {
   }
 
   return {
-    includeFilter,
-    removeIncludedFilter,
-    excludeFilter,
-    removeExcludedFilter,
+    excludedIngredients,
+    includedIngredients,
+    removeIncludedIngredient,
+    excludeIngredient,
+    removeExcludedIngredient,
     resetFilters,
-    includedFilters,
-    excludedFilters,
+    includeIngredient,
   }
 }

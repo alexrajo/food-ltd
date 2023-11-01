@@ -5,17 +5,17 @@ import FilterDisplay from './FilterDisplay'
  * Container for all FilterDisplay components. Situated under the search bar.
  */
 export default function SelectedFilters() {
-  const { includedFilters, excludedFilters, resetFilters } = useFilter()
+  const { includedIngredients, excludedIngredients, resetFilters } = useFilter()
 
   return (
     <div className='flex flex-wrap items-center gap-2'>
-      {includedFilters.map((f) => (
-        <FilterDisplay key={f} name={f} type='include' />
+      {includedIngredients.map((f) => (
+        <FilterDisplay key={f.id} filter={f} type='include' />
       ))}
-      {excludedFilters.map((f) => (
-        <FilterDisplay key={f} name={f} type='exclude' />
+      {excludedIngredients.map((f) => (
+        <FilterDisplay key={f.id} filter={f} type='exclude' />
       ))}
-      {(includedFilters.length > 0 || excludedFilters.length > 0) && (
+      {(includedIngredients.length > 0 || excludedIngredients.length > 0) && (
         <button
           type='button'
           onClick={resetFilters}

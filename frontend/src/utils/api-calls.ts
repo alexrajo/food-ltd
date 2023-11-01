@@ -1,5 +1,6 @@
 import { Confinement } from 'src/redux/confinementReducer'
 import { Dish, Review } from 'src/types/types'
+import { SORTING_OPTIONS } from 'src/utils/constants'
 // import mock_data from '../assets/mockdata.json'
 
 const URL = 'http://127.0.0.1:4000/graphql'
@@ -23,8 +24,8 @@ type FetchReviewsResponse = {
   }
 }
 
-type FetchIngredientFilterCountsResponse = {
-  allowedIngredientCounts: {
+export type FetchIngredientFilterCountsResponse = {
+  ingredientFilterCounts: {
     data: {
       includedIngredients: string
       excludedIngredients: string
@@ -220,9 +221,13 @@ export const fetchSearchResults = async (
               }
       `,
       variables: {
-        excludedIngredients,
-        includedIngredients,
-        sortingPreference,
+        excludedIngredients: excludedIngredients.map(
+          (ingredient) => ingredient.name,
+        ),
+        includedIngredients: includedIngredients.map(
+          (ingredient) => ingredient.name,
+        ),
+        sortingPreference: SORTING_OPTIONS[sortingPreference],
         keyWord,
         page,
         pageSize,
@@ -247,8 +252,8 @@ export const fetchIngredientFilterCounts = async (
     },
     body: JSON.stringify({
       query: `
-              query ($query: String!, $includedIngredients: [String], $excludedIngredients: [String], $ingredientOptions: [String]) {
-                allowedIngredientCounts(query: $query, includedIngredients: $includedIngredients, excludedIngredients: $excludedIngredients, ingredientOptions: $ingredientOptions) {
+              query ($query: String!, $includedIngredients: [String]!, $excludedIngredients: [String]!, $ingredientOptions: [String]!) {
+                ingredientFilterCounts(query: $query, includedIngredients: $includedIngredients, excludedIngredients: $excludedIngredients, ingredientOptions: $ingredientOptions) {
                   data {
                     includedIngredients
                     excludedIngredients
@@ -258,8 +263,12 @@ export const fetchIngredientFilterCounts = async (
       `,
       variables: {
         query,
-        excludedIngredients,
-        includedIngredients,
+        excludedIngredients: excludedIngredients.map(
+          (ingredient) => ingredient.name,
+        ),
+        includedIngredients: includedIngredients.map(
+          (ingredient) => ingredient.name,
+        ),
         ingredientOptions,
       },
     }),

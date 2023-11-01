@@ -1,4 +1,4 @@
-import { Dish, Review } from 'src/types/types'
+import { Dish, Ingredient, Review } from 'src/types/types'
 
 export type useDishReturnType = {
   /**
@@ -138,72 +138,72 @@ export type useSortReturnType = [
 ]
 
 export type useFilterReturnType = {
-  /** All the included filters */
-  includedFilters: string[]
+  /** All the included ingredients */
+  includedIngredients: Ingredient[]
   /** All the excluded filters */
-  excludedFilters: string[]
-  /** Called when user wishes to include a filter
-   * @param {string} option - The filter to include
+  excludedIngredients: Ingredient[]
+  /** Called when user wishes to include a Ingredient
+   * @param {Ingredient} option - The Ingredient to include
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { includeFilter } = useFilter();
+   * const { includeIngredient } = useFilter();
    * return (
    * <div>
-   *  <button onClick={() => includeFilter('Vegan')}>Add Vegan</button>
+   *  <button onClick={() => includeIngredient('Vegan')}>Add Vegan</button>
    * </div>
    * )
    * }
    *
    */
-  includeFilter: (option: string) => void
+  includeIngredient: (option: Ingredient) => void
   /**
-   * Removes an included filter
-   * @param {string} option - The included filter to remove
+   * Removes an included Ingredient
+   * @param {Ingredient} option - The included Ingredient to remove
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { removeIncludedFilter } = useFilter();
+   * const { removeIncludedIngredient } = useFilter();
    * return (
    * <div>
-   * <button onClick={() => removeIncludedFilter('Vegan')}>Remove Vegan</button>
+   * <button onClick={() => removeIncludedIngredient('Vegan')}>Remove Vegan</button>
    * </div>
    * )
    * }
    */
-  removeIncludedFilter: (option: string) => void
+  removeIncludedIngredient: (option: Ingredient) => void
   /**
-   * Adds an excluded filter
-   * @param {string} option - The filter to exclude
+   * Adds an excluded Ingredient
+   * @param {Ingredient} option - The Ingredient to exclude
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { excludeFilter } = useFilter();
+   * const { excludeIngredient } = useFilter();
    * return (
    * <div>
-   * <button onClick={() => excludeFilter('Vegan')}>Add Vegan</button>
+   * <button onClick={() => excludeIngredient('Vegan')}>Add Vegan</button>
    * </div>
    * )
    * }
    */
-  excludeFilter: (option: string) => void
+  excludeIngredient: (option: Ingredient) => void
   /**
-   * Removes an excluded filter
-   * @param {string} option - The excluded filter to remove
+   * Removes an excluded Ingredient
+   * @param {Ingredient} option - The excluded Ingredient to remove
    * @returns {void}
    * @example
    * const MyComponent = () => {
-   * const { removeExcludedFilter } = useFilter();
+   * const { removeExcludedIngredient } = useFilter();
    * return (
    * <div>
-   * <button onClick={() => removeExcludedFilter('Vegan')}>Remove Vegan</button>
+   * <button onClick={() => removeExcludedIngredient('Vegan')}>Remove Vegan</button>
    * </div>
    * )
    * }
    */
-  removeExcludedFilter: (option: string) => void
+  removeExcludedIngredient: (option: Ingredient) => void
   /**
-   * Resets all filters
+   * Resets all Ingredients
    * @returns {void}
    */
   resetFilters: () => void
@@ -344,4 +344,24 @@ export type useSuggestionsReturnType = {
    * Whether the user is typing or not
    */
   typing: boolean
+}
+
+// Generate this based on the hook below that uses the returntype
+export type useAutoCompleteReturnType = {
+  /**
+   * If the data is loading
+   */
+  isLoading: boolean
+  /**
+   * The included ingredients
+   */
+  parsedIncludedIngredients: {
+    [key: string]: number
+  }
+  /**
+   * The excluded ingredients
+   */
+  parsedExcludedIngredients: {
+    [key: string]: number
+  }
 }
