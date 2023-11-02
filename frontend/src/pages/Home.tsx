@@ -4,7 +4,7 @@ import Search from 'src/components/home/Search'
 import SearchSettingsSquare from 'src/components/home/SearchSettingsSquare'
 import SelectedFilters from 'src/components/home/SelectedFilters'
 import SortBy from 'src/components/home/SortBy'
-import { useAppDispatch } from 'src/hooks/useAppRedux'
+import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
 import menu from 'src/assets/menu.svg'
 import { openNavbar } from 'src/redux/modalsReducer'
@@ -45,6 +45,8 @@ export default function Home() {
     [page, pages],
   )
 
+  const keyWord = useAppSelector((state) => state.confinements.keyWord)
+
   const dispatch = useAppDispatch()
 
   return (
@@ -72,6 +74,7 @@ export default function Home() {
           <SearchSettingsSquare />
         </div>
         <SelectedFilters />
+        {keyWord !== '' && <p>Showing results for: "{keyWord}"</p>}
         <div className='flex flex-col justify-between md:flex-row'>
           <SortBy />
           <div className=' flex flex-row items-center gap-4'>
