@@ -13,6 +13,10 @@ export type useDishReturnType = {
    * If there is an error
    */
   error: unknown
+  /**
+   * Refetch the data
+   */
+  refetch: () => void
 }
 
 export type usePostReviewReturnType = {
