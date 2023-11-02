@@ -56,7 +56,7 @@ export default function DishPage() {
           onClick={() => {
             navigate(-1)
           }}
-          className=' flex cursor-pointer flex-row items-center gap-2 bg-primary p-2 dark:bg-secondarydark'
+          className=' flex cursor-pointer flex-row items-center gap-2 bg-transparent p-2 dark:bg-secondarydark'
         >
           <BackIcon />
           Back
