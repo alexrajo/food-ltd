@@ -1,8 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Ingredient } from 'src/types/types'
 
+export type SortingPreference = 'A-Z' | 'Rating' | 'Popular'
+
 export interface Confinement {
-  sortingPreference: 'A-Z' | 'Rating' | 'Popular'
+  sortingPreference: SortingPreference
   includedIngredients: Ingredient[]
   excludedIngredients: Ingredient[]
   keyWord: string
@@ -22,7 +24,7 @@ export const confinementReducer = createSlice({
     setSearchInput: (state, action: PayloadAction<string>) => {
       state.keyWord = action.payload
     },
-    setSortingPreference: (state, action: PayloadAction<string>) => {
+    setSortingPreference: (state, action: PayloadAction<SortingPreference>) => {
       state.sortingPreference = action.payload
     },
     includeFilter: (state, action: PayloadAction<Ingredient>) => {

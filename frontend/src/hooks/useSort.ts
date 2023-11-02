@@ -1,4 +1,7 @@
-import { setSortingPreference } from 'src/redux/confinementReducer'
+import {
+  SortingPreference,
+  setSortingPreference,
+} from 'src/redux/confinementReducer'
 import { useAppDispatch, useAppSelector } from './useAppRedux'
 import { useSortReturnType } from './HookTypes'
 
@@ -29,7 +32,7 @@ function useSort(): useSortReturnType {
    * @param {string} option - The sorting preference
    * @returns {void}
    */
-  const onClickSortingPreference = (option: string): void => {
+  const onClickSortingPreference = (option: SortingPreference): void => {
     /** Update the value in redux */
     dispatch(setSortingPreference(option))
   }

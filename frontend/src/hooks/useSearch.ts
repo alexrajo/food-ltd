@@ -1,4 +1,3 @@
-import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
@@ -37,7 +36,7 @@ function useSearch(): useSearchReturnType {
   const dispatch = useAppDispatch()
 
   /** Fetch the data from the api */
-  const { isLoading, error, data, refetch } = useQuery({
+  const { isLoading, error, data } = useQuery({
     queryKey: [
       'searchResults',
       keyWord,
