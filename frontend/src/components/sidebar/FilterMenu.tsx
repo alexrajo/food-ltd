@@ -6,6 +6,7 @@ import AutocompleteIngredients from 'src/components/sidebar/AutocompleteIngredie
 import IngredientsList from 'src/components/sidebar/IngredientsList'
 import useAutocomplete from 'src/hooks/useAutocomplete'
 import useFilter from 'src/hooks/useFilter'
+import XIcon from '../icons/XIcon'
 
 /**
  * For holding the different filters on the right side
@@ -28,14 +29,15 @@ export default function FilterMenu() {
       className={`absolute right-0 z-50 flex h-3/5 overflow-y-scroll md:h-full ${menuClass} w-full flex-col gap-6 bg-white px-10 py-20 shadow-xl transition-all dark:bg-secondarydark md:w-96`}
     >
       <div className='flex gap-2'>
-        <img
-          className='h-10 cursor-pointer'
-          src={x}
+        <XIcon
           onClick={() => {
             if (open) {
               dispatch(closeFilterMenu())
             }
           }}
+          className='hover:cursor-pointer'
+          height={36}
+          width={36}
         />
       </div>
       <div className='flex flex-col gap-2'>

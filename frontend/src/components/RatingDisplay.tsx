@@ -4,6 +4,8 @@ import outlineStar from 'src/assets/outline-star.svg'
 
 type RatingDisplayProps = {
   rating?: number | null
+  textStyle?: string
+  reviewCount?: number
 }
 
 /**
@@ -12,7 +14,7 @@ type RatingDisplayProps = {
  * @returns The component that displays the rating
  */
 export default function RatingDisplay(props: RatingDisplayProps) {
-  const { rating: inputRating } = props
+  const { rating: inputRating, textStyle } = props
   const rating =
     inputRating === undefined ||
     inputRating === null ||
@@ -21,7 +23,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
       : Math.max(1, Math.min(5, Math.floor(inputRating * 10 + 0.5) / 10))
 
   return (
-    <div className='flex flex-row items-center gap-3'>
+    <div className='flex flex-wrap items-center gap-3'>
       <div className='flex flex-row items-center gap-1'>
         {Array.from(Array(5).keys()).map((number, index) => {
           const isGrayed = Math.ceil(rating - 0.3) < index + 1
@@ -39,7 +41,11 @@ export default function RatingDisplay(props: RatingDisplayProps) {
           )
         })}
       </div>
-      <p className='font-semibold'>{rating > 0 ? rating : 'No rating'}</p>
+      <p className={`font-semibold ${textStyle}`}>
+        {`${rating > 0 ? rating : 'No rating'}${
+          props.reviewCount !== undefined ? ` (${props.reviewCount})` : ''
+        }`}
+      </p>
     </div>
   )
 }

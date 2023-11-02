@@ -5,6 +5,7 @@ import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import x from 'src/assets/x.svg'
+import XIcon from '../icons/XIcon'
 
 /**
  * The large search bar on the main page.
@@ -46,11 +47,11 @@ export default function Search(props: ComponentProps) {
   }
 
   return (
-    <div className=' relative flex w-full flex-col items-center'>
+    <div className=' relative flex flex-grow flex-col items-center'>
       <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
           type='text'
-          className='flex-grow rounded-full bg-white px-4 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
+          className='w-full rounded-full bg-white px-2 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
           // onFocus={() => {
           //   setShowSuggestions(true);
@@ -67,9 +68,7 @@ export default function Search(props: ComponentProps) {
           onKeyDown={handleKeyDown}
         />
         {searchInput.length > 0 && (
-          <img
-            src={x}
-            alt='x'
+          <XIcon
             className='h-6 w-6 hover:cursor-pointer'
             onMouseDown={() => {
               onChangeSearchInput({
@@ -81,7 +80,7 @@ export default function Search(props: ComponentProps) {
         )}
       </div>
       {showSuggestions && (
-        <div className='absolute top-14 z-50 flex w-full bg-white drop-shadow-md dark:bg-secondarydark'>
+        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark'>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <div

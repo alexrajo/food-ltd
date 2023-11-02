@@ -1,7 +1,5 @@
-import stockFood from 'src/assets/mockFoodImage.jpg'
 import { Link } from 'react-router-dom'
 import type { Dish } from 'src/types/types'
-import pin from 'src/assets/thumbtack.png'
 import { memo } from 'react'
 import RatingDisplay from 'src/components/RatingDisplay'
 
@@ -15,7 +13,7 @@ type FoodDisplayProps = {
  */
 function FoodDisplay(props: FoodDisplayProps) {
   const { dish } = props
-  const { title, dishId: id, imageName, averageRating } = dish
+  const { title, dishId: id, imageName, averageRating, reviewCount } = dish
 
   return (
     <Link to={`/dish/${id}`} className=' basis-1/2 p-2 lg:basis-1/3'>
@@ -31,6 +29,8 @@ function FoodDisplay(props: FoodDisplayProps) {
           <RatingDisplay
             rating={averageRating}
             // rating={undefined}
+            textStyle='hidden sm:block text-xs md:text-sm xl:text-md'
+            reviewCount={reviewCount}
           />
         </div>
       </div>

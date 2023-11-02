@@ -15,6 +15,7 @@ import HistoryIcon from 'src/components/icons/HistoryIcon'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import x from 'src/assets/x.svg'
 import { closeNavbar } from 'src/redux/modalsReducer'
+import XIcon from './icons/XIcon'
 
 /**
  * Allows for navigation between pages in the application.
@@ -39,39 +40,41 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        ` h-full ${menuClass} z-50 w-72 flex-col items-center justify-center gap-6 bg-white drop-shadow-xl dark:bg-secondarydark`,
+        ` h-full ${menuClass} z-50 w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark`,
         className,
       )}
     >
-      <div className='flex gap-2 md:hidden'>
-        <img
-          className='z-50  h-10 cursor-pointer'
-          src={x}
+      <div className='flex flex-1 flex-col justify-center gap-6'>
+        <div className=' flex flex-col items-center'>
+          <p className=' font'>Food Ltd.</p>
+          <Link
+            to='/'
+            onClick={() => {
+              playLottie()
+            }}
+          >
+            <Lottie
+              loop={false}
+              key={key}
+              className='h-48 w-48'
+              animationData={animation}
+            />
+          </Link>
+        </div>
+        <NavElement icon={<HomeIcon />} text='Home' link='/' />
+        {/* <NavElement icon={<FavoritesIcon />} text='Favorites' link='/favorites' />
+      <NavElement icon={<HistoryIcon />} text='History' link='/history' /> */}
+        <NavElement icon={<SettingsIcon />} text='Settings' link='/settings' />
+      </div>
+      <div className='flex gap-2 py-10 md:hidden'>
+        <XIcon
           onClick={() => {
             dispatch(closeNavbar())
           }}
+          width={36}
+          height={36}
         />
       </div>
-      <div className=' absolute top-0 flex flex-col items-center p-20'>
-        <p className=' font'>Food Ltd.</p>
-        <Link
-          to='/'
-          onClick={() => {
-            playLottie()
-          }}
-        >
-          <Lottie
-            loop={false}
-            key={key}
-            className='h-48 w-48'
-            animationData={animation}
-          />
-        </Link>
-      </div>
-      <NavElement icon={<HomeIcon />} text='Home' link='/' />
-      {/* <NavElement icon={<FavoritesIcon />} text='Favorites' link='/favorites' />
-      <NavElement icon={<HistoryIcon />} text='History' link='/history' /> */}
-      <NavElement icon={<SettingsIcon />} text='Settings' link='/settings' />
     </div>
   )
 }

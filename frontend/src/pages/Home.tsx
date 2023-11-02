@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import Sidebar from 'src/components/Sidebar'
 import FoodGallery from 'src/components/home/FoodGallery'
 import Search from 'src/components/home/Search'
 import SearchSettingsSquare from 'src/components/home/SearchSettingsSquare'
@@ -9,6 +8,7 @@ import { useAppDispatch } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
 import menu from 'src/assets/menu.svg'
 import { openNavbar } from 'src/redux/modalsReducer'
+import MenuIcon from 'src/components/icons/MenuIcon'
 
 /**
  * Holds all the components that show up on the main page.
@@ -58,10 +58,7 @@ export default function Home() {
             type='button'
             className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark lg:hidden '
           >
-            <img
-              src={menu}
-              alt='menu'
-              className='flex h-6 w-6 hover:cursor-pointer '
+            <MenuIcon
               onMouseDown={() => {
                 dispatch(openNavbar())
               }}
@@ -96,7 +93,7 @@ export default function Home() {
                 if (e.key !== 'Enter') return
                 paginateTo(parseInt((e.target as HTMLInputElement).value))
               }}
-              className=' h-10 w-10 rounded-md text-center text-black outline-none'
+              className=' h-10 w-10 rounded-md border text-center text-black outline-none dark:border-0'
               value={pageInput}
             />
             <p>of</p>
@@ -108,7 +105,7 @@ export default function Home() {
         </div>
         <FoodGallery dishes={dishes} isLoading={isLoading} />
 
-        <div className=' flex w-full flex-row items-center gap-4'>
+        <div className=' hidden w-full flex-row items-center gap-4 sm:flex '>
           <p
             onClick={paginateBackwards}
             className={`flex p-2 ${page < 2 ? 'opacity-50' : 'cursor-pointer'}`}
