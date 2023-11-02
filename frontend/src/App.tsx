@@ -5,6 +5,7 @@ import FilterMenu from 'src/components/sidebar/FilterMenu'
 
 export default function App() {
   const colorMode = useAppSelector((state) => state.theme.value)
+  const openFilterMenu = useAppSelector((state) => state.modals.filterMenu)
 
   return (
     <div className={`${colorMode == 'dark' ? 'dark' : ''} w-screen `}>
@@ -15,7 +16,7 @@ export default function App() {
         <div className='flex h-full w-full bg-slate-50 dark:bg-primarydark'>
           <Outlet />
         </div>
-        <FilterMenu />
+        {openFilterMenu && <FilterMenu />}
       </div>
     </div>
   )
