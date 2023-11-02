@@ -6,7 +6,6 @@ import SelectedFilters from 'src/components/home/SelectedFilters'
 import SortBy from 'src/components/home/SortBy'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
-import menu from 'src/assets/menu.svg'
 import { openNavbar } from 'src/redux/modalsReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
 

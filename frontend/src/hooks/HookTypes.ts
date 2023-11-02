@@ -1,3 +1,4 @@
+import { SortingPreference } from 'src/redux/confinementReducer'
 import { Dish, Ingredient, Review } from 'src/types/types'
 
 export type useDishReturnType = {
@@ -123,7 +124,7 @@ export type useSortReturnType = [
    * )
    * }
    */
-  sortingPreference: string,
+  sortingPreference: SortingPreference,
   /**
    * Update the sorting preference
    * @param {string} option
@@ -142,7 +143,7 @@ export type useSortReturnType = [
    * }
    *
    */
-  onChangeSortingPreference: (option: string) => void,
+  onChangeSortingPreference: (option: SortingPreference) => void,
 ]
 
 export type useFilterReturnType = {

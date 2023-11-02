@@ -32,7 +32,6 @@ export default function DishPage() {
   const { data: dishData } = useDish()
   const {
     data: reviewsData,
-    isLoading: reviewsAreLoading,
     hasMore: hasMoreReviews,
     loadMore: loadMoreReviews,
   } = useReviews()

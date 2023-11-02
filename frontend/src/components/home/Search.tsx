@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
-import x from 'src/assets/x.svg'
 import XIcon from '../icons/XIcon'
-import { useAppSelector } from 'src/hooks/useAppRedux'
 
 /**
  * The large search bar on the main page.

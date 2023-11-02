@@ -1,4 +1,3 @@
-import x from 'src/assets/x.svg'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
 import { excludeFilter, includeFilter } from 'src/redux/confinementReducer'

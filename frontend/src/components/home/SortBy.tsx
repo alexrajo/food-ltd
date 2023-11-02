@@ -1,4 +1,5 @@
 import useSort from 'src/hooks/useSort'
+import { SortingPreference } from 'src/redux/confinementReducer'
 import cn from 'src/utils/cn'
 import { SORTING_OPTIONS } from 'src/utils/constants'
 
@@ -13,7 +14,7 @@ export default function SortBy() {
 
   const renderButton = (option: string) => {
     const onClick = () => {
-      setSortingPreference(option)
+      setSortingPreference(option as SortingPreference)
     }
     return (
       <button

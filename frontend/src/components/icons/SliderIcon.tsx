@@ -1,6 +1,3 @@
-import React, { useState } from 'react'
-import cn from 'src/utils/cn'
-
 type ComponentProps = {
   active?: boolean
 }

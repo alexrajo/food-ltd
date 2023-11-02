@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import SettingsIcon from 'src/components/icons/SettingsIcon'
 import SliderIcon from 'src/components/icons/SliderIcon'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { openNavbar } from 'src/redux/modalsReducer'
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { setDark, setLight } from 'src/redux/themeReducer'
-import menu from 'src/assets/menu.svg'
+import MenuIcon from 'src/components/icons/MenuIcon'
 
 export default function Settings() {
   const colorMode = useAppSelector((state) => state.theme.value)
@@ -38,9 +36,7 @@ export default function Settings() {
           type='button'
           className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark lg:hidden '
         >
-          <img
-            src={menu}
-            alt='menu'
+          <MenuIcon
             className='flex h-6 w-6 hover:cursor-pointer '
             onMouseDown={() => {
               dispatch(openNavbar())

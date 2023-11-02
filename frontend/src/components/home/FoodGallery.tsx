@@ -1,4 +1,3 @@
-import useSearch from 'src/hooks/useSearch'
 import FoodDisplaySkeleton from 'src/components/home/FoodDisplaySkeleton'
 import FoodDisplay from 'src/components/home/FoodDisplay'
 import Lottie from 'lottie-react'

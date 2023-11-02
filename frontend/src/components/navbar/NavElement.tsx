@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { closeFilterMenu, closeNavbar } from 'src/redux/modalsReducer'
 
