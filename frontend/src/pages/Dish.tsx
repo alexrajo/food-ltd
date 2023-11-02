@@ -50,13 +50,13 @@ export default function DishPage() {
     return <></>
   }
   return (
-    <div className='h-full w-full overflow-y-scroll p-20'>
+    <div className='h-full w-full overflow-y-scroll p-4 md:p-20'>
       <div className=' flex flex-col gap-2'>
         <div
           onClick={() => {
             navigate(-1)
           }}
-          className=' flex cursor-pointer flex-row items-center gap-2 bg-primary p-2 dark:bg-secondarydark'
+          className=' flex cursor-pointer flex-row items-center gap-2 bg-transparent p-2 dark:bg-secondarydark'
         >
           <BackIcon />
           Back

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
 import { useAppSelector } from './useAppRedux'
 import { useSuggestionsReturnType } from './HookTypes'
+import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
 
 /**
  * Hooks which allows to search for dishes
@@ -54,7 +55,7 @@ function useSuggestions(): useSuggestionsReturnType {
     const timeout = setTimeout(() => {
       setKeyWord(searchInput)
       setTyping(false)
-    }, 100)
+    }, SEARCH_TIMEOUT_MS)
     return () => clearTimeout(timeout)
   }, [searchInput])
 

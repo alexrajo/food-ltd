@@ -32,6 +32,6 @@ CREATE VIEW dishes_with_review_aggregate AS (
 
 -- Read the data from the CSV file into the dishes table
 COPY dishes (dish_id, title, ingredients, instructions, image_name, cleaned_ingredients)
-FROM '/Users/alexrj/Documents/ProgrammingProjects/Web/prosjekt-2-webutvikling/backend/database/dishes.csv'
+FROM 'C:\Users\AlexR\OneDrive\Dokumenter\Skole\2023H\Webutvikling\project-2\backend\database\dishes.csv'
 DELIMITER ','
 CSV HEADER;

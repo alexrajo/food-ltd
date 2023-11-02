@@ -21,8 +21,7 @@ import { useSearchReturnType } from './HookTypes'
  * </div>
  */
 function useSearch(): useSearchReturnType {
-  /** Raw user input form html element */
-  const searchInput = useAppSelector((state) => state.confinements.keyWord)
+  const [searchInput, setSearchInput] = useState<string>('')
   /** Page number to allow pagination */
   const [page, setPage] = useState<number>(1)
 
@@ -78,7 +77,6 @@ function useSearch(): useSearchReturnType {
    */
   const onSearch = () => {
     dispatch(setKeyWord(searchInput))
-    refetch()
   }
 
   const onChangeSearchInput = (
@@ -87,7 +85,7 @@ function useSearch(): useSearchReturnType {
     /** Destruct */
     const { value } = event.target
     /** Update the state */
-    dispatch(setKeyWord(value))
+    setSearchInput(value)
   }
 
   /**

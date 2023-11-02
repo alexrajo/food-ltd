@@ -1,10 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
-import {
-  closeFilterMenu,
-  openFilterMenu,
-  setClosed,
-  setOpen,
-} from 'src/redux/modalsReducer'
+import { closeFilterMenu, openFilterMenu } from 'src/redux/modalsReducer'
 
 /**
  * This is the little box next to the Search bar. Found in the dribble reference.
@@ -30,13 +25,13 @@ export default function SearchSettingsSquare() {
     >
       {/* The rest of this is not relevant, only for styling */}
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 bg-white transition-all duration-300 group-hover:left-4 dark:bg-secondarydark'></div>
+        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark'></div>
       </div>
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-4 h-2 w-2 rounded-full border-2 bg-white transition-all duration-300 group-hover:left-1 dark:bg-secondarydark'></div>
+        <div className='absolute -top-1 left-4 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-1 dark:border-white dark:bg-secondarydark'></div>
       </div>
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 bg-white transition-all duration-300 group-hover:left-4 dark:bg-secondarydark'></div>
+        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark'></div>
       </div>
     </button>
   )

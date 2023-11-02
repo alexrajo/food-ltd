@@ -12,7 +12,7 @@ export default function App() {
         className={`relative flex h-screen flex-row text-black dark:text-white`}
       >
         <Navbar />
-        <div className='flex h-full w-full bg-white dark:bg-primarydark'>
+        <div className='flex h-full w-full bg-slate-50 dark:bg-primarydark'>
           <Outlet />
         </div>
         <FilterMenu />

@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
-import Sidebar from 'src/components/Sidebar'
 import FoodGallery from 'src/components/home/FoodGallery'
 import Search from 'src/components/home/Search'
 import SearchSettingsSquare from 'src/components/home/SearchSettingsSquare'
 import SelectedFilters from 'src/components/home/SelectedFilters'
 import SortBy from 'src/components/home/SortBy'
+import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
+import menu from 'src/assets/menu.svg'
+import { openNavbar } from 'src/redux/modalsReducer'
+import MenuIcon from 'src/components/icons/MenuIcon'
 
 /**
  * Holds all the components that show up on the main page.
@@ -42,10 +45,27 @@ export default function Home() {
     [page, pages],
   )
 
+  const keyWord = useAppSelector((state) => state.confinements.keyWord)
+
+  const dispatch = useAppDispatch()
+
   return (
     <div className='flex w-full'>
-      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
+      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-2 sm:p-20'>
         <div className='flex w-full gap-4'>
+          <button
+            onMouseDown={() => {
+              dispatch(openNavbar())
+            }}
+            type='button'
+            className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark lg:hidden '
+          >
+            <MenuIcon
+              onMouseDown={() => {
+                dispatch(openNavbar())
+              }}
+            />
+          </button>
           <Search
             onSearch={onSearch}
             onChangeSearchInput={onChangeSearchInput}
@@ -54,7 +74,8 @@ export default function Home() {
           <SearchSettingsSquare />
         </div>
         <SelectedFilters />
-        <div className='flex flex-row justify-between'>
+        {keyWord !== '' && <p>Showing results for: "{keyWord}"</p>}
+        <div className='flex flex-col justify-between md:flex-row'>
           <SortBy />
           <div className=' flex flex-row items-center gap-4'>
             <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
@@ -75,7 +96,7 @@ export default function Home() {
                 if (e.key !== 'Enter') return
                 paginateTo(parseInt((e.target as HTMLInputElement).value))
               }}
-              className=' h-10 w-10 rounded-md text-center text-black outline-none'
+              className=' h-10 w-10 rounded-md border text-center text-black outline-none dark:border-0'
               value={pageInput}
             />
             <p>of</p>
@@ -87,7 +108,7 @@ export default function Home() {
         </div>
         <FoodGallery dishes={dishes} isLoading={isLoading} />
 
-        <div className=' flex w-full flex-row items-center gap-4'>
+        <div className=' hidden w-full flex-row items-center gap-4 sm:flex '>
           <p
             onClick={paginateBackwards}
             className={`flex p-2 ${page < 2 ? 'opacity-50' : 'cursor-pointer'}`}
