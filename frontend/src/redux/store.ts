@@ -30,7 +30,7 @@ const rootConfig = {
 }
 
 const confinementConfig = {
-  key: 'favorites',
+  key: 'confinements',
   storage: sessionStorage,
 }
 

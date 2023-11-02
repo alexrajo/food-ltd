@@ -20,7 +20,7 @@ export const EXCLUDE_FILTER_OPTIONS = [
   'Sugar',
   'Red Pepper',
 ]
-export const SEARCH_TIMEOUT_MS = 200
+export const SEARCH_TIMEOUT_MS = 500
 
 export const colors = {
   'primary-text': '#000000',
