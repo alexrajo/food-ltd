@@ -100,6 +100,10 @@ export type useReviewsReturnType = {
    *
    */
   loadMore: () => void
+  /**
+   * If there are more reviews to load
+   */
+  hasMore: boolean
 }
 
 export type useSortReturnType = [
