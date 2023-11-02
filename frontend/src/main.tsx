@@ -13,42 +13,47 @@ import Favorites from 'src/pages/Favorites'
 import Settings from 'src/pages/Settings'
 import WriteReview from 'src/pages/WriteReview'
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      children: [
+        {
+          path: '/',
+          element: <Home />,
+        },
+        {
+          path: '/dish/:id',
+          element: <DishPage />,
+        },
+        {
+          path: '/dish/:id/write-review',
+          element: <WriteReview />,
+        },
+        {
+          path: '*',
+          element: <>404</>,
+        },
+        {
+          path: '/favorites',
+          element: <Favorites />,
+        },
+        {
+          path: '/search',
+          element: <>Settings</>,
+        },
+        {
+          path: '/settings',
+          element: <Settings />,
+        },
+      ],
+    },
+  ],
   {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/dish/:id',
-        element: <DishPage />,
-      },
-      {
-        path: '/dish/:id/write-review',
-        element: <WriteReview />,
-      },
-      {
-        path: '*',
-        element: <>404</>,
-      },
-      {
-        path: '/favorites',
-        element: <Favorites />,
-      },
-      {
-        path: '/search',
-        element: <>Settings</>,
-      },
-      {
-        path: '/settings',
-        element: <Settings />,
-      },
-    ],
+    basename: import.meta.env.BASE_URL,
   },
-])
+)
 
 const queryClient = new QueryClient()
 
