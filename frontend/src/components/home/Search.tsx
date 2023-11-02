@@ -100,7 +100,7 @@ export default function Search(props: ComponentProps) {
                 <div className='flex flex-row items-center justify-between p-2'>
                   <p className=' '>No suggestions</p>
                   <p
-                    onClick={() => {
+                    onMouseDown={() => {
                       clearSearchHistory()
                     }}
                     className='cursor-pointer underline'
