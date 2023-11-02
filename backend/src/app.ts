@@ -5,7 +5,10 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLScalarType, Kind, buildSchema } from 'graphql';
 import logger from './middleware/logger';
-import { getDishesSearchQuery, getIngredientConstraints } from './utils/dbSearch';
+import {
+  getDishesSearchQuery,
+  getIngredientConstraints,
+} from './utils/dbSearch';
 
 const prisma = new PrismaClient();
 
@@ -108,7 +111,7 @@ const SORTING_OPTIONS = {
     reviewCount: 'desc',
   },
   rating: {
-    averageRating: 'desc',
+    averageRating: { sort: 'desc', nulls: 'last' },
   },
 };
 
@@ -124,7 +127,7 @@ const root = {
       skip: Math.max(0, page - 1) * pageSize,
       take: pageSize,
     });
-    return reviews;
+    return { data: reviews };
   },
 
   dish: async ({ id }: DishRequestParams) => {
@@ -155,14 +158,19 @@ const root = {
     pageSize = pageSize !== undefined ? pageSize : 12;
     page = page !== undefined ? page : 1;
 
-    const sortingOptions: Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput | undefined =
+    const sortingOptions:
+      | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
+      | undefined =
       sortingPreference !== undefined
         ? (SORTING_OPTIONS[
             sortingPreference
           ] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
         : undefined;
 
-    const ingredientConstraints = getIngredientConstraints(includedIngredients, excludedIngredients);
+    const ingredientConstraints = getIngredientConstraints(
+      includedIngredients,
+      excludedIngredients
+    );
 
     if (query === '') {
       const data = await prisma.dishWithReviewAggregate.findMany({
@@ -227,19 +235,28 @@ const root = {
     let includedIngredientCounts: { [key: string]: number } = {};
     let excludedIngredientCounts: { [key: string]: number } = {};
 
-    const ingredientConstraints = getIngredientConstraints(includedIngredients, excludedIngredients);
+    const ingredientConstraints = getIngredientConstraints(
+      includedIngredients,
+      excludedIngredients
+    );
 
     // Loop through all optional ingredients and count the resulting dishes when they are included or excluded
     if (query === '') {
       for (const [_, ingredient] of ingredientOptions.entries()) {
         const includedCount = await prisma.dish.count({
           where: {
-            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
+            AND: [
+              ...ingredientConstraints,
+              { ingredients: { contains: `%${ingredient}%` } },
+            ],
           },
         });
         const excludedCount = await prisma.dish.count({
           where: {
-            AND: [...ingredientConstraints, { ingredients: { not: { contains: `%${ingredient}%` } } }],
+            AND: [
+              ...ingredientConstraints,
+              { ingredients: { not: { contains: `%${ingredient}%` } } },
+            ],
           },
         });
         includedIngredientCounts[ingredient] = includedCount;
@@ -252,7 +269,10 @@ const root = {
             title: {
               search: getDishesSearchQuery(query),
             },
-            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
+            AND: [
+              ...ingredientConstraints,
+              { ingredients: { contains: `%${ingredient}%` } },
+            ],
           },
         });
         const excludedCount = await prisma.dish.count({
@@ -260,7 +280,10 @@ const root = {
             title: {
               search: getDishesSearchQuery(query),
             },
-            AND: [...ingredientConstraints, { ingredients: { not: { contains: `%${ingredient}%` } } }],
+            AND: [
+              ...ingredientConstraints,
+              { ingredients: { not: { contains: `%${ingredient}%` } } },
+            ],
           },
         });
 
@@ -278,7 +301,12 @@ const root = {
     };
   },
 
-  postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
+  postReview: async ({
+    dishId,
+    title,
+    rating,
+    comment,
+  }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
@@ -304,6 +332,14 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
+    // extensions: (info) =>
+    //   new Promise((resolve, reject) => {
+    //     const { variables, result } = info;
+    //     console.log('variables', variables);
+    //     console.log('result', result);
+
+    //     resolve({});
+    //   }),
     rootValue: root,
     graphiql: process.env.NODE_ENV === 'development',
   })

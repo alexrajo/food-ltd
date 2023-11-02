@@ -118,6 +118,7 @@ export const fetchReviews = async (
                         title
                         rating
                         comment
+                        postedAt
                       }
                     }
                 }

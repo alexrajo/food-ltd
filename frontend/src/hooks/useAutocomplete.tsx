@@ -62,6 +62,7 @@ export default function useAutocomplete(): useAutoCompleteReturnType {
           .filter((i) => !excludedIngredients.map((i) => i.name).includes(i))
           .filter((i) => !includedIngredients.map((i) => i.name).includes(i)),
       ),
+    staleTime: 10000,
   })
 
   /** The included and excluded ingredients as a map */

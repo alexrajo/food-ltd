@@ -5,7 +5,7 @@ import RatingDisplay from 'src/components/RatingDisplay'
 import ReviewDisplay from 'src/components/dish/ReviewDisplay'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import cn from 'src/utils/cn'
 import BackIcon from 'src/components/icons/BackIcon'
 
@@ -37,14 +37,14 @@ export default function DishPage() {
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()
 
-  const navigate = useNavigate()
-
-  const { dishId, title, ingredients, instructions, imageName } = dish || {}
-
-  const rating =
-    reviewsAreLoading || !reviews
-      ? undefined
-      : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  const {
+    dishId,
+    title,
+    ingredients,
+    instructions,
+    imageName,
+    averageRating: rating,
+  } = dish || {}
 
   if (!dish) {
     return <></>
@@ -52,15 +52,13 @@ export default function DishPage() {
   return (
     <div className='h-full w-full overflow-y-scroll p-4 md:p-20'>
       <div className=' flex flex-col gap-2'>
-        <div
-          onClick={() => {
-            navigate(-1)
-          }}
+        <Link
+          to={'/'}
           className=' flex cursor-pointer flex-row items-center gap-2 bg-transparent p-2 dark:bg-secondarydark'
         >
           <BackIcon />
           Back
-        </div>
+        </Link>
 
         <div className='flex flex-col gap-2 md:flex-row'>
           <div className='flex w-full basis-2/3 flex-col gap-10 bg-white p-4 drop-shadow-md dark:bg-secondarydark'>

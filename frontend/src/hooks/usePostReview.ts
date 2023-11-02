@@ -19,7 +19,7 @@ type HookProps = {
  *    <button onClick={() => writeReview()}>Submit Review</button>
  * </div>
  */
-function useReview(props: HookProps): usePostReviewReturnType {
+function usePostReview(props: HookProps): usePostReviewReturnType {
   const { dishId } = props
   /** User inputs */
   const userTitle = useRef<string>('')
@@ -83,4 +83,4 @@ function useReview(props: HookProps): usePostReviewReturnType {
   }
 }
 
-export default useReview
+export default usePostReview
