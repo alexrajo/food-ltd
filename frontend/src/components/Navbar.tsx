@@ -34,8 +34,8 @@ export default function Navbar({ className }: { className?: string }) {
 
   // navbar is a sidebar on the left of the screen
   const menuClass = open
-    ? 'flex absolute  lg:flex lg:relative'
-    : 'hidden absolute lg:flex lg:relative'
+    ? 'flex fixed  lg:flex lg:relative'
+    : 'hidden fixed lg:flex lg:relative'
 
   return (
     <div
@@ -66,7 +66,7 @@ export default function Navbar({ className }: { className?: string }) {
       <NavElement icon={<HistoryIcon />} text='History' link='/history' /> */}
         <NavElement icon={<SettingsIcon />} text='Settings' link='/settings' />
       </div>
-      <div className='flex gap-2 py-10 md:hidden'>
+      <div className='flex gap-2 pb-20 md:hidden'>
         <XIcon
           onClick={() => {
             dispatch(closeNavbar())

@@ -26,7 +26,7 @@ export default function FilterMenu() {
 
   return (
     <div
-      className={`absolute right-0 z-50 flex h-3/5 overflow-y-scroll md:h-full ${menuClass} w-full flex-col gap-6 bg-white px-10 py-20 shadow-xl transition-all dark:bg-secondarydark md:w-96`}
+      className={`fixed right-0 z-50 flex h-3/5 overflow-y-scroll md:h-full ${menuClass} w-full flex-col gap-6 bg-white px-10 py-20 shadow-xl transition-all dark:bg-secondarydark md:w-96`}
     >
       <div className='flex gap-2'>
         <XIcon

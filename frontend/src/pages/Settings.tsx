@@ -30,7 +30,7 @@ export default function Settings() {
 
   return (
     <div className='flex w-full'>
-      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
+      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-4 md:p-20'>
         <button
           onMouseDown={() => {
             dispatch(openNavbar())
