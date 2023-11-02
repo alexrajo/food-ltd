@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, useNavigate, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
+import useDish from 'src/hooks/useDish'
 import { postReview } from 'src/utils/api-calls'
 
 function RatingInput(props: FieldProps<any>) {
@@ -23,6 +24,8 @@ export default function WriteReview() {
   const navigate = useNavigate()
   const { id } = useParams()
   const dishId = id !== undefined ? parseInt(id) : undefined
+
+  const { refetch: refetchDish } = useDish()
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center overflow-y-scroll bg-primary dark:bg-primarydark'>
@@ -48,15 +51,14 @@ export default function WriteReview() {
             return errors
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log('Submit')
             if (dishId !== undefined && values.rating !== undefined) {
-              const response = await postReview(
+              await postReview(
                 dishId,
                 values.title,
                 values.rating,
                 values.comment,
               )
-              console.log(response)
+              refetchDish()
               navigate(`/dish/${dishId}`)
             } else {
               console.warn('dishId and rating are required')

@@ -13,6 +13,10 @@ export type useDishReturnType = {
    * If there is an error
    */
   error: unknown
+  /**
+   * Refetch the data
+   */
+  refetch: () => void
 }
 
 export type usePostReviewReturnType = {
@@ -100,6 +104,10 @@ export type useReviewsReturnType = {
    *
    */
   loadMore: () => void
+  /**
+   * If there are more reviews to load
+   */
+  hasMore: boolean
 }
 
 export type useSortReturnType = [

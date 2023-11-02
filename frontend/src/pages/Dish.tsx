@@ -8,6 +8,7 @@ import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { Link } from 'react-router-dom'
 import cn from 'src/utils/cn'
 import BackIcon from 'src/components/icons/BackIcon'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
@@ -29,7 +30,12 @@ const fahrenheitTextToCelsius = (text: string) => {
 
 export default function DishPage() {
   const { data: dishData } = useDish()
-  const { data: reviewsData, isLoading: reviewsAreLoading } = useReviews()
+  const {
+    data: reviewsData,
+    isLoading: reviewsAreLoading,
+    hasMore: hasMoreReviews,
+    loadMore: loadMoreReviews,
+  } = useReviews()
 
   const { data: dish } = dishData || {}
   const { data: reviews } = reviewsData || {}
@@ -50,7 +56,7 @@ export default function DishPage() {
     return <></>
   }
   return (
-    <div className='h-full w-full overflow-y-scroll p-4 md:p-20'>
+    <div className='h-full w-full overflow-y-scroll p-4 md:p-20' id='dish-page'>
       <div className=' flex flex-col gap-2'>
         <Link
           to={'/'}
@@ -156,9 +162,21 @@ export default function DishPage() {
           <div className='border-b pb-5'>
             <p className='text-center text-xl'>Reviews</p>
           </div>
-          {reviews?.map((review: Review) => (
-            <ReviewDisplay key={review.reviewId} review={review} />
-          ))}
+          {reviews !== undefined && (
+            <InfiniteScroll
+              dataLength={reviews.length}
+              hasMore={hasMoreReviews}
+              next={loadMoreReviews}
+              loader={<p>Loading more...</p>}
+              endMessage={<p>No more reviews to load</p>}
+              scrollableTarget='dish-page'
+              className='flex flex-col gap-5'
+            >
+              {reviews.map((review: Review) => (
+                <ReviewDisplay key={review.reviewId} review={review} />
+              ))}
+            </InfiniteScroll>
+          )}
           <div className='flex justify-center'></div>
         </div>
       </div>
