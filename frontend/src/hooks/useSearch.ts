@@ -21,7 +21,6 @@ import { useSearchReturnType } from './HookTypes'
  * </div>
  */
 function useSearch(): useSearchReturnType {
-  const [searchInput, setSearchInput] = useState<string>('')
   /** Page number to allow pagination */
   const [page, setPage] = useState<number>(1)
 
@@ -33,6 +32,7 @@ function useSearch(): useSearchReturnType {
     sortingPreference,
   } = useAppSelector((state) => state.confinements)
 
+  const [searchInput, setSearchInput] = useState<string>(keyWord)
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch()
 
@@ -55,6 +55,7 @@ function useSearch(): useSearchReturnType {
         page,
       ),
     keepPreviousData: true,
+    staleTime: 10000,
   })
 
   // useEffect(() => {

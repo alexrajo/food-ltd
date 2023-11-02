@@ -36,6 +36,7 @@ function useReviews(): useReviewsReturnType {
     queryKey: ['reviews', id, page],
     queryFn: () => fetchReviews(page, id),
     keepPreviousData: true,
+    staleTime: 10000,
   })
 
   /** Loads more reviews */

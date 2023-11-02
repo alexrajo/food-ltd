@@ -48,6 +48,7 @@ function useSuggestions(): useSuggestionsReturnType {
         1,
       ),
     keepPreviousData: true,
+    staleTime: 10000,
   })
 
   useEffect(() => {

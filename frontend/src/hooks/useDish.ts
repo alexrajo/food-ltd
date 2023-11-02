@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { fetchDish } from 'src/utils/api-calls'
 import { useDishReturnType } from './HookTypes'
+import { useEffect } from 'react'
 
 /**
  * Fetches data about the dish by the id in the URL
@@ -27,9 +28,10 @@ function useDish(): useDishReturnType {
   const { id } = params
 
   /** Fetches data about the dish by the id in the URL */
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['dish', id],
     queryFn: () => fetchDish(id),
+    staleTime: 10000,
   })
 
   const dishData = data && data.dish

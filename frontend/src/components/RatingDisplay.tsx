@@ -1,7 +1,7 @@
 import star from 'src/assets/star.svg'
 import halfStar from 'src/assets/half-star.svg'
 import outlineStar from 'src/assets/outline-star.svg'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type RatingDisplayProps = {
   rating?: number | null
@@ -32,6 +32,10 @@ export default function RatingDisplay(props: RatingDisplayProps) {
       : Math.max(1, Math.min(5, Math.floor(inputRating! * 10 + 0.5) / 10))
 
   const [rating, setRating] = useState(receivedRating)
+
+  useEffect(() => {
+    setRating(receivedRating)
+  }, [receivedRating])
 
   return (
     <div className='flex flex-wrap items-center gap-3'>

@@ -6,6 +6,7 @@ import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import x from 'src/assets/x.svg'
 import XIcon from '../icons/XIcon'
+import { useAppSelector } from 'src/hooks/useAppRedux'
 
 /**
  * The large search bar on the main page.

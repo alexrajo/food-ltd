@@ -20,6 +20,7 @@ export default {
         tertiarydark: '#616161',
         error: '#B00020',
         errordark: '#D32F2F',
+        success: '#388E3C',
       },
     },
   },

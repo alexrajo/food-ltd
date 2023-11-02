@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, FieldProps, Formik, FormikErrors } from 'formik'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Form, useNavigate, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
 import { postReview } from 'src/utils/api-calls'
@@ -56,7 +57,7 @@ export default function WriteReview() {
                 values.comment,
               )
               console.log(response)
-              navigate(-1)
+              navigate(`/dish/${dishId}`)
             } else {
               console.warn('dishId and rating are required')
             }
@@ -101,15 +102,21 @@ export default function WriteReview() {
                   className='text-error dark:text-errordark'
                 />
               </div>
-              <div className='flex justify-center'>
+              <div className='flex justify-evenly'>
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='w-fit rounded-md border p-3'
+                  className='bg-success w-fit rounded-md border p-3'
                   onClick={submitForm}
                 >
                   Submit
                 </button>
+                <Link
+                  className='w-fit rounded-md border p-3'
+                  to={`/dish/${dishId}`}
+                >
+                  Cancel
+                </Link>
               </div>
             </Form>
           )}
