@@ -12,6 +12,7 @@ import DishPage from './pages/Dish'
 import Favorites from 'src/pages/Favorites'
 import Settings from 'src/pages/Settings'
 import WriteReview from 'src/pages/WriteReview'
+import ErrorPage from './pages/Error'
 
 const router = createBrowserRouter(
   [
@@ -33,7 +34,7 @@ const router = createBrowserRouter(
         },
         {
           path: '*',
-          element: <>404</>,
+          element: <ErrorPage />,
         },
         {
           path: '/favorites',
