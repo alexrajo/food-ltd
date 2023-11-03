@@ -2,6 +2,7 @@ import star from 'src/assets/star.svg'
 import halfStar from 'src/assets/half-star.svg'
 import outlineStar from 'src/assets/outline-star.svg'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import cn from 'src/utils/cn'
 
 type RatingDisplayProps = {
   rating?: number | null
@@ -53,7 +54,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                   (isGrayed && outlineStar) ||
                   star
                 }
-                className={isInput ? 'cursor-pointer' : ''}
+                className={cn(isInput && 'cursor-pointer')}
               />
             )
           }
@@ -66,7 +67,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                 (isGrayed && outlineStar) ||
                 star
               }
-              className={isInput ? 'cursor-pointer' : ''}
+              className={cn(isInput && 'cursor-pointer')}
               onMouseEnter={() => setRating(index + 1)}
               onMouseLeave={() => setRating(receivedRating)}
               onClick={() => setRatingProp && setRatingProp(index + 1)}
@@ -74,7 +75,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
           )
         })}
       </div>
-      <p className={`font-semibold ${textStyle}`}>
+      <p className={cn('font-semibold', textStyle)}>
         {`${rating > 0 ? rating : 'No rating'}${
           props.reviewCount !== undefined ? ` (${props.reviewCount})` : ''
         }`}

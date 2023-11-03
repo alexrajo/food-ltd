@@ -34,7 +34,8 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        ` h-full ${menuClass} z-50 w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark`,
+        'z-50 h-full w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark',
+        menuClass,
         className,
       )}
     >
