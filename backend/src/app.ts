@@ -5,10 +5,7 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLScalarType, Kind, buildSchema } from 'graphql';
 import logger from './middleware/logger';
-import {
-  getDishesSearchQuery,
-  getIngredientConstraints,
-} from './utils/dbSearch';
+import { getDishesSearchQuery, getIngredientConstraints } from './utils/dbSearch';
 
 const prisma = new PrismaClient();
 
@@ -97,11 +94,6 @@ const schema = buildSchema(`
     postReview(dishId: Int!, title: String!, rating: Int!, comment: String!): PostReviewResponse
   }
 `);
-
-const corsOptions = {
-  origin: 'http://localhost:5173',
-  optionsSuccessStatus: 200,
-};
 
 const SORTING_OPTIONS = {
   alphabetical: {
@@ -245,10 +237,7 @@ const root = {
       for (const [_, ingredient] of ingredientOptions.entries()) {
         const includedCount = await prisma.dish.count({
           where: {
-            AND: [
-              ...ingredientConstraints,
-              { ingredients: { contains: `%${ingredient}%` } },
-            ],
+            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
           },
         });
         const excludedCount = await prisma.dish.count({
@@ -269,10 +258,7 @@ const root = {
             title: {
               search: getDishesSearchQuery(query),
             },
-            AND: [
-              ...ingredientConstraints,
-              { ingredients: { contains: `%${ingredient}%` } },
-            ],
+            AND: [...ingredientConstraints, { ingredients: { contains: `%${ingredient}%` } }],
           },
         });
         const excludedCount = await prisma.dish.count({
@@ -301,12 +287,7 @@ const root = {
     };
   },
 
-  postReview: async ({
-    dishId,
-    title,
-    rating,
-    comment,
-  }: Omit<Review, 'reviewId'>) => {
+  postReview: async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
     const review = await prisma.review.create({
       data: {
         dishId,
@@ -326,7 +307,7 @@ console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(logger); // Log all requests to the console
 }
-app.use(cors(corsOptions)); // Ensure that the frontend can access this API (ensure preflight requests don't fail)
+app.use(cors()); // Ensure that the frontend can access this API (ensure preflight requests don't fail)
 
 app.use(
   '/graphql',

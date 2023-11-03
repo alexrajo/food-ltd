@@ -3,7 +3,9 @@ import { Dish, Review } from 'src/types/types'
 import { SORTING_OPTIONS } from 'src/utils/constants'
 // import mock_data from '../assets/mockdata.json'
 
-const URL = 'http://127.0.0.1:4000/graphql'
+const URL = `http://${
+  process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
+}:4000/graphql`
 
 type FetchDishResponse = {
   dish: {
