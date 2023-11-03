@@ -113,7 +113,7 @@ export default function Home() {
             onClick={paginateBackwards}
             className={cn('flex p-2', page < 2 ? 'opacity-50' : 'cursor-pointer')}
           >
-            {'<'}
+            {'<'} Previous
           </p>
           {pageSuggestions[0] && (
             <p
