@@ -18,11 +18,13 @@ export default function AutocompleteIngredients(props: ComponentProps) {
   /** The list of ingredients to display */
   const list = isLoading
     ? []
-    : Object.keys(parsedIncludedIngredients).map((key, index) => ({
-        name: key,
-        id: index,
-        count: parsedIncludedIngredients[key],
-      }))
+    : Object.keys(parsedIncludedIngredients)
+        .map((key, index) => ({
+          name: key,
+          id: index,
+          count: parsedIncludedIngredients[key],
+        }))
+        .filter((i) => i.count > 0)
 
   return (
     <Select
