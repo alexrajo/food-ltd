@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function ErrorPage() {
+  const navigate = useNavigate()
+
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div className='flex w-full flex-col items-center justify-center gap-4'>
       <div className='flex w-fit flex-col gap-4'>
@@ -16,9 +22,9 @@ export default function ErrorPage() {
           Home
         </Link>{' '}
         or{' '}
-        <Link className='font-bold' to='/settings'>
-          Settings
-        </Link>{' '}
+        <button className='font-bold' onClick={handleGoBack}>
+          Go back
+        </button>{' '}
         for example.
       </div>
     </div>
