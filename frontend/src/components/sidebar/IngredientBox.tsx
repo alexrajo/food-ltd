@@ -6,7 +6,7 @@ export default function IngredientBox(props: ComponentProps) {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center rounded-md border bg-secondary px-2 `}
+      className='flex flex-col items-center justify-center rounded-md border bg-secondary px-2'
     >
       <div className='text-sm font-bold '>{name}</div>
     </div>

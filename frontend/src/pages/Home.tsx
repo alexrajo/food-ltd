@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import useSearch from 'src/hooks/useSearch'
 import { openNavbar } from 'src/redux/modalsReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
+import cn from 'src/utils/cn'
 
 /**
  * Holds all the components that show up on the main page.
@@ -110,9 +111,9 @@ export default function Home() {
         <div className=' hidden w-full flex-row items-center gap-4 sm:flex '>
           <p
             onClick={paginateBackwards}
-            className={`flex p-2 ${page < 2 ? 'opacity-50' : 'cursor-pointer'}`}
+            className={cn('flex p-2', page < 2 ? 'opacity-50' : 'cursor-pointer')}
           >
-            {'<'} Prevous
+            {'<'}
           </p>
           {pageSuggestions[0] && (
             <p
@@ -163,9 +164,7 @@ export default function Home() {
           )}
           <p
             onClick={paginateForwards}
-            className={`flex p-2 ${
-              page > pages - 1 ? 'opacity-50' : 'cursor-pointer'
-            }`}
+            className={cn('flex p-2', page > pages - 1 ? 'opacity-50' : 'cursor-pointer')}
           >
             Next {'>'}
           </p>
@@ -174,3 +173,4 @@ export default function Home() {
     </div>
   )
 }
+
