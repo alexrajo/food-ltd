@@ -21,6 +21,8 @@ export default {
         error: '#B00020',
         errordark: '#D32F2F',
         success: '#388E3C',
+        link: '#1565C0',
+        linkdark: '#1976D2',
       },
     },
   },

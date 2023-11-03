@@ -18,14 +18,16 @@ export default function ErrorPage() {
       </div>
       <div>
         You can go to{' '}
-        <Link className='font-bold' to='/'>
+        <Link className='text-link dark:text-linkdark font-bold' to='/'>
           Home
         </Link>{' '}
         or{' '}
-        <button className='font-bold' onClick={handleGoBack}>
+        <button
+          className='text-link dark:text-linkdark font-bold'
+          onClick={handleGoBack}
+        >
           Go back
         </button>{' '}
-        for example.
       </div>
     </div>
   )
