@@ -23,6 +23,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
     isInput,
     setRating: setRatingProp,
     textStyle,
+    reviewCount
   } = props
 
   const receivedRating =
@@ -59,25 +60,32 @@ export default function RatingDisplay(props: RatingDisplayProps) {
             )
           }
           return (
+            <button 
+            key={number}
+              type='button'
+              onMouseEnter={() => setRating(index + 1)}
+              onMouseLeave={() => setRating(receivedRating)}
+              onClick={() => setRatingProp?.(index + 1)}
+              >
+                
             <img
               alt='star'
-              key={number}
+              
               src={
                 (isGrayed && isHalf && halfStar) ||
                 (isGrayed && outlineStar) ||
                 star
               }
               className={cn(isInput && 'cursor-pointer')}
-              onMouseEnter={() => setRating(index + 1)}
-              onMouseLeave={() => setRating(receivedRating)}
-              onClick={() => setRatingProp && setRatingProp(index + 1)}
-            />
+ 
+              />
+              </button>
           )
         })}
       </div>
       <p className={cn('font-semibold', textStyle)}>
         {`${rating > 0 ? rating : 'No rating'}${
-          props.reviewCount !== undefined ? ` (${props.reviewCount})` : ''
+          reviewCount !== undefined ? ` (${reviewCount})` : ''
         }`}
       </p>
     </div>

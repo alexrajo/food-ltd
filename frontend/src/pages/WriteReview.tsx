@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, FieldProps, Formik, FormikErrors } from 'formik'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Form, useNavigate, useParams } from 'react-router-dom'
+import { Link, Form, useNavigate, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
 import useDish from 'src/hooks/useDish'
 import { postReview } from 'src/utils/api-calls'
@@ -23,7 +22,7 @@ function RatingInput(props: FieldProps<any>) {
 export default function WriteReview() {
   const navigate = useNavigate()
   const { id } = useParams()
-  const dishId = id !== undefined ? parseInt(id) : undefined
+  const dishId = id !== undefined ? parseInt(id, 10) : undefined
 
   const { refetch: refetchDish } = useDish()
 

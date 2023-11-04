@@ -14,7 +14,7 @@ export default function ErrorPage() {
         <div className='w-full text-center'>
           Or some other error has occured.
         </div>
-        <div className='w-full border'></div>
+        <div className='w-full border' />
       </div>
       <div>
         You can go to{' '}
@@ -23,6 +23,7 @@ export default function ErrorPage() {
         </Link>{' '}
         or{' '}
         <button
+          type='button'
           className='text-link dark:text-linkdark font-bold'
           onClick={handleGoBack}
         >

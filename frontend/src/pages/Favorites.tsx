@@ -8,9 +8,6 @@ export default function Favorites() {
           <input
             type='text'
             id='page'
-            onKeyDown={(e) => {
-              if (e.key !== 'Enter') return
-            }}
             className=' h-10 w-10 rounded-md text-center text-black outline-none'
           />
           <p>av</p>
@@ -21,9 +18,9 @@ export default function Favorites() {
 
       <div className=' flex w-full flex-row items-center gap-4'>
         <p className=' flex cursor-pointer p-2'>{'<'} Prevous</p>
-        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'></p>
-        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'></p>
-        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'></p>
+        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2' />
+        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2' />
+        <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2' />
         <p>...</p>
         <p className=' flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 p-2'>
           {10}

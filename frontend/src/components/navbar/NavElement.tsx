@@ -15,7 +15,7 @@ export default function NavElement(props: ComponentProps) {
 
   const location = useLocation()
 
-  const selected = link == location.pathname
+  const selected = link === location.pathname
 
   const dispatch = useAppDispatch()
   return (

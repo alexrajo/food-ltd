@@ -45,20 +45,22 @@ export default function Settings() {
         </button>
         <p className=' flex text-3xl'>Settings</p>
 
-        <div
-          className=' mt-8 flex cursor-pointer items-center gap-10 px-10'
+        <button
+          type='button'
+          className=' mt-8 flex items-center gap-10 px-10'
           onClick={toggleColorMode}
         >
           <p>Light mode</p>
-          <SliderIcon active={colorMode == 'light'} />
-        </div>
-        <div
-          className=' mt-8 flex cursor-pointer items-center gap-10 px-10'
+          <SliderIcon active={colorMode === 'light'} />
+        </button>
+        <button
+          type='button'
+          className=' mt-8 flex items-center gap-10 px-10'
           onClick={toggleFahrenheit}
         >
           <p>Fahrenheit</p>
-          <SliderIcon active={unit == 'fahrenheit'} />
-        </div>
+          <SliderIcon active={unit === 'fahrenheit'} />
+        </button>
       </div>
     </div>
   )

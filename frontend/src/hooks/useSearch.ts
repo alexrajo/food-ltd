@@ -114,8 +114,8 @@ function useSearch(): useSearchReturnType {
    * Calling this function will paginate to a
    * specific number
    */
-  const paginateTo = (page: number) => {
-    setPage(page)
+  const paginateTo = (newpage: number) => {
+    setPage(newpage)
   }
 
   const dishesData = data && data.dishes

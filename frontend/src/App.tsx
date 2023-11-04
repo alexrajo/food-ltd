@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
 import { useAppSelector } from 'src/hooks/useAppRedux'
 import FilterMenu from 'src/components/sidebar/FilterMenu'
+import Navbar from './components/Navbar'
 import cn from './utils/cn'
 
 export default function App() {

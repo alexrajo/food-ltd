@@ -8,7 +8,7 @@ type ComponentProps = {
   /** The ingredients to display */
   parsedIncludedIngredients: { [key: string]: number }
   /** The function to call when the user selects an ingredient */
-  onChange: (e: any) => void
+  onChange: () => void
 }
 export default function AutocompleteIngredients(props: ComponentProps) {
   const { isLoading, parsedIncludedIngredients, onChange } = props
@@ -31,7 +31,7 @@ export default function AutocompleteIngredients(props: ComponentProps) {
       options={list}
       getOptionLabel={(option) =>
         `${option!.name} ${
-          isLoading ? '' : '(' + parsedIncludedIngredients[option!.name] + ')'
+          isLoading ? '' : `{(${parsedIncludedIngredients[option!.name]})`
         }`
       }
       getOptionValue={(option) => option!.name}
@@ -50,12 +50,12 @@ export default function AutocompleteIngredients(props: ComponentProps) {
         menuList: (provided) => ({
           ...provided,
           zIndex: 9999,
-          backgroundColor: colorMode == 'dark' ? colors.tertiarydark : 'white',
+          backgroundColor: colorMode === 'dark' ? colors.tertiarydark : 'white',
         }),
         option: (provided, state) => ({
           ...provided,
           // color: state.isSelected ? 'white' : 'black',
-          color: colorMode == 'dark' ? 'white' : 'black',
+          color: colorMode === 'dark' ? 'white' : 'black',
           backgroundColor: state.isSelected
             ? colors.tertiarydark
             : 'transparent',

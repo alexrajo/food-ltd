@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react'
-
-// Tanstack
 import { useQuery } from '@tanstack/react-query'
-
-// React Router
 import { useParams } from 'react-router-dom'
-
-// Utils
 import { fetchReviews } from 'src/utils/api-calls'
-
-import { useReviewsReturnType } from './HookTypes'
 import type { Review } from 'src/types/types'
+import { useReviewsReturnType } from './HookTypes'
 
 /**
  * Hook that allows fetching the reviews of a dish
@@ -55,7 +48,7 @@ function useReviews(pageSize: number = 3): useReviewsReturnType {
       } else {
         setHasMore(true)
       }
-      //add data to reviewsData but with the duplicates removed
+      // Add data to reviewsData but with the duplicates removed
       setReviewsData((prev) => {
         const newData = [...prev, ...data.reviews.data]
         const uniqueData = newData.filter(
@@ -65,7 +58,7 @@ function useReviews(pageSize: number = 3): useReviewsReturnType {
         return uniqueData
       })
     }
-  }, [data])
+  }, [data, pageSize])
 
   return { data: { data: reviewsData }, isLoading, error, loadMore, hasMore }
 }
