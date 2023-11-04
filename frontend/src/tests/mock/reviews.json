@@ -1,0 +1,26 @@
+[
+    {
+      "reviewId": 1,
+      "title": "Great Dish!",
+      "rating": 5,
+      "comment": "I absolutely loved this dish. It's a must-try!",
+      "postedAt": "2023-11-04T10:30:00Z",
+      "dishId": 1
+    },
+    {
+      "reviewId": 2,
+      "title": "Delicious!",
+      "rating": 4,
+      "comment": "The dish was really good, but I wish it had more spice.",
+      "postedAt": "2023-11-05T14:45:00Z",
+      "dishId": 2
+    },
+    {
+      "reviewId": 3,
+      "title": "Not my favorite",
+      "rating": 2,
+      "comment": "I found the dish to be quite bland. Wouldn't order it again.",
+      "postedAt": "2023-11-06T09:15:00Z",
+      "dishId": 3
+    }
+  ] 
