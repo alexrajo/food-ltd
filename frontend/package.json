@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "mock": "set NODE_ENV=test&& vite",
     "test": "set NODE_ENV=test&& vitest",
     "coverage": "vitest --coverage",
     "build": "tsc && vite build",
