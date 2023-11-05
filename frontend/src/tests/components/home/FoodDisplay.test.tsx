@@ -1,19 +1,29 @@
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 
-describe('FoodDisplay', () => {
-  beforeEach(() => {
-    render(<div />, {
-      wrapper: TestWrapper,
-    })
+// Mock lottie to not run pointless animations in the test
+vi.mock('lottie-react', () => {
+  return {
+    default: ({
+      animationData,
+      loop,
+      className,
+    }: {
+      animationData: string
+      loop: boolean
+      className: string
+    }) => <div>{loop}</div>,
+  }
+})
+
+describe('FilterDisplay', async () => {
+  beforeEach(async () => {
+    render(<div />, { wrapper: TestWrapper })
+
+    await screen.findByText('Mock Dish 1')
   })
   test('should find title of food', async () => {
-    // Wait for the data to arrive
-    await screen.findByText(
-      'Miso-Butter Roast Chicken With Acorn Squash Panzanella',
-    )
-
     // Find the image of food
     expect(screen.findByAltText('food')).toBeDefined()
   })
