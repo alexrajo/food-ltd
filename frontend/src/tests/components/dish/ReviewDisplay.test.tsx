@@ -2,7 +2,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
-import ReviewDisplay from 'src/components/dish/ReviewDisplay'
 
 // Mock lottie to not run pointless animations in the test
 vi.mock('lottie-react', () => {
