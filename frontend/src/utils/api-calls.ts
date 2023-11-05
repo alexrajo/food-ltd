@@ -3,6 +3,7 @@ import { Dish, Review } from 'src/types/types'
 import { SORTING_OPTIONS } from 'src/utils/constants'
 import mock_dishes from 'src/tests/mock/dishes.json'
 import mock_reviews from 'src/tests/mock/reviews.json'
+import mock_ingredients from 'src/tests/mock/ingredients.json'
 
 const URL = `http://${
   process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
@@ -259,6 +260,22 @@ export const fetchIngredientFilterCounts = async (
   includedIngredients: Confinement['includedIngredients'],
   ingredientOptions: string[],
 ): Promise<FetchIngredientFilterCountsResponse> => {
+
+  // For mocking
+  if (process.env.NODE_ENV === 'test') {
+    const response: FetchIngredientFilterCountsResponse = {
+      ingredientFilterCounts: {
+        data: {
+          includedIngredients: JSON.stringify(mock_ingredients),
+          excludedIngredients: '', 
+        },
+      },
+    };
+
+    return Promise.resolve(response);
+  }
+
+
   return fetch(URL, {
     method: 'POST',
     headers: {
