@@ -1,0 +1,29 @@
+{
+    "prerequisites": ["Node.js v20.5+ and npm v9.8+", "Vite 4.4+"],
+    "installation": [
+        "Clone the repository from gitlab and navigate to the project root directory",
+        "Navigate to project directory (frontend): cd .frontend",
+        "Install dependencies: npm install",
+        "Navigate back to the project root directory",
+        "Navigate to project backend directory: cd .backend",
+        "Install dependencies: npm install",
+        "Initialize prisma with npx prisma generate"
+    ],
+    "set-up-backend": [
+        "Install postgresql on your machine, see downloads",
+        "Make sure the psql command is in your OS's PATH environment variable",
+        "Make sure postgresql is running on your machine",
+        "Make sure you have a user to log in with (with username postgres preferably)",
+        "(You may need to create the user if postgresql is installed with homebrew)",
+        "..."
+    ],
+    "run-backend": [
+        "Navigate to project-2/backend",
+        "You may need to run npx prisma db pull and npx prisma generate after setting up the database",
+        "Run the backend: npm run dev"
+    ],
+    "run-frontend": [
+        "Navigate to project-2/frontend",
+        "Run the frontend: npm run dev"
+    ]
+}
