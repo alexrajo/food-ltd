@@ -34,7 +34,7 @@ describe('FilterDisplay', async () => {
     await userEvent.click(screen.getAllByText('Search for ingredients')[0])
     await userEvent.keyboard('pepper{Enter}')
     await screen.findAllByAltText('remove filter cross')
-
+    
     // Check that the filter icon shows up on screen
     expect(screen.getByAltText('remove filter cross')).toBeDefined()
   })
@@ -44,5 +44,17 @@ describe('FilterDisplay', async () => {
     
     await userEvent.click(screen.getByText('Clear'))
     expect(screen.queryByAltText('remove filter cross')).toBeNull()
+  })
+  test('remove filter by clicking the cross', async () => {
+    await userEvent.click(screen.getAllByText('Search for ingredients')[0])
+    await userEvent.keyboard('pepper{Enter}')
+    await screen.findAllByAltText('remove filter cross')
+
+    // Close the menu
+    await userEvent.click(screen.getByTestId('searchsettingsquare'))
+
+    // Click the remove filter cross on the component itself (not using clear)
+    await userEvent.click(screen.getByAltText('remove filter cross'))
+    expect(screen.queryByText('pepper')).toBeNull()
   })
 })
