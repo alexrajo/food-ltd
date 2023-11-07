@@ -13,8 +13,6 @@ import Favorites from 'src/pages/Favorites'
 import Settings from 'src/pages/Settings'
 import WriteReview from 'src/pages/WriteReview'
 import ErrorPage from './pages/Error'
-import DocumentationPage from './pages/DocumentationPage'
-import Documentation from './components/documentation/Documentation'
 
 const router = createBrowserRouter(
   [
@@ -52,16 +50,6 @@ const router = createBrowserRouter(
         },
       ],
     },
-    {
-      path: '/docs',
-      element: <DocumentationPage />,
-      children: [
-        {
-          path: '/docs/:page',
-          element: <Documentation />
-        }
-      ]
-    }
   ],
   {
     basename: import.meta.env.BASE_URL,
