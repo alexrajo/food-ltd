@@ -4,6 +4,7 @@ import { openNavbar } from 'src/redux/modalsReducer'
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { setDark, setLight } from 'src/redux/themeReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
+import cn from 'src/utils/cn'
 
 export default function Settings() {
   const colorMode = useAppSelector((state) => state.theme.value)
@@ -46,18 +47,20 @@ export default function Settings() {
         <p className=' flex text-3xl'>Settings</p>
 
         <div
-          className=' mt-8 flex cursor-pointer items-center gap-10 px-10'
+          className='mt-8 flex cursor-pointer items-center gap-10 px-10 select-none'
           onClick={toggleColorMode}
         >
-          <p>Light mode</p>
-          <SliderIcon active={colorMode == 'light'} />
+          <p className={cn(colorMode === 'dark' ? 'font-bold' : 'font-thin')}>Dark mode</p>
+          <SliderIcon active={colorMode === 'light'} />
+          <p className={cn(colorMode === 'dark' && '')}>Light mode</p>
         </div>
         <div
-          className=' mt-8 flex cursor-pointer items-center gap-10 px-10'
+          className='mt-8 flex cursor-pointer items-center gap-10 px-10 select-none'
           onClick={toggleFahrenheit}
         >
-          <p>Fahrenheit</p>
-          <SliderIcon active={unit == 'fahrenheit'} />
+          <p className={cn(unit === 'fahrenheit' ? 'font-semibold' : 'font-thin')}>Fahrenheit</p>
+          <SliderIcon active={unit === 'fahrenheit'} />
+          <p className={cn(unit === 'celsius' ? 'font-semibold' : 'font-thin')}>Celsius</p>
         </div>
       </div>
     </div>
