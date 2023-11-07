@@ -1,28 +1,42 @@
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
 
-describe('AddFilter', () => {
+// Mock lottie to not run pointless animations in the test
+vi.mock('lottie-react', () => {
+  return {
+    default: ({
+      animationData,
+      loop,
+      className,
+    }: {
+      animationData: string
+      loop: boolean
+      className: string
+    }) => <div>{loop}</div>,
+  }
+})
+
+describe('add filter', async () => {
   beforeEach(async () => {
-    render(<div />, {
-      wrapper: TestWrapper,
-    })
-    // Wait for the data to arrive
-    await screen.findByText(
-      'Miso-Butter Roast Chicken With Acorn Squash Panzanella',
-    )
+    render(<div />, { wrapper: TestWrapper })
+
+    await screen.findByText('Mock Dish 1')
   })
   test('add filter', async () => {
+
     expect(screen.queryAllByAltText('remove filter cross').length).toEqual(0)
-    await userEvent.click(screen.getByText('include ingredients')) // Click the dropdown menu
-    await userEvent.click(screen.getByText('Chicken')) // add the Include: Chicken filter
+    await userEvent.click(screen.getByTestId('searchsettingsquare'))
+    await userEvent.click(screen.getAllByText('Search for ingredients')[0])
+    await userEvent.keyboard('pepper{Enter}')
+    await screen.findAllByAltText('remove filter cross')
     expect(screen.getAllByAltText('remove filter cross').length).toEqual(1)
   })
   test('remove filter', async () => {
     expect(screen.getAllByAltText('remove filter cross').length).toEqual(1)
-    await userEvent.click(screen.getByText('include ingredients')) // Click the dropdown menu
-    await userEvent.click(screen.getAllByText('Chicken')[0]) // add the Include: Chicken filter
+    expect(screen.getByAltText('remove filter cross')).not.toBeNull()
+    await userEvent.click(screen.getByText('Clear'))
     expect(screen.queryAllByAltText('remove filter cross').length).toEqual(0)
   })
 })

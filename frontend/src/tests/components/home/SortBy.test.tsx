@@ -1,32 +1,44 @@
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
 
-describe('SortBy', async () => {
+// Mock lottie to not run pointless animations in the test
+vi.mock('lottie-react', () => {
+  return {
+    default: ({
+      animationData,
+      loop,
+      className,
+    }: {
+      animationData: string
+      loop: boolean
+      className: string
+    }) => <div>{loop}</div>,
+  }
+})
+
+describe('sortby', async () => {
   beforeEach(async () => {
     render(<div />, { wrapper: TestWrapper })
 
-    // Wait for the data to arrive before testing
-    await screen.findByText(
-      'Miso-Butter Roast Chicken With Acorn Squash Panzanella',
-    )
+    await screen.findByText('Mock Dish 1')
   })
   test('Sorting options exist', () => {
-    expect(screen.findByText('New')).toBeDefined()
-    expect(screen.findByText('Popular')).toBeDefined()
-    expect(screen.findByText('A-Z')).toBeDefined()
+    expect(screen.getByText('Popular')).toBeDefined()
+    expect(screen.getByText('Rating')).toBeDefined()
+    expect(screen.getByText('A-Z')).toBeDefined()
   })
   test('should have changed style when clicked', async () => {
     // Selected options have different font than others
     expect(
-      screen.getByText('New').className.includes('font-normal'),
+      screen.getByText('Rating').className.includes('font-normal'),
     ).toBeFalsy()
 
-    await userEvent.click(screen.getByText('New'))
+    await userEvent.click(screen.getByText('Rating'))
 
     expect(
-      screen.getByText('New').className.includes('font-normal'),
+      screen.getByText('Rating').className.includes('font-normal'),
     ).toBeTruthy()
   })
 })
