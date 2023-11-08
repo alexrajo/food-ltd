@@ -42,7 +42,9 @@ export default function Navbar({ className }: { className?: string }) {
     >
       <div className='flex flex-1 flex-col justify-center gap-6'>
         <div className=' flex flex-col items-center'>
-          <p className=' font'>Food Ltd.</p>
+          <Link to='/'>
+            <p className=' font'>Food Ltd.</p>
+          </Link>
           <Link
             to='/'
             onClick={() => {
