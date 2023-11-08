@@ -36,7 +36,7 @@ export default function AutocompleteIngredients(props: ComponentProps) {
       options={list}
       getOptionLabel={(option) =>
         `${option!.name} ${
-          isLoading ? '' : `{(${parsedIncludedIngredients[option!.name]})`
+          isLoading ? '' : `(${parsedIncludedIngredients[option!.name]})`
         }`
       }
       getOptionValue={(option) => option!.name}
