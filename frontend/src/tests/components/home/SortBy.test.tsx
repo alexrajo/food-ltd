@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 
 vi.mock('lottie-react', () => ({
   default: vi.fn(),
-}));
+}))
 
 describe('sortby', async () => {
   beforeEach(async () => {

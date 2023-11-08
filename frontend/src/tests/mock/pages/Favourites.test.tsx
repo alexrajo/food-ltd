@@ -15,7 +15,7 @@ function FakeComponent() {
 
 vi.mock('lottie-react', () => ({
   default: vi.fn(),
-}));
+}))
 
 describe('Favourites', async () => {
   beforeEach(async () => {

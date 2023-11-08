@@ -6,7 +6,6 @@ import { closeFilterMenu, openFilterMenu } from 'src/redux/modalsReducer'
  * a menu opens to allow user to apply filters to the search result.
  */
 export default function SearchSettingsSquare() {
-
   const dispatch = useAppDispatch()
   const open = useAppSelector((state) => state.modals.filterMenu)
 

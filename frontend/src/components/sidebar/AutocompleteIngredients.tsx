@@ -12,8 +12,8 @@ type ComponentProps = {
 }
 
 /**
- * Used in the filter menu to autocomplete ingredients the user might want to 
- * apply to their search result. 
+ * Used in the filter menu to autocomplete ingredients the user might want to
+ * apply to their search result.
  */
 export default function AutocompleteIngredients(props: ComponentProps) {
   const { isLoading, parsedIncludedIngredients, onChange } = props

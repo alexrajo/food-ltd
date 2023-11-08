@@ -6,7 +6,7 @@ import { store } from 'src/redux/store'
 
 vi.mock('lottie-react', () => ({
   default: vi.fn(),
-}));
+}))
 
 describe('Settings', async () => {
   beforeEach(async () => {

@@ -4,7 +4,7 @@ import TestWrapper from 'src/tests/TestWrapper'
 
 vi.mock('lottie-react', () => ({
   default: vi.fn(),
-}));
+}))
 
 describe('Navbar', async () => {
   beforeEach(async () => {

@@ -13,7 +13,7 @@ type ComponentProps = {
 /**
  * Links to different pages in the application. Sits inside the sidebar.
  * @param props An icon, text, and the link to where the user should be taken.
- * @returns 
+ * @returns
  */
 export default function NavElement(props: ComponentProps) {
   const { icon, text, link } = props

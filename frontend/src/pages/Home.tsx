@@ -60,7 +60,7 @@ export default function Home() {
       <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-2 sm:p-20'>
         <div className='flex w-full gap-4'>
           <button
-            aria-label="Open Navigation Menu"
+            aria-label='Open Navigation Menu'
             onMouseDown={() => {
               dispatch(openNavbar())
             }}

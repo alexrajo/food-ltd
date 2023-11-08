@@ -6,7 +6,7 @@ type ReviewDisplayProps = {
   ref?: React.MutableRefObject<HTMLDivElement>
 }
 /**
- * 
+ *
  * @param props Review
  * @returns Component able to display information of the Review type.
  */

@@ -1,4 +1,3 @@
-
 /**
  * Used on the main page to show that food search results are currently loading.
  */

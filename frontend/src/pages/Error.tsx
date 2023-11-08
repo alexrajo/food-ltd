@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
 
-
 /**
  * Simple page that shows up if user navigates to an url that does not exist.
  * Gives user the option of going back to the mainpage, or back to previous page.

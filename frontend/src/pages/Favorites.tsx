@@ -1,4 +1,3 @@
-
 /**
  * Currently not in use, since no favourite functionality has been implemented.
  */
