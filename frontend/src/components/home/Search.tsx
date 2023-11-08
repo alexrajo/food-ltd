@@ -5,6 +5,8 @@ import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import XIcon from '../icons/XIcon'
+import { useAppDispatch } from 'src/hooks/useAppRedux'
+import { setKeyWord } from 'src/redux/confinementReducer'
 
 /**
  * The large search bar on the main page.
@@ -20,6 +22,8 @@ export default function Search(props: ComponentProps) {
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
 
   const navigate = useNavigate()
+
+  const dispatch = useAppDispatch()
 
   const {
     addSearchHistory,
@@ -73,6 +77,7 @@ export default function Search(props: ComponentProps) {
               onChangeSearchInput({
                 target: { value: '' },
               } as React.ChangeEvent<HTMLInputElement>)
+              dispatch(setKeyWord(''))
               setShowSuggestions(false)
             }}
           />
