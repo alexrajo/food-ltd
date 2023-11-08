@@ -1,27 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 interface Theme {
-  value: 'light' | 'dark';
+  value: 'light' | 'dark'
 }
 
 const initialState: Theme = {
   value: 'dark',
-};
+}
 
 export const themeReducer = createSlice({
   name: 'themeReducer',
   initialState,
   reducers: {
     setDark: (state) => {
-      state.value = 'dark';
+      state.value = 'dark'
     },
     setLight: (state) => {
-      state.value = 'light';
+      state.value = 'light'
     },
   },
-});
+})
 
 // Action creators are generated for each case reducer function
-export const { setDark, setLight } = themeReducer.actions;
+export const { setDark, setLight } = themeReducer.actions
 
-export default themeReducer.reducer;
+export default themeReducer.reducer

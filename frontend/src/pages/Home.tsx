@@ -11,7 +11,13 @@ import MenuIcon from 'src/components/icons/MenuIcon'
 import cn from 'src/utils/cn'
 
 /**
- * Holds all the components that show up on the main page.
+ * Holds all the components that show up on the main page, which are, in order:
+ * - The main search bar.
+ * - A list of all applied filters to the search result.
+ * - A menu for selecting how result should be sorted.
+ * - Page navigation menu.
+ * - The search result.
+ * - Another page navigation menu.
  */
 export default function Home() {
   const {
@@ -54,6 +60,7 @@ export default function Home() {
       <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-2 sm:p-20'>
         <div className='flex w-full gap-4'>
           <button
+            aria-label='Open Navigation Menu'
             onMouseDown={() => {
               dispatch(openNavbar())
             }}
@@ -74,13 +81,17 @@ export default function Home() {
           <SearchSettingsSquare />
         </div>
         <SelectedFilters />
-        {keyWord !== '' && <p>Showing results for: "{keyWord}"</p>}
+        {keyWord !== '' && <p>Showing results for: &quot;{keyWord}&quot;</p>}
         <div className='flex flex-col justify-between md:flex-row'>
           <SortBy />
           <div className=' flex flex-row items-center gap-4'>
-            <p onClick={paginateBackwards} className=' flex cursor-pointer p-2'>
+            <button
+              type='button'
+              onClick={paginateBackwards}
+              className='flex p-2'
+            >
               {'<'} Prevous
-            </p>
+            </button>
             {/** Make input have the value of page */}
             <input
               type='text'
@@ -90,38 +101,44 @@ export default function Home() {
                   setPageInput(0)
                   return
                 }
-                setPageInput(parseInt((e.target as HTMLInputElement).value))
+                setPageInput(parseInt((e.target as HTMLInputElement).value, 10))
               }}
               onKeyDown={(e) => {
                 if (e.key !== 'Enter') return
-                paginateTo(parseInt((e.target as HTMLInputElement).value))
+                paginateTo(parseInt((e.target as HTMLInputElement).value, 10))
               }}
               className=' h-10 w-10 rounded-md border text-center text-black outline-none dark:border-0'
               value={pageInput}
             />
             <p>of</p>
             <p>{pages || 1}</p>
-            <p onClick={paginateForwards} className=' flex cursor-pointer p-2'>
+            <button
+              type='button'
+              onClick={paginateForwards}
+              className='flex p-2'
+            >
               Next {'>'}
-            </p>
+            </button>
           </div>
         </div>
         <FoodGallery dishes={dishes} isLoading={isLoading} />
 
         <div className=' hidden w-full flex-row items-center gap-4 sm:flex '>
-          <p
+          <button
+            type='button'
             onClick={paginateBackwards}
-            className={cn('flex p-2', page < 2 ? 'opacity-50' : 'cursor-pointer')}
+            className={cn('flex p-2', page < 2 && 'opacity-50')}
           >
             {'<'} Previous
-          </p>
+          </button>
           {pageSuggestions[0] && (
-            <p
-              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
+            <button
+              type='button'
+              className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[0]!)}
             >
               {pageSuggestions[0]}
-            </p>
+            </button>
           )}
           {page > 2 && (
             <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
@@ -129,12 +146,13 @@ export default function Home() {
             </p>
           )}
           {pageSuggestions[1] && (
-            <p
-              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
+            <button
+              type='button'
+              className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[1]!)}
             >
               {pageSuggestions[1]}
-            </p>
+            </button>
           )}
           {pageSuggestions[2] && (
             <p className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 opacity-50 dark:border-white'>
@@ -142,12 +160,13 @@ export default function Home() {
             </p>
           )}
           {pageSuggestions[3] && (
-            <p
-              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
+            <button
+              type='button'
+              className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[3]!)}
             >
               {pageSuggestions[3]}
-            </p>
+            </button>
           )}
           {pageSuggestions[3] && pages && pages - pageSuggestions[3] > 1 && (
             <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
@@ -155,22 +174,23 @@ export default function Home() {
             </p>
           )}
           {pageSuggestions[4] && (
-            <p
-              className='flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
+            <button
+              type='button'
+              className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[4]!)}
             >
               {pageSuggestions[4]}
-            </p>
+            </button>
           )}
-          <p
+          <button
+            type='button'
             onClick={paginateForwards}
-            className={cn('flex p-2', page > pages - 1 ? 'opacity-50' : 'cursor-pointer')}
+            className={cn('flex p-2', page > pages - 1 && 'opacity-50')}
           >
             Next {'>'}
-          </p>
+          </button>
         </div>
       </div>
     </div>
   )
 }
-

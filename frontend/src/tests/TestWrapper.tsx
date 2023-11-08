@@ -64,7 +64,7 @@ export default function TestWrapper({ children }: { children: ReactNode }) {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router}></RouterProvider>
+        <RouterProvider router={router} />
       </QueryClientProvider>
     </Provider>
   )

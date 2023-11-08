@@ -52,14 +52,16 @@ export const fetchDish = async (
   dishId?: string,
 ): Promise<FetchDishResponse> => {
   if (!dishId) {
-    return Promise.reject('No dishId provided')
+    return Promise.reject(new Error('No dishId provided'))
   }
   // If testing, use the mock data
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve({
       dish: {
-        data: mock_dishes.find(dish => dish.dishId.toString() === dishId) ?? mock_dishes[0]
-      }
+        data:
+          mock_dishes.find((dish) => dish.dishId.toString() === dishId) ??
+          mock_dishes[0],
+      },
     })
   }
   return fetch(URL, {
@@ -83,7 +85,7 @@ export const fetchDish = async (
                 }
                 `,
       variables: {
-        dishId: parseInt(dishId),
+        dishId: parseInt(dishId, 10),
       },
     }),
   })
@@ -97,18 +99,19 @@ export const fetchReviews = async (
   dishId?: string,
   pageSize?: number,
 ): Promise<FetchReviewsResponse> => {
-  const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
+  const dishIdNumber = dishId !== undefined ? parseInt(dishId, 10) : undefined
 
   if (!dishId) {
-    return Promise.reject('No dishId provided')
+    return Promise.reject(new Error('No dishId provided'))
   }
 
   // Use mock data for testing
   if (process.env.NODE_ENV === 'test') {
-
     return Promise.resolve({
       reviews: {
-        data: mock_reviews.filter(review => review.dishId.toString() === dishId),
+        data: mock_reviews.filter(
+          (review) => review.dishId.toString() === dishId,
+        ),
       },
     })
   }
@@ -204,7 +207,6 @@ export const fetchSearchResults = async (
 ): Promise<FetchDishesResponse> => {
   //Use mock data for testing
   if (process.env.NODE_ENV === 'test') {
-
     const response: FetchDishesResponse = {
       dishes: {
         data: mock_dishes,
@@ -260,21 +262,19 @@ export const fetchIngredientFilterCounts = async (
   includedIngredients: Confinement['includedIngredients'],
   ingredientOptions: string[],
 ): Promise<FetchIngredientFilterCountsResponse> => {
-
   // For mocking
   if (process.env.NODE_ENV === 'test') {
     const response: FetchIngredientFilterCountsResponse = {
       ingredientFilterCounts: {
         data: {
           includedIngredients: JSON.stringify(mock_ingredients),
-          excludedIngredients: '', 
+          excludedIngredients: '',
         },
       },
-    };
+    }
 
-    return Promise.resolve(response);
+    return Promise.resolve(response)
   }
-
 
   return fetch(URL, {
     method: 'POST',

@@ -1,5 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 
+/**
+ * Simple page that shows up if user navigates to an url that does not exist.
+ * Gives user the option of going back to the mainpage, or back to previous page.
+ */
 export default function ErrorPage() {
   const navigate = useNavigate()
 
@@ -14,16 +18,17 @@ export default function ErrorPage() {
         <div className='w-full text-center'>
           Or some other error has occured.
         </div>
-        <div className='w-full border'></div>
+        <div className='w-full border' />
       </div>
       <div>
         You can go to{' '}
-        <Link className='text-link dark:text-linkdark font-bold' to='/'>
+        <Link className='font-bold text-link dark:text-linkdark' to='/'>
           Home
         </Link>{' '}
         or{' '}
         <button
-          className='text-link dark:text-linkdark font-bold'
+          type='button'
+          className='font-bold text-link dark:text-linkdark'
           onClick={handleGoBack}
         >
           Go back

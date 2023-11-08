@@ -4,20 +4,9 @@ import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
 import { store } from 'src/redux/store'
 
-// Mock lottie to not run pointless animations in the test
-vi.mock('lottie-react', () => {
-  return {
-    default: ({
-      animationData,
-      loop,
-      className,
-    }: {
-      animationData: string
-      loop: boolean
-      className: string
-    }) => <div>{loop}</div>,
-  }
-})
+vi.mock('lottie-react', () => ({
+  default: vi.fn(),
+}))
 
 describe('Settings', async () => {
   beforeEach(async () => {

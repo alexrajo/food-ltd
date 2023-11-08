@@ -5,9 +5,9 @@ import {
   removeIncludedFilter as removeReduxIncludedFilter,
   resetAllFilters,
 } from 'src/redux/confinementReducer'
-import { useAppDispatch, useAppSelector } from './useAppRedux'
-import { useFilterReturnType } from './HookTypes'
 import { Ingredient } from 'src/types/types'
+import { useFilterReturnType } from './HookTypes'
+import { useAppDispatch, useAppSelector } from './useAppRedux'
 
 /**
  * Hooks which allows to modify the list of filters
