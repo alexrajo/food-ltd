@@ -1,11 +1,14 @@
 import { ErrorMessage, Field, FieldProps, Formik, FormikErrors } from 'formik'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Form, useNavigate, useParams } from 'react-router-dom'
+import { Link, Form, useNavigate, useParams } from 'react-router-dom'
 import RatingDisplay from 'src/components/RatingDisplay'
 import useDish from 'src/hooks/useDish'
 import { postReview } from 'src/utils/api-calls'
 
+/**
+ * Small component used in the WriteReview page.
+ * This allows user to set a rating for the dish they are reviewing.
+ */
 function RatingInput(props: FieldProps<any>) {
   const { field, form } = props
   const { name } = field
@@ -20,10 +23,14 @@ function RatingInput(props: FieldProps<any>) {
   )
 }
 
+/**
+ * The page users land on when they wish to leave a review on a dish.
+ * Includes a title, comment and rating field where users can input information.
+ */
 export default function WriteReview() {
   const navigate = useNavigate()
   const { id } = useParams()
-  const dishId = id !== undefined ? parseInt(id) : undefined
+  const dishId = id !== undefined ? parseInt(id, 10) : undefined
 
   const { refetch: refetchDish } = useDish()
 
@@ -108,7 +115,7 @@ export default function WriteReview() {
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='bg-success w-fit rounded-md border p-3'
+                  className='w-fit rounded-md border bg-success p-3'
                   onClick={submitForm}
                 >
                   Submit

@@ -14,7 +14,7 @@ type ComponentProps = {
 export default function FoodGallery(props: ComponentProps) {
   const { isLoading, dishes } = props
 
-  if (dishes === undefined || dishes.length == 0) {
+  if (dishes.length === 0) {
     return (
       <div className='flex h-full w-full flex-col items-center justify-center'>
         <p className='text-2xl'>No dishes found</p>
@@ -26,7 +26,7 @@ export default function FoodGallery(props: ComponentProps) {
   if (isLoading) {
     return (
       <div className='flex flex-wrap gap-10'>
-        {Array.from({ length: 10 }).map((_, i) => (
+        {Array.from({ length: 10 }, (_, i) => i).map((i) => (
           <FoodDisplaySkeleton key={i} />
         ))}
       </div>

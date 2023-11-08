@@ -1,22 +1,10 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
-import userEvent from '@testing-library/user-event'
 
-// Mock lottie to not run pointless animations in the test
-vi.mock('lottie-react', () => {
-  return {
-    default: ({
-      animationData,
-      loop,
-      className,
-    }: {
-      animationData: string
-      loop: boolean
-      className: string
-    }) => <div>{loop}</div>,
-  }
-})
+vi.mock('lottie-react', () => ({
+  default: vi.fn(),
+}))
 
 describe('Navbar', async () => {
   beforeEach(async () => {
@@ -40,6 +28,8 @@ describe('Navbar', async () => {
       const src = image.getAttribute('src')
       expect(src).toBe('/project2/src/assets/star.svg')
     })
-    expect(stars[4].getAttribute('src')).toBe("/project2/src/assets/outline-star.svg")
+    expect(stars[4].getAttribute('src')).toBe(
+      '/project2/src/assets/outline-star.svg',
+    )
   })
 })

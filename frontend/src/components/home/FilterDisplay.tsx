@@ -8,8 +8,8 @@ type FilterDisplayProps = {
 }
 
 /**
- * Information about an individual filter that has been applied to the search result.
- * Component shows up under the search bar when active.
+ * Small box underneath the main page searchbar, telling the user which filters
+ * are currently applied to the search result.
  */
 export default function FilterDisplay(props: FilterDisplayProps) {
   const { filter, type } = props

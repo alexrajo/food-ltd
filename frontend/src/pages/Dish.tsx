@@ -36,8 +36,8 @@ export default function DishPage() {
     loadMore: loadMoreReviews,
   } = useReviews()
 
-  const { data: dish } = dishData || {}
-  const { data: reviews } = reviewsData || {}
+  const { data: dish } = dishData ?? {}
+  const { data: reviews } = reviewsData ?? {}
 
   const temperatureUnit = useAppSelector((state) => state.temperatureUnit)
   const dispatch = useAppDispatch()
@@ -49,16 +49,16 @@ export default function DishPage() {
     instructions,
     imageName,
     averageRating: rating,
-  } = dish || {}
+  } = dish ?? {}
 
   if (!dish) {
-    return <></>
+    return <div />
   }
   return (
     <div className='h-full w-full overflow-y-scroll p-4 md:p-20' id='dish-page'>
       <div className=' flex flex-col gap-2'>
         <Link
-          to={'/'}
+          to='/'
           className=' flex cursor-pointer flex-row items-center gap-2 bg-transparent p-2 dark:bg-secondarydark'
         >
           <BackIcon />
@@ -142,8 +142,8 @@ export default function DishPage() {
                 {ingredients
                   ?.slice(1, -2)
                   .split("',")
-                  .map((ingredient) => {
-                    ingredient = ingredient.replace("'", '')
+                  .map((ingred) => {
+                    const ingredient = ingred.replace("'", '')
                     return (
                       <li key={ingredient} className='my-3'>
                         {ingredient}
@@ -176,7 +176,6 @@ export default function DishPage() {
               ))}
             </InfiniteScroll>
           )}
-          <div className='flex justify-center'></div>
         </div>
       </div>
       <div className='h-20 w-full' />

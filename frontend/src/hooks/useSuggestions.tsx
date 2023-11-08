@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
+import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
 import { useAppSelector } from './useAppRedux'
 import { useSuggestionsReturnType } from './HookTypes'
-import { SEARCH_TIMEOUT_MS } from 'src/utils/constants'
 
 /**
  * Hooks which allows to search for dishes

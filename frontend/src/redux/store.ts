@@ -9,12 +9,12 @@ import storage from 'redux-persist/lib/storage'
 import sessionStorage from 'redux-persist/lib/storage/session'
 
 import { persistReducer, persistStore } from 'redux-persist'
-import confinementReducer from './confinementReducer'
-import temperatureUnitReducer from './temperatureUnitReducer'
-import searchHistoryReducer from 'src/redux/searchHistoryReducer'
-import historyReducer from 'src/redux/historyReducer'
+import searchHistory from 'src/redux/searchHistoryReducer'
+import history from 'src/redux/historyReducer'
 import favoritesReducer from 'src/redux/favoritesReducer'
 import modalsReducer from 'src/redux/modalsReducer'
+import temperatureUnit from './temperatureUnitReducer'
+import confinement from './confinementReducer'
 
 const rootConfig = {
   key: 'root',
@@ -36,10 +36,10 @@ const confinementConfig = {
 
 const rootReducer = combineReducers({
   theme: themeReducer,
-  confinements: persistReducer(confinementConfig, confinementReducer),
-  temperatureUnit: temperatureUnitReducer,
-  searchHistory: searchHistoryReducer,
-  history: historyReducer,
+  confinements: persistReducer(confinementConfig, confinement),
+  temperatureUnit,
+  searchHistory,
+  history,
   favorites: favoritesReducer,
   modals: modalsReducer,
 })
