@@ -320,5 +320,5 @@ export const fetchDocs = async (): Promise<Section[]> => {
       const res = await fetch(readme)
       if (!res.ok) throw Error('not ok')
       const content = await res.text()
-      return readmeParser(content)
+      return readmeParser(content).slice(1)
 }

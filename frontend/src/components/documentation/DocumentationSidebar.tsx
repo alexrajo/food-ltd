@@ -14,7 +14,7 @@ export default function DocumentationSidebar() {
     if ( isLoading || isError ) return <div>Loading...</div>
   
     return (
-      <div className='flex w-60 flex-col gap-10 border-r px-4 py-10 overflow-y-scroll no-scrollbar'>
+      <div className='flex w-80 flex-col gap-10 border-r px-4 py-10 overflow-y-scroll no-scrollbar'>
         {sections.map((section, sectionIndex) => (
           <div key={section.title}>
             <div className='font-semibold'>{section.title}</div>
