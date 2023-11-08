@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
-import { setKeyWord } from 'src/redux/confinementReducer'
+import { setKeyWord, setPage } from 'src/redux/confinementReducer'
 import { useAppDispatch, useAppSelector } from './useAppRedux'
 import { useSearchReturnType } from './HookTypes'
 
@@ -20,11 +20,9 @@ import { useSearchReturnType } from './HookTypes'
  * </div>
  */
 function useSearch(): useSearchReturnType {
-  /** Page number to allow pagination */
-  const [page, setPage] = useState<number>(1)
-
   /** Grab the confinements from redux store */
   const {
+    page,
     includedIngredients,
     excludedIngredients,
     keyWord,
@@ -34,6 +32,8 @@ function useSearch(): useSearchReturnType {
   const [searchInput, setSearchInput] = useState<string>(keyWord)
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch()
+
+  const isInitialMount = useRef(true)
 
   /** Fetch the data from the api */
   const { isLoading, error, data } = useQuery({
@@ -66,11 +66,6 @@ function useSearch(): useSearchReturnType {
   //   return () => clearTimeout(timeout);
   // }, [searchInput]);
 
-  /** Reset the page number whenever confinements changes */
-  useEffect(() => {
-    setPage(1)
-  }, [includedIngredients, excludedIngredients, keyWord, sortingPreference])
-
   /**
    * This function refetches the searchresults based
    * on the current confinements
@@ -96,7 +91,7 @@ function useSearch(): useSearchReturnType {
     if (data?.dishes.data.length === 0 || data?.dishes.pages === page) {
       return
     }
-    setPage((prev) => prev + 1)
+    dispatch(setPage(page + 1))
   }
 
   /**
@@ -107,15 +102,15 @@ function useSearch(): useSearchReturnType {
     if (page === 1) {
       return
     }
-    setPage((prev) => prev - 1)
+    dispatch(setPage(page - 1))
   }
 
   /**
    * Calling this function will paginate to a
    * specific number
    */
-  const paginateTo = (newpage: number) => {
-    setPage(newpage)
+  const paginateTo = (pageParam: number) => {
+    dispatch(setPage(pageParam))
   }
 
   const dishesData = data && data.dishes

@@ -8,6 +8,7 @@ export interface Confinement {
   includedIngredients: Ingredient[]
   excludedIngredients: Ingredient[]
   keyWord: string
+  page: number
 }
 
 const initialState: Confinement = {
@@ -15,6 +16,7 @@ const initialState: Confinement = {
   includedIngredients: [],
   excludedIngredients: [],
   keyWord: '',
+  page: 1,
 }
 
 export const confinementReducer = createSlice({
@@ -22,23 +24,29 @@ export const confinementReducer = createSlice({
   initialState,
   reducers: {
     setSearchInput: (state, action: PayloadAction<string>) => {
+      state.page = 1
       state.keyWord = action.payload
     },
     setSortingPreference: (state, action: PayloadAction<SortingPreference>) => {
+      state.page = 1
       state.sortingPreference = action.payload
     },
     includeFilter: (state, action: PayloadAction<Ingredient>) => {
+      state.page = 1
       state.includedIngredients = [...state.includedIngredients, action.payload]
     },
     removeIncludedFilter: (state, action: PayloadAction<Ingredient>) => {
+      state.page = 1
       state.includedIngredients = state.includedIngredients.filter(
         (filter) => filter.id !== action.payload.id,
       )
     },
     excludeFilter: (state, action: PayloadAction<Ingredient>) => {
+      state.page = 1
       state.excludedIngredients = [...state.excludedIngredients, action.payload]
     },
     removeExcludedFilter: (state, action: PayloadAction<Ingredient>) => {
+      state.page = 1
       state.excludedIngredients = state.excludedIngredients.filter(
         (filter) => filter.id !== action.payload.id,
       )
@@ -48,7 +56,11 @@ export const confinementReducer = createSlice({
       state.excludedIngredients = []
     },
     setKeyWord: (state, action: PayloadAction<string>) => {
+      state.page = 1
       state.keyWord = action.payload
+    },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload
     },
   },
 })
@@ -62,6 +74,7 @@ export const {
   removeExcludedFilter,
   setKeyWord,
   resetAllFilters,
+  setPage,
 } = confinementReducer.actions
 
 export default confinementReducer.reducer
