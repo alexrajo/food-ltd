@@ -35,7 +35,7 @@ export default function WriteReview() {
   const { refetch: refetchDish } = useDish()
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center overflow-y-scroll bg-primary dark:bg-primarydark'>
+    <div className='flex h-full w-full flex-col items-center justify-center  overflow-y-scroll bg-primary dark:bg-primarydark'>
       <div className='flex w-96 flex-col bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
         <p className='text-xl'>Post a review</p>
         <Formik

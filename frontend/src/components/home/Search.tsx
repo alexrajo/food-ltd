@@ -79,7 +79,7 @@ export default function Search(props: ComponentProps) {
         )}
       </div>
       {showSuggestions && (
-        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark'>
+        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark '>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <button

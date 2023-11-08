@@ -3,7 +3,7 @@
  */
 export default function Favorites() {
   return (
-    <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>
+    <div className=' flex w-full flex-col gap-2 overflow-y-scroll  p-20'>
       <div className='flex flex-row justify-between'>
         <div className=' flex flex-row items-center gap-4'>
           <p className=' flex cursor-pointer p-2'>{'<'} Prevous</p>

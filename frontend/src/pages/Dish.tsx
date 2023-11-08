@@ -55,7 +55,7 @@ export default function DishPage() {
     return <div />
   }
   return (
-    <div className='h-full w-full overflow-y-scroll p-4 md:p-20' id='dish-page'>
+    <div className='h-full w-full overflow-y-scroll  p-4 md:p-20' id='dish-page'>
       <div className=' flex flex-col gap-2'>
         <Link
           to='/'
