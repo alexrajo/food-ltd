@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Dish } from 'src/types/types'
-import { memo, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import RatingDisplay from 'src/components/RatingDisplay'
 
 type FoodDisplayProps = {
@@ -15,23 +15,20 @@ function FoodDisplay(props: FoodDisplayProps) {
   const { dish } = props
   const { title, dishId: id, imageName, averageRating, reviewCount } = dish
 
-  const [loading, setLoading] = useState(true)
-
-  const handleImageLoad = () => {
-    setLoading(false)
-  }
-
   return (
     <Link to={`/dish/${id}`} className=' basis-1/2 p-2 lg:basis-1/3'>
       <div className='group relative flex cursor-pointer flex-col bg-white shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
-        {loading && <Placeholder />}
-          <img
-            alt='food'
-            className='rounded-sm object-cover'
-            src={`http://it2810-43.idi.ntnu.no/images/${imageName}.jpg`}
-            onLoad={handleImageLoad}
-          />
-
+        <div className='3xl:h-96 lg:h-42 flex h-32 w-full bg-white object-cover dark:bg-secondarydark md:h-40 xl:h-64 2xl:h-72'>
+          {imageName === '#NAME?' ? (
+            <Placeholder />
+          ) : (
+            <img
+              alt='food'
+              className='w-full rounded-sm object-cover'
+              src={`http://it2810-43.idi.ntnu.no/images/${imageName}.jpg`}
+            />
+          )}
+        </div>
         <div className='p-4 font-bold text-black  '>
           <p className=' line-clamp-1 text-xs lg:text-sm'>{title}</p>
           <RatingDisplay
@@ -47,10 +44,7 @@ function FoodDisplay(props: FoodDisplayProps) {
 }
 
 const Placeholder = () => (
-  <div
-    role='output'
-    className='flex h-56 max-w-sm animate-pulse items-center justify-center object-cover duration-[100s] dark:bg-gray-700 dark:bg-secondary'
-  >
+  <div role='output' className='flex h-full w-full items-center justify-center'>
     <svg
       className='h-10 w-10 text-gray-200 dark:text-gray-600'
       aria-hidden='true'
