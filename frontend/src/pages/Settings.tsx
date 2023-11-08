@@ -6,6 +6,10 @@ import { setDark, setLight } from 'src/redux/themeReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
 import cn from 'src/utils/cn'
 
+/**
+ * Page where user can change preferances.
+ * Currently only two settings are available.
+ */
 export default function Settings() {
   const colorMode = useAppSelector((state) => state.theme.value)
   const unit = useAppSelector((state) => state.temperatureUnit.value)

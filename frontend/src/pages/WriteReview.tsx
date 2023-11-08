@@ -5,6 +5,10 @@ import RatingDisplay from 'src/components/RatingDisplay'
 import useDish from 'src/hooks/useDish'
 import { postReview } from 'src/utils/api-calls'
 
+/**
+ * Small component used in the WriteReview page.
+ * This allows user to set a rating for the dish they are reviewing.
+ */
 function RatingInput(props: FieldProps<any>) {
   const { field, form } = props
   const { name } = field
@@ -19,6 +23,10 @@ function RatingInput(props: FieldProps<any>) {
   )
 }
 
+/**
+ * The page users land on when they wish to leave a review on a dish.
+ * Includes a title, comment and rating field where users can input information.
+ */
 export default function WriteReview() {
   const navigate = useNavigate()
   const { id } = useParams()

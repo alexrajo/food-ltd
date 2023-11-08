@@ -11,7 +11,13 @@ import MenuIcon from 'src/components/icons/MenuIcon'
 import cn from 'src/utils/cn'
 
 /**
- * Holds all the components that show up on the main page.
+ * Holds all the components that show up on the main page, which are, in order:
+ * - The main search bar.
+ * - A list of all applied filters to the search result.
+ * - A menu for selecting how result should be sorted.
+ * - Page navigation menu.
+ * - The search result.
+ * - Another page navigation menu.
  */
 export default function Home() {
   const {

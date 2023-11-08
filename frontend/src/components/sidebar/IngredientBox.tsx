@@ -1,6 +1,10 @@
 type ComponentProps = {
   name: string
 }
+/**
+ * Container for the name of an ingredient that has been used in a filter.
+ * Shows up under the search bar for applying filter.
+ */
 export default function IngredientBox(props: ComponentProps) {
   const { name } = props
 

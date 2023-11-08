@@ -4,6 +4,10 @@ import { Ingredient } from 'src/types/types'
 type ComponentProps = {
   ingredients: Ingredient[]
 }
+
+/**
+ * Container for the ingredients used in a filter. Shows up under the filter search bar.
+ */
 export default function IngredientsList(props: ComponentProps) {
   const { ingredients } = props
 

@@ -5,7 +5,11 @@ type ReviewDisplayProps = {
   review: Review
   ref?: React.MutableRefObject<HTMLDivElement>
 }
-
+/**
+ * 
+ * @param props Review
+ * @returns Component able to display information of the Review type.
+ */
 export default function ReviewDisplay(props: ReviewDisplayProps) {
   const { review, ref } = props
   const { reviewId, title, rating, comment, postedAt: postedAtUnix } = review

@@ -1,3 +1,7 @@
+
+/**
+ * Currently not in use, since no favourite functionality has been implemented.
+ */
 export default function Favorites() {
   return (
     <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-20'>

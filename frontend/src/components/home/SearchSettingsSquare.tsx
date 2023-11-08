@@ -2,11 +2,10 @@ import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { closeFilterMenu, openFilterMenu } from 'src/redux/modalsReducer'
 
 /**
- * This is the little box next to the Search bar. Found in the dribble reference.
- * Not clear what should happen when clicked, but now it is here at least.
+ * This is the little box next to the Search bar. When clicked,
+ * a menu opens to allow user to apply filters to the search result.
  */
 export default function SearchSettingsSquare() {
-  // TODO : find some purpose for this :)
 
   const dispatch = useAppDispatch()
   const open = useAppSelector((state) => state.modals.filterMenu)
