@@ -60,7 +60,7 @@ export default function Settings() {
             Dark mode
           </p>
           <SliderIcon active={colorMode === 'light'} />
-          <p className={cn(colorMode === 'dark' && '')}>Light mode</p>
+          <p className={cn(colorMode === 'light' ? 'font-bold' : 'font-thin')}>Light mode</p>
         </button>
         <button
           type='button'
