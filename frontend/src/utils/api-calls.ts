@@ -4,6 +4,8 @@ import { SORTING_OPTIONS } from 'src/utils/constants'
 import mock_dishes from 'src/tests/mock/dishes.json'
 import mock_reviews from 'src/tests/mock/reviews.json'
 import mock_ingredients from 'src/tests/mock/ingredients.json'
+import readme from '../../../README.md'
+import { Section, readmeParser } from './readmeParse'
 
 const URL = `http://${
   process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
@@ -307,4 +309,16 @@ export const fetchIngredientFilterCounts = async (
     .then((res) => res.json())
     .then((res) => res.data)
     .catch((err) => console.log(err))
+}
+
+/**
+ * Fetches content from readme file. Tanstack query caches this result,
+ * so fetching should only occur once. 
+ * @returns parsed content, for use on the documentation page. 
+ */
+export const fetchDocs = async (): Promise<Section[]> => {
+      const res = await fetch(readme)
+      if (!res.ok) throw Error('not ok')
+      const content = await res.text()
+      return readmeParser(content)
 }
