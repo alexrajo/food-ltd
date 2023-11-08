@@ -15,6 +15,7 @@ import DishPage from './pages/Dish'
 import ErrorPage from './pages/Error'
 import DocumentationPage from './pages/DocumentationPage'
 import { Documentation } from './components/documentation/DocumentationOutlet'
+import DocumentationComponent from './components/documentation/DocumentationComponent'
 
 
 const router = createBrowserRouter(
@@ -59,7 +60,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: '/docs', 
-          element: <div>Default</div>
+          element: <DocumentationComponent />
         },
         {
           path: '/docs/:section/:subsection',

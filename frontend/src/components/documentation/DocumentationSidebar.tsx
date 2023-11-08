@@ -21,7 +21,6 @@ export default function DocumentationSidebar() {
             <div className='flex flex-col gap-4 border-l border-slate-100 border-opacity-20'>
               {section.subsections.map((subsection, subsectionIndex) => {
                 const url = `/docs/${sectionIndex}/${subsectionIndex}`
-  
                 return (
                   <Link
                     key={url}
