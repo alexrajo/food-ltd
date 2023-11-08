@@ -13,19 +13,19 @@ const markdownOptions = {
       <ol className='list-decimal pl-6'>{props.children}</ol>
     ),
     li: (props: { children: ReactNode }) => (
-      <li className='mb-2'>{props.children}</li>
+      <li className='mb-4 text-lg text-slate-100'>{props.children}</li>
     ),
     h1: (props: { children: ReactNode }) => (
       <h1 className='my-4 text-4xl font-bold'>{props.children}</h1>
     ),
     h2: (props: { children: ReactNode }) => (
-      <h2 className='my-3 text-3xl font-semibold'>{props.children}</h2>
+      <h2 className='my-3 text-3xl font-semibold '>{props.children}</h2>
     ),
     h3: (props: { children: ReactNode }) => (
       <h3 className='my-2 text-2xl font-semibold'>{props.children}</h3>
     ),
     p: (props: { children: ReactNode }) => (
-      <p className="mb-4">{props.children}</p>
+      <p className="mb-6">{props.children}</p>
     ),
   },
 }
