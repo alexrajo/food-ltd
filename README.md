@@ -13,7 +13,11 @@
 
 <a name="background"></a>
 
-### Background
+
+
+## Background
+
+### Application description
 
 This application allows the user to browse a large number of food recipes. Each recipe can be selected to show more information, like ingredients, steps to make and more. Users can also leave reviews on the dish.
 
@@ -21,14 +25,14 @@ Finding the right dish is done through search, filtering or navigating.
 
 <a name="running"></a>
 
-### Running the project
+## Running the project
 
-1. Prerequisites:
+### Prerequisites
 
    - Node.js v20.5+ and npm v9.8+.
    - Vite 4.4+
 
-2. **Installation**:
+### Installation
 
    - Clone the repository from gitlab and navigate to the project root directory
    - Navigate to project directory (frontend): `cd .\frontend\`
@@ -38,7 +42,7 @@ Finding the right dish is done through search, filtering or navigating.
    - Install dependencies: `npm install`
    - Initialize prisma with `npx prisma generate`
 
-3. **Starting the Project**:
+### Starting the Project
 
 _Run frontend_
 
@@ -75,7 +79,9 @@ _Run backend_
 
 <a name="structure"></a>
 
-### Project structure
+## General
+
+### Project Structure
 
 The project is structured as follows:
 
@@ -184,6 +190,6 @@ Nothing yet.
 
 <a name="sustainability"></a>
 
-## Sustainability
+### Sustainability
 
 
