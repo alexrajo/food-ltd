@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
 import { useAppSelector } from 'src/hooks/useAppRedux'
 import FilterMenu from 'src/components/sidebar/FilterMenu'
+import Navbar from './components/Navbar'
 import cn from './utils/cn'
 
 export default function App() {
@@ -10,10 +10,8 @@ export default function App() {
 
   // `${colorMode == 'dark' ? 'dark' : ''} w-screen `
   return (
-    <div className={cn("w-screen", colorMode === 'dark' && 'dark' )}>
-      <div
-        className='relative flex h-screen flex-row text-black dark:text-white'
-      >
+    <div className={cn('w-screen', colorMode === 'dark' && 'dark')}>
+      <div className='relative flex h-screen flex-row text-black dark:text-white'>
         <Navbar />
         <div className='flex h-full w-full bg-slate-50 dark:bg-primarydark'>
           <Outlet />

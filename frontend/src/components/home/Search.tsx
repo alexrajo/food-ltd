@@ -82,7 +82,8 @@ export default function Search(props: ComponentProps) {
         <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark'>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
-              <div
+              <button
+                type='button'
                 className='flex flex-row items-center gap-4 p-4 hover:cursor-pointer hover:bg-tertiarydark'
                 onMouseDown={() => {
                   addSearchHistory(searchInput)
@@ -92,63 +93,66 @@ export default function Search(props: ComponentProps) {
               >
                 <img src={search} alt='searchIcon' className='h-6 w-6' />
                 <p>{searchInputSuggestions}</p>
-              </div>
+              </button>
             )}
             {suggested.length === 0 && searchHistory && (
               <>
                 <div className='flex flex-row items-center justify-between p-2'>
                   <p className=' '>No suggestions</p>
-                  <p
+                  <button
+                    type='button'
                     onMouseDown={() => {
                       clearSearchHistory()
                     }}
-                    className='cursor-pointer underline'
+                    className='underline'
                   >
                     Clear history
-                  </p>
+                  </button>
                 </div>
-                {searchHistory.map((search) => {
-                  return (
-                    <div className='flex flex-row items-center justify-between p-2'>
-                      <div className=' flex flex-row items-center gap-2 '>
-                        <img
-                          src={historyIcon}
-                          alt='searchIcon'
-                          className='h-6 w-6'
-                        />
-                        <p className=' '>{search}</p>
-                      </div>
-                      <p
-                        onMouseDown={() => {
-                          removeSearchHistory(search)
-                        }}
-                        className='cursor-pointer underline'
-                      >
-                        Remove
-                      </p>
+                {searchHistory.map((prevSearch) => (
+                  <div
+                    key={prevSearch}
+                    className='flex flex-row items-center justify-between p-2'
+                  >
+                    <div className=' flex flex-row items-center gap-2 '>
+                      <img
+                        src={historyIcon}
+                        alt='searchIcon'
+                        className='h-6 w-6'
+                      />
+                      <p className=' '>{prevSearch}</p>
                     </div>
-                  )
-                })}
+                    <button
+                      type='button'
+                      onMouseDown={() => {
+                        removeSearchHistory(prevSearch)
+                      }}
+                      className='underline'
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
               </>
             )}
-            {suggested.splice(0, 5).map((dish) => {
-              return (
-                <div
-                  onMouseDown={() => {
-                    navigate(`/dish/${dish.dishId}`)
-                  }}
-                  // to={`/dish/${dish.dishId}`}
-                  className='flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-tertiarydark'
-                >
-                  <img
-                    src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
-                    alt='dish'
-                    className='h-10 w-10 object-cover'
-                  />
-                  <p className=' '>{dish.title}</p>
-                </div>
-              )
-            })}
+            {suggested.splice(0, 5).map((dish) => (
+              <button
+                type='button'
+                key={dish.dishId}
+                onMouseDown={() => {
+                  navigate(`/dish/${dish.dishId}`)
+                }}
+                // to={`/dish/${dish.dishId}`}
+                className='flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-tertiarydark'
+              >
+                <img
+                  src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
+                  alt='dish'
+                  className='h-10 w-10 object-cover'
+                />
+                <p className=' '>{dish.title}</p>
+              </button>
+            ))}
           </div>
         </div>
       )}

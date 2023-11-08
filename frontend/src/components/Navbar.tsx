@@ -13,7 +13,8 @@ import XIcon from './icons/XIcon'
 
 /**
  * Allows for navigation between pages in the application.
- * Situated at the top of the page.
+ * In reality a sidebar, because it has been moved to the left side of the page.
+ * TODO : rename to sidebar.
  */
 export default function Navbar({ className }: { className?: string }) {
   const [key, setKey] = useState(0)

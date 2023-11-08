@@ -8,10 +8,10 @@ import { persistor, store } from 'src/redux/store'
 import App from 'src/App'
 import 'src/index.css'
 import Home from 'src/pages/Home'
-import DishPage from './pages/Dish'
 import Favorites from 'src/pages/Favorites'
 import Settings from 'src/pages/Settings'
 import WriteReview from 'src/pages/WriteReview'
+import DishPage from './pages/Dish'
 import ErrorPage from './pages/Error'
 
 const router = createBrowserRouter(

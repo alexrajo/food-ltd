@@ -1,3 +1,6 @@
+/**
+ * Used on the main page to show that food search results are currently loading.
+ */
 export default function FoodDisplaySkeleton() {
   return (
     <div className='group flex w-60 animate-pulse cursor-pointer flex-col bg-white shadow-xl dark:bg-secondary'>
