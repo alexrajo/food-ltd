@@ -28,14 +28,12 @@ export default function Navbar({ className }: { className?: string }) {
   const dispatch = useAppDispatch()
 
   // navbar is a sidebar on the left of the screen
-  const menuClass = open
-    ? 'flex fixed  lg:flex lg:relative'
-    : 'hidden fixed lg:flex lg:relative'
+  const menuClass = open ? 'flex' : 'hidden lg:flex'
 
   return (
     <div
       className={cn(
-        'z-50 h-full w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark',
+        'sticky top-0 z-50 h-screen w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark',
         menuClass,
         className,
       )}

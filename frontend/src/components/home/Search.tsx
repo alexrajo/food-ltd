@@ -84,7 +84,7 @@ export default function Search(props: ComponentProps) {
         )}
       </div>
       {showSuggestions && (
-        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark'>
+        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark '>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <button
@@ -114,9 +114,9 @@ export default function Search(props: ComponentProps) {
                     Clear history
                   </button>
                 </div>
-                {searchHistory.map((prevSearch) => (
+                {searchHistory.map((prevSearch, index) => (
                   <div
-                    key={prevSearch}
+                    key={`${index}-${prevSearch}`}
                     className='flex flex-row items-center justify-between p-2'
                   >
                     <div className=' flex flex-row items-center gap-2 '>

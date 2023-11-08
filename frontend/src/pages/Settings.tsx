@@ -33,7 +33,7 @@ export default function Settings() {
 
   return (
     <div className='flex w-full'>
-      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-4 md:p-20'>
+      <div className=' flex w-full flex-col gap-2 overflow-y-scroll p-4 md:p-20'>
         <button
           aria-label='Open Navigation Menu'
           onMouseDown={() => {
@@ -56,11 +56,17 @@ export default function Settings() {
           className=' mt-8 flex items-center gap-10 px-10'
           onClick={toggleColorMode}
         >
-          <p className={cn(colorMode === 'dark' ? 'font-bold' : 'font-thin')}>
+          <p
+            className={cn(colorMode === 'dark' ? 'font-semibold' : 'font-thin')}
+          >
             Dark mode
           </p>
           <SliderIcon active={colorMode === 'light'} />
-          <p className={cn(colorMode === 'light' ? 'font-bold' : 'font-thin')}>Light mode</p>
+          <p
+            className={cn(colorMode === 'dark' ? 'font-thin' : 'font-semibold')}
+          >
+            Light mode
+          </p>
         </button>
         <button
           type='button'

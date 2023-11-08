@@ -33,7 +33,9 @@ import { INGREDIENTS } from 'src/utils/constants'
  * @returns The parsed included and excluded ingredients
  * @returns Whether the data is loading
  */
-export default function useAutocomplete(): useAutoCompleteReturnType {
+export default function useAutocomplete(
+  enabled: boolean,
+): useAutoCompleteReturnType {
   /** The search input */
   const searchInput = useAppSelector((state) => state.confinements.keyWord)
 
@@ -47,6 +49,7 @@ export default function useAutocomplete(): useAutoCompleteReturnType {
 
   /** Fetch the data from the api */
   const { isLoading, data: ingredientCount } = useQuery({
+    enabled,
     queryKey: [
       'ingredientCounts',
       searchInput,
