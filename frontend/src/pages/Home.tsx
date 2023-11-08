@@ -57,7 +57,7 @@ export default function Home() {
 
   return (
     <div className='flex w-full'>
-      <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-2 sm:p-20'>
+      <div className='no-scrollbar flex w-full flex-col gap-2 p-2 sm:p-20'>
         <div className='flex w-full gap-4'>
           <button
             aria-label='Open Navigation Menu'
