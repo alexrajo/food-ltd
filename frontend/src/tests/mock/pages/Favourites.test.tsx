@@ -2,7 +2,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
-import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 // there is currently no way to get to favorites (not implemented), so this is temporary

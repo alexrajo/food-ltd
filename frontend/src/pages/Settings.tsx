@@ -31,6 +31,7 @@ export default function Settings() {
     <div className='flex w-full'>
       <div className='no-scrollbar flex w-full flex-col gap-2 overflow-y-scroll p-4 md:p-20'>
         <button
+          aria-label="Open Navigation Menu"
           onMouseDown={() => {
             dispatch(openNavbar())
           }}

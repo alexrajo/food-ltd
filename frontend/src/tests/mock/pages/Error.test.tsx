@@ -2,7 +2,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
-import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 // fake component that has a link to non-existant page

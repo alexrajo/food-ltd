@@ -51,9 +51,9 @@ type PostReviewResponse = {
 export const fetchDish = async (
   dishId?: string,
 ): Promise<FetchDishResponse> => {
-  if (!dishId) {
-    return Promise.reject('No dishId provided')
-  }
+if (!dishId) {
+  return Promise.reject(new Error('No dishId provided'));
+}
   // If testing, use the mock data
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve({
@@ -85,7 +85,7 @@ export const fetchDish = async (
                 }
                 `,
       variables: {
-        dishId: parseInt(dishId),
+        dishId: parseInt(dishId, 10),
       },
     }),
   })
@@ -99,10 +99,10 @@ export const fetchReviews = async (
   dishId?: string,
   pageSize?: number,
 ): Promise<FetchReviewsResponse> => {
-  const dishIdNumber = dishId !== undefined ? parseInt(dishId) : undefined
+  const dishIdNumber = dishId !== undefined ? parseInt(dishId, 10) : undefined
 
   if (!dishId) {
-    return Promise.reject('No dishId provided')
+    return Promise.reject(new Error('No dishId provided'));
   }
 
   // Use mock data for testing

@@ -2,7 +2,6 @@ import { describe, test, expect, beforeEach, vi } from 'vitest'
 import {
   render,
   screen,
-  waitForElementToBeRemoved,
 } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
 import userEvent from '@testing-library/user-event'
