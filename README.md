@@ -74,6 +74,8 @@ Set up database:
   - On other macs, try running `/usr/local/opt/postgres/bin/createuser -s postgres`
   - By default, username should be **postgres** and password should be **postgres**.
 - Run `psql -U postgres` and type in the password, likely "postgres" and press enter
+  - If creating a user and accessing the database with said user does not work, try running `psql -d postgres`.
+  - On unix based operating systems like MacOS and Linux, you can alternatively try running `sudo -i -u postgres` then `psql`.
 - Run `CREATE DATABASE dishdb;`
 - Exit psql (ctrl+z)
 
