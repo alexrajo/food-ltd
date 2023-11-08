@@ -56,11 +56,17 @@ export default function Settings() {
           className=' mt-8 flex items-center gap-10 px-10'
           onClick={toggleColorMode}
         >
-          <p className={cn(colorMode === 'dark' ? 'font-bold' : 'font-thin')}>
+          <p
+            className={cn(colorMode === 'dark' ? 'font-semibold' : 'font-thin')}
+          >
             Dark mode
           </p>
           <SliderIcon active={colorMode === 'light'} />
-          <p className={cn(colorMode === 'dark' && '')}>Light mode</p>
+          <p
+            className={cn(colorMode === 'dark' ? 'font-thin' : 'font-semibold')}
+          >
+            Light mode
+          </p>
         </button>
         <button
           type='button'
