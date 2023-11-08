@@ -1,7 +1,9 @@
 import { Confinement } from 'src/redux/confinementReducer'
 import { Dish, Review } from 'src/types/types'
 import { SORTING_OPTIONS } from 'src/utils/constants'
-// import mock_data from '../assets/mockdata.json'
+import mock_dishes from 'src/tests/mock/dishes.json'
+import mock_reviews from 'src/tests/mock/reviews.json'
+import mock_ingredients from 'src/tests/mock/ingredients.json'
 
 const URL = `http://${
   process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
@@ -52,14 +54,14 @@ export const fetchDish = async (
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
-  // If in development, use the mock data
-  // if (process.env.NODE_ENV === 'test') {
-  //   return Promise.resolve({
-  //     dish:
-  //       mock_data.find((dish) => dish.dishId === parseInt(dishId)) ||
-  //       mock_data[0],
-  //   })
-  // }
+  // If testing, use the mock data
+  if (process.env.NODE_ENV === 'test') {
+    return Promise.resolve({
+      dish: {
+        data: mock_dishes.find(dish => dish.dishId.toString() === dishId) ?? mock_dishes[0]
+      }
+    })
+  }
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -100,12 +102,17 @@ export const fetchReviews = async (
   if (!dishId) {
     return Promise.reject('No dishId provided')
   }
-  // if (process.env.NODE_ENV === 'test') {
-  //   return Promise.resolve({
-  //     reviews:
-  //       mock_data.find((dish) => dish.dishId === dishIdNumber)?.reviews || [],
-  //   })
-  // }
+
+  // Use mock data for testing
+  if (process.env.NODE_ENV === 'test') {
+
+    return Promise.resolve({
+      reviews: {
+        data: mock_reviews.filter(review => review.dishId.toString() === dishId),
+      },
+    })
+  }
+
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -195,14 +202,19 @@ export const fetchSearchResults = async (
   page: number,
   pageSize?: number,
 ): Promise<FetchDishesResponse> => {
-  // Use mock data for testing and development
-  // if (process.env.NODE_ENV === 'test') {
-  //   return Promise.resolve({
-  //     dishes: mock_data.filter((dish) =>
-  //       dish.title.toLowerCase().includes(keyWord.toLowerCase()),
-  //     ),
-  //   })
-  // }
+  //Use mock data for testing
+  if (process.env.NODE_ENV === 'test') {
+
+    const response: FetchDishesResponse = {
+      dishes: {
+        data: mock_dishes,
+        pages: 1, // Set the appropriate number of pages
+      },
+    }
+
+    return Promise.resolve(response)
+  }
+
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -248,6 +260,22 @@ export const fetchIngredientFilterCounts = async (
   includedIngredients: Confinement['includedIngredients'],
   ingredientOptions: string[],
 ): Promise<FetchIngredientFilterCountsResponse> => {
+
+  // For mocking
+  if (process.env.NODE_ENV === 'test') {
+    const response: FetchIngredientFilterCountsResponse = {
+      ingredientFilterCounts: {
+        data: {
+          includedIngredients: JSON.stringify(mock_ingredients),
+          excludedIngredients: '', 
+        },
+      },
+    };
+
+    return Promise.resolve(response);
+  }
+
+
   return fetch(URL, {
     method: 'POST',
     headers: {

@@ -18,27 +18,27 @@ vi.mock('lottie-react', () => {
   }
 })
 
-describe('sortby', async () => {
+describe('Navbar', async () => {
   beforeEach(async () => {
     render(<div />, { wrapper: TestWrapper })
 
+})
+test('can open settings', async () => {
     await screen.findByText('Mock Dish 1')
+    // Go to settings page
+    await userEvent.click(screen.getByText('Settings'))
+     
+    // Shows that the page has been switched
+    await screen.findByText('Light mode')
+    expect(screen.getByText('Light mode')).toBeDefined()
   })
-  test('Sorting options exist', () => {
+
+  test('Can go back to main menu', async () => {
+    // Go home
+    await userEvent.click(screen.getByText('Home'))
+
+    // Only exist on the main page
+    await screen.findByText('Popular')
     expect(screen.getByText('Popular')).toBeDefined()
-    expect(screen.getByText('Rating')).toBeDefined()
-    expect(screen.getByText('A-Z')).toBeDefined()
-  })
-  test('should have changed style when clicked', async () => {
-    // Selected options have different font than others
-    expect(
-      screen.getByText('Rating').className.includes('font-normal'),
-    ).toBeFalsy()
-
-    await userEvent.click(screen.getByText('Rating'))
-
-    expect(
-      screen.getByText('Rating').className.includes('font-normal'),
-    ).toBeTruthy()
   })
 })
