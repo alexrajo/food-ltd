@@ -77,7 +77,7 @@ Set up database:
 - Run `CREATE DATABASE dishdb;`
 - Exit psql (ctrl+z)
 
-Populate the database with data: 
+Populate the database with data:
 
 - Navigate to the project-2/backend/database directory
 - Go to the bottom of setup.sql
@@ -87,7 +87,7 @@ Populate the database with data:
 
       DATABASE_URL=postgresql://username:password@localhost:5432/dishdb?schema=public
 
-Comment to the reviewer: if you have tried this, please let us know if these instructions were satisfactory. We are aware that the steps can be unclear. 
+Comment to the reviewer: if you have tried this, please let us know if these instructions were satisfactory. We are aware that the steps can be unclear.
 
 ### Starting the Project
 
@@ -215,9 +215,8 @@ The application has been tested using windows and macos on chrome and safari. It
 
 ## Accessibility
 
-### The good
+I. Included in the airbnb styleguide for coding is a11y standard for accessibility. These linting checks make sure that:
 
-I. Included in the airbnb styleguide for coding is a11y standard for accessibility. These linting checks make sure that: 
 - All `<img>` tags have alt text.
 - Alt texts are descriptive.
 - Aria roles are valid and non-abstract.
@@ -225,37 +224,21 @@ I. Included in the airbnb styleguide for coding is a11y standard for accessibili
 
 ... and more. These are great for making sure the code follows accessibility standards.
 
-II. Zooming is possible. This is good for users with poor eyesight. 
+II. Zooming is possible. This is good for users with poor eyesight.
 
-III. Color contrast should be reasonably high, since most colors are white/dark gray and orange. This could be more thoroughly checked, however. 
+III. Color contrast should be reasonably high, since most colors are white/dark gray and orange. This could be more thoroughly checked, however.
 
 IV. No blinking, sound, quick animations that might cause problems for some users.
 
-### The bad
-
-I. The project might be overusing the `<div>` tag. In the future, a bigger focus should be put on using correct tags. 
-
-II. The page is not keyboard navigable. The user is required to have a mouse to access most functionality. This is something that should be fixed. 
-
 ## Environment
 
-### The good
+I. A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
 
-I. A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier. 
-
-II. Darkmode is set by default, which requires less power to display. 
+II. Darkmode is set by default, which requires less power to display.
 
 III. SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
 
 IV. Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
-
-### The bad
-
-I. Some computations could be memoized to avoid costly rerenders.
-
-II. The images are quite large, and uses jpeg format. This is resource intensive. 
-
-III. The font is not built-in, which costs extra.
 
 ## Project requirement fulfillment
 
@@ -263,85 +246,80 @@ III. The font is not built-in, which costs extra.
 
 - Search functionality, e.g., through a dialog/form/search field for input of search.
 
-    ✔ Large search bar on the main page.
+  ✔ Large search bar on the main page.
 
 - List-based presentation of search results, with support for handling large result sets through either pagination or dynamic loading of more results upon scrolling.
 
-    ✔ 1000 pages of dishes with pagination.
+  ✔ 1000 pages of dishes with pagination.
 
 - Ability to view more details about each object.
 
-    ✔ Each dish can be clicked on, bringing the user to a separate page.
+  ✔ Each dish can be clicked on, bringing the user to a separate page.
 
 - Option for sorting and filtering the result set (note that sorting and filtering should be performed on the entire result set and not just what happens to be loaded on the client).
 
-    ✔ Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic.
+  ✔ Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic.
 
 - Inclusion of some form of user-generated data that should be stored persistently on the database server and presented (e.g., user-contributed information, reviews, ratings, search history, shopping lists, etc.).
 
-    ✔ Users can leave reviews/ratings on the dishes. 
+  ✔ Users can leave reviews/ratings on the dishes.
 
 - The solution should demonstrate aspects of universal design/web accessibility (accessibility).
 
-    ✔* Discussed in its own section. 
+  ✔\* Discussed in its own section.
 
 - The solution should demonstrate aspects of sustainable web development (through design choices).
 
-    ✔* Discussed in its own section. 
+  ✔\* Discussed in its own section.
 
 - Good design, sensible choices, and solutions that align with the type of data you choose.
 
-    ✔ At least we think so. Reviewers should free to suggest changes 
+  ✔ At least we think so. Reviewers should free to suggest changes
 
-- The database and backend for the project should be hosted on the group's virtual machine at the time of submission.   
+- The database and backend for the project should be hosted on the group's virtual machine at the time of submission.
 
-    ✔
+  ✔
 
 ### Use of technology
 
 - The user interface should be based on React and programmed in TypeScript.
 
-    ✔
+  ✔
 
 - The project should be set up using Vite.
 
-    ✔
+  ✔
 
 - Use of state management, for example, Redux, Mobx, Recoil, Apollo local state management, etc.
 
-    ✔ The project uses redux.
+  ✔ The project uses redux.
 
 - Custom/developer-built GraphQL backend, free choice of the type of database server on the backend, but the project should use a backend database set up by the group.
 
-    ✔ postresql with graphql.
+  ✔ postresql with graphql.
 
 - Use of good and relevant components and libraries (free choice, and we encourage maximum reuse of third-party solutions).
 
-    ✔ Lottie, Formik, InfiniteScroll, React-Search-Autocomplete.
+  ✔ Lottie, Formik, InfiniteScroll, React-Search-Autocomplete.
 
 ### Testing, development and quality control
 
 - Linting and the use of Prettier.
 
-    ✔ Using a prettier config and eslint with aribnb styleguide.
-
+  ✔ Using a prettier config and eslint with aribnb styleguide.
 
 - Comprehensive testing of components (we use Vitest).
 
-    ✔* Most components are tested. More to come.
-
+  ✔\* Most components are tested. More to come.
 
 - Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.
 
-    X Must be implemented before
+  X Must be implemented before
 
 - The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices).
 
-    ✔* Need to expand the discussion on choices and solutions.
-    
+  ✔\* Need to expand the discussion on choices and solutions.
+
 - The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.
 
-    ✔* Let us know if there are some parts that require more attention. 
-
-
-
+  ✔\* Let us know if there are some parts that require more attention.
