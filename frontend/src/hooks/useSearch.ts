@@ -66,15 +66,6 @@ function useSearch(): useSearchReturnType {
   //   return () => clearTimeout(timeout);
   // }, [searchInput]);
 
-  /** Reset the page number whenever confinements changes */
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false
-      return
-    }
-    dispatch(setPage(1))
-  }, [includedIngredients, excludedIngredients, keyWord, sortingPreference])
-
   /**
    * This function refetches the searchresults based
    * on the current confinements
