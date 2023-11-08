@@ -8,6 +8,7 @@ export interface Confinement {
   includedIngredients: Ingredient[]
   excludedIngredients: Ingredient[]
   keyWord: string
+  page: number
 }
 
 const initialState: Confinement = {
@@ -15,6 +16,7 @@ const initialState: Confinement = {
   includedIngredients: [],
   excludedIngredients: [],
   keyWord: '',
+  page: 1,
 }
 
 export const confinementReducer = createSlice({
@@ -50,6 +52,9 @@ export const confinementReducer = createSlice({
     setKeyWord: (state, action: PayloadAction<string>) => {
       state.keyWord = action.payload
     },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload
+    },
   },
 })
 
@@ -62,6 +67,7 @@ export const {
   removeExcludedFilter,
   setKeyWord,
   resetAllFilters,
+  setPage,
 } = confinementReducer.actions
 
 export default confinementReducer.reducer
