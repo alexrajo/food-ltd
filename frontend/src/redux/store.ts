@@ -10,7 +10,7 @@ import sessionStorage from 'redux-persist/lib/storage/session'
 
 import { persistReducer, persistStore } from 'redux-persist'
 import searchHistory from 'src/redux/searchHistoryReducer'
-import history from 'src/redux/historyReducer';
+import history from 'src/redux/historyReducer'
 import favoritesReducer from 'src/redux/favoritesReducer'
 import modalsReducer from 'src/redux/modalsReducer'
 import temperatureUnit from './temperatureUnitReducer'

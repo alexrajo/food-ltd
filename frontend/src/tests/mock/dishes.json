@@ -1,37 +1,37 @@
 [
-    {
-      "dishId": 1,
-      "title": "Mock Dish 1",
-      "cleanedIngredients": ["Ingredient 1", "Ingredient 2"],
-      "averageRating": 4.5,
-      "reviewCount": 10
-    },
-    {
-      "dishId": 2,
-      "title": "Mock Dish 2",
-      "cleanedIngredients": ["Ingredient 3", "Ingredient 4"],
-      "averageRating": 4.0,
-      "reviewCount": 8
-    },
-    {
-        "dishId": 3,
-        "title": "Mock Dish 3",
-        "cleanedIngredients": ["Ingredient 5", "Ingredient 6"],
-        "averageRating": 4.2,
-        "reviewCount": 12
-      },
-      {
-        "dishId": 4,
-        "title": "Mock Dish 4",
-        "cleanedIngredients": ["Ingredient 7", "Ingredient 8"],
-        "averageRating": 4.8,
-        "reviewCount": 15
-      },
-      {
-        "dishId": 5,
-        "title": "Mock Dish 5",
-        "cleanedIngredients": ["Ingredient 9", "Ingredient 10"],
-        "averageRating": 3.7,
-        "reviewCount": 7
-      }
-  ]
+  {
+    "dishId": 1,
+    "title": "Mock Dish 1",
+    "cleanedIngredients": ["Ingredient 1", "Ingredient 2"],
+    "averageRating": 4.5,
+    "reviewCount": 10
+  },
+  {
+    "dishId": 2,
+    "title": "Mock Dish 2",
+    "cleanedIngredients": ["Ingredient 3", "Ingredient 4"],
+    "averageRating": 4.0,
+    "reviewCount": 8
+  },
+  {
+    "dishId": 3,
+    "title": "Mock Dish 3",
+    "cleanedIngredients": ["Ingredient 5", "Ingredient 6"],
+    "averageRating": 4.2,
+    "reviewCount": 12
+  },
+  {
+    "dishId": 4,
+    "title": "Mock Dish 4",
+    "cleanedIngredients": ["Ingredient 7", "Ingredient 8"],
+    "averageRating": 4.8,
+    "reviewCount": 15
+  },
+  {
+    "dishId": 5,
+    "title": "Mock Dish 5",
+    "cleanedIngredients": ["Ingredient 9", "Ingredient 10"],
+    "averageRating": 3.7,
+    "reviewCount": 7
+  }
+]

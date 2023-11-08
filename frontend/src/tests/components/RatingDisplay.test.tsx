@@ -40,6 +40,8 @@ describe('Navbar', async () => {
       const src = image.getAttribute('src')
       expect(src).toBe('/project2/src/assets/star.svg')
     })
-    expect(stars[4].getAttribute('src')).toBe("/project2/src/assets/outline-star.svg")
+    expect(stars[4].getAttribute('src')).toBe(
+      '/project2/src/assets/outline-star.svg',
+    )
   })
 })

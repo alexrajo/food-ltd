@@ -59,8 +59,12 @@ export default function useAutocomplete(): useAutoCompleteReturnType {
         excludedIngredients,
         includedIngredients,
         INGREDIENTS.map((i) => i.name)
-          .filter((name) => !excludedIngredients.map((i) => i.name).includes(name))
-          .filter((name) => !includedIngredients.map((i) => i.name).includes(name)),
+          .filter(
+            (name) => !excludedIngredients.map((i) => i.name).includes(name),
+          )
+          .filter(
+            (name) => !includedIngredients.map((i) => i.name).includes(name),
+          ),
       ),
     staleTime: 10000,
   })

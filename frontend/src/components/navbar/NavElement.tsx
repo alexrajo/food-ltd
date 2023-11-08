@@ -29,12 +29,18 @@ export default function NavElement(props: ComponentProps) {
     >
       {icon}
       <p
-        className={cn('flex', selected ? 'text-black dark:text-white' : 'text-gray-400')}
+        className={cn(
+          'flex',
+          selected ? 'text-black dark:text-white' : 'text-gray-400',
+        )}
       >
         {text}
       </p>
       <div
-        className={cn('absolute h-full w-0.5 bg-secondary right-0', selected ? 'flex' : 'hidden')}
+        className={cn(
+          'absolute right-0 h-full w-0.5 bg-secondary',
+          selected ? 'flex' : 'hidden',
+        )}
       />
     </Link>
   )

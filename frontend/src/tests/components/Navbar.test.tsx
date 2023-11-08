@@ -21,13 +21,12 @@ vi.mock('lottie-react', () => {
 describe('Navbar', async () => {
   beforeEach(async () => {
     render(<div />, { wrapper: TestWrapper })
-
-})
-test('can open settings', async () => {
+  })
+  test('can open settings', async () => {
     await screen.findByText('Mock Dish 1')
     // Go to settings page
     await userEvent.click(screen.getByText('Settings'))
-     
+
     // Shows that the page has been switched
     await screen.findByText('Light mode')
     expect(screen.getByText('Light mode')).toBeDefined()

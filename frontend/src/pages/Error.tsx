@@ -18,13 +18,13 @@ export default function ErrorPage() {
       </div>
       <div>
         You can go to{' '}
-        <Link className='text-link dark:text-linkdark font-bold' to='/'>
+        <Link className='font-bold text-link dark:text-linkdark' to='/'>
           Home
         </Link>{' '}
         or{' '}
         <button
           type='button'
-          className='text-link dark:text-linkdark font-bold'
+          className='font-bold text-link dark:text-linkdark'
           onClick={handleGoBack}
         >
           Go back

@@ -35,7 +35,8 @@ module.exports = {
         selector: 'property',
         format: null,
         filter: {
-          regex: '(&:hover|Content-Type|primary-text|grayed-text|A-Z|book_image|primary_isbn13|primary_isbn10|list_name)',
+          regex:
+            '(&:hover|Content-Type|primary-text|grayed-text|A-Z|book_image|primary_isbn13|primary_isbn10|list_name)',
           match: true,
         },
       },

@@ -78,7 +78,11 @@ export default function Home() {
         <div className='flex flex-col justify-between md:flex-row'>
           <SortBy />
           <div className=' flex flex-row items-center gap-4'>
-            <button type='button' onClick={paginateBackwards} className='flex p-2'>
+            <button
+              type='button'
+              onClick={paginateBackwards}
+              className='flex p-2'
+            >
               {'<'} Prevous
             </button>
             {/** Make input have the value of page */}
@@ -101,7 +105,11 @@ export default function Home() {
             />
             <p>of</p>
             <p>{pages || 1}</p>
-            <button type='button' onClick={paginateForwards} className='flex p-2'>
+            <button
+              type='button'
+              onClick={paginateForwards}
+              className='flex p-2'
+            >
               Next {'>'}
             </button>
           </div>
@@ -110,7 +118,7 @@ export default function Home() {
 
         <div className=' hidden w-full flex-row items-center gap-4 sm:flex '>
           <button
-          type='button'
+            type='button'
             onClick={paginateBackwards}
             className={cn('flex p-2', page < 2 && 'opacity-50')}
           >
@@ -118,7 +126,7 @@ export default function Home() {
           </button>
           {pageSuggestions[0] && (
             <button
-            type='button'
+              type='button'
               className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-black p-2 dark:border-white'
               onClick={() => paginateTo(pageSuggestions[0]!)}
             >
@@ -179,4 +187,3 @@ export default function Home() {
     </div>
   )
 }
-

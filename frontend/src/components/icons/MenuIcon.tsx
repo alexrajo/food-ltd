@@ -1,4 +1,4 @@
-import cn from "src/utils/cn";
+import cn from 'src/utils/cn'
 
 export default function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   const { className } = props

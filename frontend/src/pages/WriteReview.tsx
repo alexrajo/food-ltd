@@ -107,7 +107,7 @@ export default function WriteReview() {
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='bg-success w-fit rounded-md border p-3'
+                  className='w-fit rounded-md border bg-success p-3'
                   onClick={submitForm}
                 >
                   Submit

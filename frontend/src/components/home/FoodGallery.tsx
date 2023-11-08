@@ -26,7 +26,7 @@ export default function FoodGallery(props: ComponentProps) {
   if (isLoading) {
     return (
       <div className='flex flex-wrap gap-10'>
-        {Array.from({ length: 10, }, (_, i) => i).map((i) => (
+        {Array.from({ length: 10 }, (_, i) => i).map((i) => (
           <FoodDisplaySkeleton key={i} />
         ))}
       </div>

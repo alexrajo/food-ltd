@@ -25,7 +25,6 @@ describe('FilterDisplay', async () => {
     await screen.findByText('Mock Dish 1')
   })
   test('should be no filters applied by default', () => {
-
     // Check that no filter icon is on screen by default (only shows up after at least one filter exist)
     expect(screen.queryAllByAltText('remove filter cross').length).toEqual(0)
   })
@@ -34,14 +33,14 @@ describe('FilterDisplay', async () => {
     await userEvent.click(screen.getAllByText('Search for ingredients')[0])
     await userEvent.keyboard('pepper{Enter}')
     await screen.findAllByAltText('remove filter cross')
-    
+
     // Check that the filter icon shows up on screen
     expect(screen.getByAltText('remove filter cross')).toBeDefined()
   })
   test('remove a filter', async () => {
     await screen.findAllByAltText('remove filter cross')
     expect(screen.getByAltText('remove filter cross')).not.toBeNull()
-    
+
     await userEvent.click(screen.getByText('Clear'))
     expect(screen.queryByAltText('remove filter cross')).toBeNull()
   })

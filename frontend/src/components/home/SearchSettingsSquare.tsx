@@ -26,13 +26,13 @@ export default function SearchSettingsSquare() {
     >
       {/* The rest of this is not relevant, only for styling */}
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark'/>
+        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark' />
       </div>
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-4 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-1 dark:border-white dark:bg-secondarydark'/>
+        <div className='absolute -top-1 left-4 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-1 dark:border-white dark:bg-secondarydark' />
       </div>
       <div className='relative w-full border border-black dark:border-white'>
-        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark'/>
+        <div className='absolute -top-1 left-1 h-2 w-2 rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:left-4 dark:border-white dark:bg-secondarydark' />
       </div>
     </button>
   )

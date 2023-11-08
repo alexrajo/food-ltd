@@ -25,7 +25,6 @@ describe('add filter', async () => {
     await screen.findByText('Mock Dish 1')
   })
   test('add filter', async () => {
-
     expect(screen.queryAllByAltText('remove filter cross').length).toEqual(0)
     await userEvent.click(screen.getByTestId('searchsettingsquare'))
     await userEvent.click(screen.getAllByText('Search for ingredients')[0])
