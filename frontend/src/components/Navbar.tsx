@@ -33,7 +33,7 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'sticky top-0 z-50 h-screen w-72 flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark',
+        'fixed top-0 z-50 h-screen w-full flex-col items-center justify-between bg-white drop-shadow-xl dark:bg-secondarydark sm:sticky sm:w-72',
         menuClass,
         className,
       )}
