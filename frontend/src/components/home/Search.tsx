@@ -6,7 +6,7 @@ import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import XIcon from '../icons/XIcon'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
-import setKeyWord from 'src/redux/confinementReducer'
+import { setKeyWord } from 'src/redux/confinementReducer'
 
 /**
  * The large search bar on the main page.
@@ -77,13 +77,14 @@ export default function Search(props: ComponentProps) {
               onChangeSearchInput({
                 target: { value: '' },
               } as React.ChangeEvent<HTMLInputElement>)
+              dispatch(setKeyWord(''))
               setShowSuggestions(false)
             }}
           />
         )}
       </div>
       {showSuggestions && (
-        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark'>
+        <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark '>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <button
@@ -113,9 +114,9 @@ export default function Search(props: ComponentProps) {
                     Clear history
                   </button>
                 </div>
-                {searchHistory.map((prevSearch) => (
+                {searchHistory.map((prevSearch, index) => (
                   <div
-                    key={prevSearch}
+                    key={`${index}-${prevSearch}`}
                     className='flex flex-row items-center justify-between p-2'
                   >
                     <button
