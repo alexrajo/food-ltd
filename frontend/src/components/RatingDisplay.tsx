@@ -10,6 +10,7 @@ type RatingDisplayProps = {
   setRating?: Dispatch<SetStateAction<number | undefined>> | null
   textStyle?: string
   reviewCount?: number
+  className?: string
 }
 
 /**
@@ -24,6 +25,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
     setRating: setRatingProp,
     textStyle,
     reviewCount,
+    className,
   } = props
 
   const receivedRating =
@@ -40,7 +42,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
   }, [receivedRating])
 
   return (
-    <div className='flex flex-wrap items-center gap-3'>
+    <div className={cn('flex flex-wrap items-center gap-3', className)}>
       <div className='flex flex-row items-center gap-1'>
         {Array.from(Array(5).keys()).map((number, index) => {
           const isGrayed = Math.ceil(rating - 0.3) < index + 1
@@ -51,11 +53,11 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                 alt='star'
                 key={number}
                 src={
-                  (isGrayed && isHalf && halfStar) ||
+                  (!isGrayed && isHalf && halfStar) ||
                   (isGrayed && outlineStar) ||
                   star
                 }
-                className={cn(isInput && 'cursor-pointer')}
+                className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
               />
             )
           }
@@ -70,11 +72,11 @@ export default function RatingDisplay(props: RatingDisplayProps) {
               <img
                 alt='star'
                 src={
-                  (isGrayed && isHalf && halfStar) ||
+                  (!isGrayed && isHalf && halfStar) ||
                   (isGrayed && outlineStar) ||
                   star
                 }
-                className={cn(isInput && 'cursor-pointer')}
+                className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
               />
             </button>
           )

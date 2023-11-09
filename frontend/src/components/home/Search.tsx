@@ -5,6 +5,8 @@ import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import XIcon from '../icons/XIcon'
+import { useAppDispatch } from 'src/hooks/useAppRedux'
+import setKeyWord from 'src/redux/confinementReducer'
 
 /**
  * The large search bar on the main page.
@@ -18,6 +20,8 @@ export default function Search(props: ComponentProps) {
   const { onSearch, onChangeSearchInput, searchInput } = props
 
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
+
+  const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
 
@@ -114,14 +118,17 @@ export default function Search(props: ComponentProps) {
                     key={prevSearch}
                     className='flex flex-row items-center justify-between p-2'
                   >
-                    <div className=' flex flex-row items-center gap-2 '>
+                    <button
+                      onMouseDown={() => dispatch(setKeyWord(prevSearch))}
+                      className=' flex flex-row items-center gap-2 '
+                    >
                       <img
                         src={historyIcon}
                         alt='searchIcon'
                         className='h-6 w-6'
                       />
                       <p className=' '>{prevSearch}</p>
-                    </div>
+                    </button>
                     <button
                       type='button'
                       onMouseDown={() => {

@@ -16,35 +16,43 @@ function FoodDisplay(props: FoodDisplayProps) {
   const { title, dishId: id, imageName, averageRating, reviewCount } = dish
 
   return (
-    <Link to={`/dish/${id}`} className=' basis-1/2 p-2 lg:basis-1/3'>
-      <div className='group relative flex cursor-pointer flex-col bg-white shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
-        <div className='3xl:h-96 lg:h-42 flex h-32 w-full bg-white object-cover dark:bg-secondarydark md:h-40 xl:h-64 2xl:h-72'>
+    <Link
+      to={`/dish/${id}`}
+      className=' 3xl:basis-1/4 w-full p-2 sm:basis-1/2 xl:basis-1/3'
+    >
+      <div className='bg- group relative flex h-full w-full cursor-pointer flex-col bg-white shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
+        <div className='  flex h-full w-full items-center bg-white dark:bg-secondarydark'>
           {imageName === '#NAME?' ? (
             <Placeholder />
           ) : (
             <img
               alt='food'
-              className='w-full rounded-sm object-cover'
+              className='w-full'
               src={`http://it2810-43.idi.ntnu.no/images/${imageName}.jpg`}
             />
           )}
         </div>
-        <div className='p-4 font-bold text-black  '>
+        <div className='px-4 py-4 font-bold text-black '>
           <p className=' line-clamp-1 text-xs lg:text-sm'>{title}</p>
-          <RatingDisplay
-            rating={averageRating}
-            // rating={undefined}
-            textStyle='hidden sm:block text-xs md:text-sm xl:text-md'
-            reviewCount={reviewCount}
-          />
         </div>
+        <div className=' h-2 w-full bg-primary dark:bg-oldbrick' />
+        <RatingDisplay
+          rating={averageRating}
+          // rating={undefined}
+          textStyle='sm:hidden md:block text-xs md:text-sm xl:text-md'
+          reviewCount={reviewCount}
+          className='xl:text-md absolute left-2 top-2 z-30 w-fit rounded-xl bg-black bg-opacity-50 p-2 text-xs text-white md:text-sm'
+        />
       </div>
     </Link>
   )
 }
 
 const Placeholder = () => (
-  <div role='output' className='flex h-full w-full items-center justify-center'>
+  <div
+    role='output'
+    className='flex aspect-video grow items-center justify-center'
+  >
     <svg
       className='h-10 w-10 text-gray-200 dark:text-gray-600'
       aria-hidden='true'

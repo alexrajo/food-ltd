@@ -9,6 +9,7 @@ import useSearch from 'src/hooks/useSearch'
 import { openNavbar } from 'src/redux/modalsReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
 import cn from 'src/utils/cn'
+import RatingDisplay from 'src/components/RatingDisplay'
 
 /**
  * Holds all the components that show up on the main page, which are, in order:
