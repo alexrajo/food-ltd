@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { fetchSearchResults } from 'src/utils/api-calls'
 import { setKeyWord, setPage } from 'src/redux/confinementReducer'
 import { useAppDispatch, useAppSelector } from './useAppRedux'
@@ -32,8 +32,6 @@ function useSearch(): useSearchReturnType {
   const [searchInput, setSearchInput] = useState<string>(keyWord)
   /** Allows to modify the redux store */
   const dispatch = useAppDispatch()
-
-  const isInitialMount = useRef(true)
 
   /** Fetch the data from the api */
   const { isLoading, error, data } = useQuery({

@@ -4,9 +4,9 @@ import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
-import XIcon from '../icons/XIcon'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
+import XIcon from '../icons/XIcon'
 
 /**
  * The large search bar on the main page.
@@ -120,6 +120,7 @@ export default function Search(props: ComponentProps) {
                     className='flex flex-row items-center justify-between p-2'
                   >
                     <button
+                      type='button'
                       onMouseDown={() => dispatch(setKeyWord(prevSearch))}
                       className=' flex flex-row items-center gap-2 '
                     >
