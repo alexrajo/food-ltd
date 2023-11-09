@@ -50,7 +50,7 @@ function FoodDisplay(props: FoodDisplayProps) {
 
 const Placeholder = () => (
   <div
-    role='output'
+    role='presentation'
     className='flex aspect-video grow items-center justify-center'
   >
     <svg

@@ -30,7 +30,7 @@ const markdownOptions = {
   },
 }
 
-export const Documentation = () => {
+export default function Documentation() {
   const {
     data: sections,
     isLoading,
@@ -43,9 +43,9 @@ export const Documentation = () => {
 
   if (
     !sectionId ||
-    isNaN(parseInt(sectionId, 10)) ||
+    Number.isNaN(parseInt(sectionId, 10)) ||
     !subsectionId ||
-    isNaN(parseInt(subsectionId, 10))
+    Number.isNaN(parseInt(subsectionId, 10))
   )
     return <div>param error</div>
 
