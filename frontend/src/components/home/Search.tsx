@@ -21,9 +21,9 @@ export default function Search(props: ComponentProps) {
 
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
 
-  const navigate = useNavigate()
-
   const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
 
   const {
     addSearchHistory,
@@ -119,14 +119,17 @@ export default function Search(props: ComponentProps) {
                     key={`${index}-${prevSearch}`}
                     className='flex flex-row items-center justify-between p-2'
                   >
-                    <div className=' flex flex-row items-center gap-2 '>
+                    <button
+                      onMouseDown={() => dispatch(setKeyWord(prevSearch))}
+                      className=' flex flex-row items-center gap-2 '
+                    >
                       <img
                         src={historyIcon}
                         alt='searchIcon'
                         className='h-6 w-6'
                       />
                       <p className=' '>{prevSearch}</p>
-                    </div>
+                    </button>
                     <button
                       type='button'
                       onMouseDown={() => {

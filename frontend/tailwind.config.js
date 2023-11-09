@@ -24,6 +24,9 @@ export default {
         link: '#1565C0',
         linkdark: '#1976D2',
       },
+      screens: {
+        '3xl': '1920px',
+      },
     },
   },
   plugins: [],
