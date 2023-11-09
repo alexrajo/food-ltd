@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Dish } from 'src/types/types'
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo } from 'react'
 import RatingDisplay from 'src/components/RatingDisplay'
 
 type FoodDisplayProps = {

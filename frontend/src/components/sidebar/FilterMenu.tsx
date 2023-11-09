@@ -44,7 +44,9 @@ export default function FilterMenu() {
         <AutocompleteIngredients
           isLoading={isLoading}
           parsedIncludedIngredients={parsedIncludedIngredients}
-          onChange={(e) => dispatch(includeFilter(e))}
+          onChange={(e) =>
+            e !== null && dispatch(includeFilter({ id: e.id, name: e.name }))
+          }
         />
         <IngredientsList ingredients={includedIngredients} />
       </div>
@@ -53,7 +55,9 @@ export default function FilterMenu() {
         <AutocompleteIngredients
           isLoading={isLoading}
           parsedIncludedIngredients={parsedExcludedIngredients}
-          onChange={(e) => dispatch(excludeFilter(e))}
+          onChange={(e) =>
+            e !== null && dispatch(excludeFilter({ id: e.id, name: e.name }))
+          }
         />
         <IngredientsList ingredients={excludedIngredients} />
       </div>

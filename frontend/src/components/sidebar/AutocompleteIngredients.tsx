@@ -1,4 +1,4 @@
-import Select from 'react-select'
+import Select, { ActionMeta, SingleValue } from 'react-select'
 import { useAppSelector } from 'src/hooks/useAppRedux'
 import { colors } from 'src/utils/constants'
 
@@ -8,7 +8,20 @@ type ComponentProps = {
   /** The ingredients to display */
   parsedIncludedIngredients: { [key: string]: number }
   /** The function to call when the user selects an ingredient */
-  onChange: () => void
+  onChange:
+    | ((
+        newValue: SingleValue<{
+          name: string
+          id: number
+          count: number
+        } | null>,
+        actionMeta: ActionMeta<{
+          name: string
+          id: number
+          count: number
+        } | null>,
+      ) => void)
+    | undefined
 }
 
 /**
