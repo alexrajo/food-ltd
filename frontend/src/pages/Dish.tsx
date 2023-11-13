@@ -55,7 +55,7 @@ export default function DishPage() {
     return <div />
   }
   return (
-    <div className='h-full w-full overflow-y-scroll  p-4 md:p-20' id='dish-page'>
+    <div className='h-full w-full overflow-y-scroll  p-4 md:p-20'>
       <div className=' flex flex-col gap-2'>
         <Link
           to='/'
@@ -168,7 +168,6 @@ export default function DishPage() {
               next={loadMoreReviews}
               loader={<p>Loading more...</p>}
               endMessage={<p>No more reviews to load</p>}
-              scrollableTarget='dish-page'
               className='flex flex-col gap-5'
             >
               {reviews.map((review: Review) => (
