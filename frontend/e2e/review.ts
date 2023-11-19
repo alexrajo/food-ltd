@@ -1,0 +1,36 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('http://it2810-43.idi.ntnu.no/project2/');
+  await page.getByRole('link', { name: 'food Cast-Iron Pizza with' }).click();
+  await expect(page.getByText('This one was amazing!5This')).toBeVisible();
+  await expect(page.locator('#root')).toContainText('Cast-Iron Pizza with Fennel and Sausage');
+  await page.getByRole('link', { name: 'Back' }).click();
+  await page.getByRole('link', { name: 'Settings' }).click();
+  await page.getByRole('button', { name: 'Fahrenheit Celsius' }).click();
+  await expect(page.getByRole('button', { name: 'Fahrenheit Celsius' })).toBeVisible();
+  await page.getByRole('button', { name: 'Fahrenheit Celsius' }).click();
+  await page.getByRole('button', { name: 'Fahrenheit Celsius' }).click();
+  await page.getByRole('link', { name: 'Food Ltd.' }).click();
+  await page.getByRole('link', { name: 'food Cast-Iron Pizza with' }).click();
+  await page.getByRole('button', { name: 'Fahrenheit' }).click();
+  await page.getByRole('button', { name: 'Celsius' }).click();
+  await page.getByRole('button', { name: 'Fahrenheit' }).click();
+  await page.getByRole('link', { name: 'Food Ltd.' }).click();
+  await page.getByPlaceholder('Search').click();
+  await page.getByPlaceholder('Search').fill('Newton');
+  await page.getByPlaceholder('Search').press('Enter');
+  await page.getByRole('link', { name: 'food Newton\'s Law star star' }).click();
+  await expect(page.getByRole('list')).toContainText('1 teaspoon dark brown sugar');
+  await page.getByRole('link', { name: 'Write a review' }).click();
+  await page.locator('input[name="title"]').click();
+  await page.locator('input[name="title"]').fill('Test');
+  await page.locator('textarea[name="comment"]').click();
+  await page.locator('textarea[name="comment"]').fill('Automated comment');
+  await page.getByRole('button', { name: 'star' }).nth(4).click();
+  await page.getByRole('button', { name: 'Submit' }).click();
+  await expect(page.locator('#reviews')).toContainText('Automated comment');
+  await page.getByRole('link', { name: 'Back' }).click();
+  await page.locator('.relative > .flex > .fill-black').click();
+  await expect(page.locator('#root')).toContainText('Cast-Iron Pizza with Fennel and Sausage');
+});
