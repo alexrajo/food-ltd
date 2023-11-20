@@ -8,7 +8,7 @@ import readme from '../../../README.md'
 import { Section, readmeParser } from './readmeParse'
 
 const URL = `http://${
-  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'e2e' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
+  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'remote' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
 }:4000/graphql`
 
 type FetchDishResponse = {
