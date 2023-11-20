@@ -176,7 +176,7 @@ These will be justified in the important choices section.
 
 The backend solution leverages GraphQL as the query language, with Express as the web framework, Prisma for database management, and Docker for containerization. This technology stack enables efficient data retrieval, seamless API development, and streamlined deployment in a containerized environment.
 
-The data used in this project is sourced from a publicly available dataset from [kaggle](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images').
+The data used in this project is sourced from a publicly available dataset from [kaggle](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images).
 
 <a name="testing"></a>
 
@@ -276,7 +276,7 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 
 - Good design, sensible choices, and solutions that align with the type of data you choose.
 
-  ✔ At least we think so. Reviewers should free to suggest changes
+  ✔ At least we think so. Reviewers should feel free to suggest changes.
 
 - The database and backend for the project should be hosted on the group's virtual machine at the time of submission.
 
@@ -316,7 +316,7 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 
 - Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.
 
-  X Must be implemented before
+  X Must be implemented before next delivery.
 
 - The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices).
 

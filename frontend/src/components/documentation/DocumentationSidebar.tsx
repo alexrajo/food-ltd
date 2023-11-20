@@ -8,7 +8,7 @@ export default function DocumentationSidebar() {
       queryKey: ['docs'],
       queryFn: fetchDocs
     })
-    const { sectionId, subsectionId } = useParams()
+    const { section: sectionId, subsection: subsectionId } = useParams()
     const fullParam = `/docs/${sectionId}/${subsectionId}`
     
     if ( isLoading || isError ) return <div>Loading...</div>
