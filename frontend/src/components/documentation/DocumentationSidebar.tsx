@@ -8,10 +8,12 @@ export default function DocumentationSidebar() {
       queryKey: ['docs'],
       queryFn: fetchDocs
     })
-    const { sectionId, subsectionId } = useParams()
+    const { section: sectionId, subsection: subsectionId } = useParams()
     const fullParam = `/docs/${sectionId}/${subsectionId}`
     
     if ( isLoading || isError ) return <div>Loading...</div>
+
+    console.log(fullParam)
   
     return (
       <div className='flex w-80 flex-col gap-10 border-r px-4 py-10 overflow-y-scroll no-scrollbar'>
