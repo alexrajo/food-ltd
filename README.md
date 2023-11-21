@@ -39,33 +39,47 @@ The user may also leave a review and a rating on a dish, which will be visible t
 
 ### Prerequisites
 
+There are several ways to run this project locally.
+Each option is described in their own section, in increasing order of work needed to set up.
+
 - Node.js v20.5+ and npm v9.8+.
 - Vite 4.4+
 - Clone the repository for the project:
 
 `git clone https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-43/prosjekt-2.git`
 
-For backend:
-
-- postgresql. Can be downloaded [here](https://www.postgresql.org/download/).
-
 ### Running without the backend
 
-The backend can be slightly tricky to set up. For that reason, a shortcut is available for those who want to quickly get an overview.
+It is possible to run the project without any backend.
 
 - Navigate to frontend: `cd .\frontend\`
 - Install dependencies: `npm install`
 - Start the app: `npm run mock`
 
-<b>Note!</b> This version of the app is intended for testing and development. The backend is not connected, which means that almost no functionality is supported. For that, you first need to set up the backend.
+<b>Note!</b> This version of the app is intended for testing and development. The backend is not connected, which means that almost no functionality is supported. For that, you should select one of the other options for running the project.
 
-### Setting up the backend
+### Running with remote database
+
+Uses the remote database on NTNU server.
+
+- Connect to NTNU internet, either eduroam or vpn.
+- Navigate to frontend: `cd .\frontend\`
+- Install dependencies: `npm install`
+- Start the app: `npm run dev`
+
+### Running with local database
+
+This setup requires some work. You will need to setup and populate the databse locally.
+
+- Install postgresql. Can be downloaded [here](https://www.postgresql.org/download/).
+
+Prepare backend:
 
 - Navigate to project backend directory: `cd .\backend\`
 - Install dependencies: `npm install`
 - Initialize prisma with `npx prisma generate`
 
-Set up database:
+Set up local database:
 
 - Make sure the psql command is in your OS's PATH environment variable
 - Make sure postgresql is running on your machine
@@ -91,13 +105,11 @@ Populate the database with data:
 
 Comment to the reviewer: if you have tried this, please let us know if these instructions were satisfactory. We are aware that the steps can be unclear.
 
-### Starting the Project
-
 - Navigate to project-2/backend
 - You may need to run `npx prisma db pull` and `npx prisma generate` after setting up the database
 - Run the backend: `npm run dev`
 - Navigate to project-2/frontend
-- Install dependencies if not done: `npm install`
+- Install dependencies: `npm install`
 - Run the frontend: `npm run dev`
 
 <a name="structure"></a>
@@ -115,6 +127,7 @@ The project is structured as follows:
 - `frontend`:
   - `src`: Client source code
     - `assets`: SVGs, Lottie animatinos and mock data
+    - `e2e`: Playwright end-to-end test.
     - `components`: Smaller parts of a page. Inside a subfolder indicating which page they belong to.
     - `hooks`: The hooks of the application
     - `pages`: The pages of the application
@@ -140,10 +153,11 @@ Required technologies used:
 - React Router
 - TanStack Query
 - Vitest
-- Testing-library
 
 Additional technologies:
 
+- Testing-library
+- Playwright
 - Tailwind CSS
 - Formik
 - Lottie react
@@ -157,10 +171,12 @@ These will be justified in the important choices section.
 
 <a name="choices"></a>
 
+Choices related to testing, environment and accessibility will be discussed in a separate section.
+
 - The Airbnb style guide is used for coding/linting. They can be found
   [here](https://github.com/airbnb/javascript). Although the rules are strict, the advantages of a common coding pattern is worth the extra work and occasional roadblock.
 
-- A prettier config, to make sure all contributors apply prettier in the same way.
+- A prettier config, to make sure all contributors apply prettier in the same way. Without this config, each contributors would apply prettier according to personal settings, which would undermine the whole point of using a tool for standardizing.
 
 - Tailwind CSS for all styling. This is a great way to make sure all code related to a component is collected in the same place. This makes adjustments easier, and bug fixing faster. All current contributors strongly prefer tailwind to all other css solutions.
 
@@ -180,34 +196,49 @@ The data used in this project is sourced from a publicly available dataset from 
 
 <a name="testing"></a>
 
-### Testing
+## Testing
 
-1. Frontend
+### Mocking
+
+For all tests except e2e tests, mock data is used. Since these tests are intended to run frequently (unlike e2e), it would be a waste of resources to use real data. 
+
+To mock data, the api calls must be interrupted, and the expected result replaced with fake data. In this project, this is done by having a small number of json objects, using the same format as real data.
+
+When tests are running, an evironment variable is set. Each function (in `src/utils/api-calls.ts`) checks for this environment variable before sending any network request. When tests are running, the functions simply return the relevant json object.
+
+There are other ways of interrupting api calls. One common option is to use Mock Service Worker (MSW) or similar libraries. The advantage of this is that the testing code is completely seperate from the business code, which is preferred in general. Regardless, we chose to avoid this technique for simplicity. It was deemed acceptable to include a small amount of test code in the business code to allow quicker development, and less use of third party libraries. An added bonus is that it is now possible to start the app in "mock" mode, which allows developers to start the app without internet or backend.
+
+The tests also mock Lottie animations. Since these animations are costly to run, and not needed in tests, they have been replaced by a dummy component.
+
+### Frontend tests
 
 Testing of the frontend is done using Vitest and React Testing Library. All frontend test files are organized under frontent/src/tests in order to maintain a good structure for the project.
 To make it possible to test frontent components, a wrapper is created, and used in every test. This is essentially a copy of the whole project, making it possible to access redux store, query client and routes.
 
-The benefit of this is that the tests mimick how the user behaves. This is in line with the philosophy of the creator of Testing Library, which says that tests should resemble how software is used.
+The reason for accepting this overhead cost for all tests, is that it allows the tests to mimick how a user would behave. This is in line with the guiding principle of Testing Library: "...tests should resemble how users interact with your code".
 
-To test, for example, that adding a filter to the search result works as expected, a series of userEvents is used. Since the tests have access to the whole application, the filter is added with a userEvent opening the filter menu, searching for the filter, clicking the filter. The test can then assert that the filter is applied properly.
+An illustrating example: adding a filter to the search result. The test starts off with a view of the main page. Then, a series of userEvents from Testing Library is used to simulate how a user would apply the filter in reality. After the short sequence of actions have completed, the test can then assert that the expected outcome has occured.
 
-Additionally, the test suite includes some mock data. To avoid unnecessary api calls during testing, the mock data is used instead.
+These tests might resemble e2e tests more than standard unit tests. This is preferable, beause the code consists primarily of elements that can be interacted with.
 
-Interrupting api calls is a common way to avoid api calls during testing. Mock Service Worker (MSW) is a popular library for this. An alternative approach was used in this project, where each api call function checks for an environment variable to be set to 'test'. In that case, mock data is returned.
+The frontend test coverage is around 80%. The major areas that are not tested include api-calls and documentation page. The documentation page is not tested because it is not integral to the application. Api-calls are tested indirectly, through e2e tests. Since the e2e tests use a different library, they do not show up on the coverage report.
 
-The advantage of this, is that no extra library is needed. In addition, it makes it possible to use mock data when running the project without a backed. The drawback is that the api call functions get cluttered.
+### E2E and api testing
 
-The fontend test coverage is around 80%.
+Api calls are not tested directly. Instead they are tested indirectly, through e2e tests. This is an acceptable way to test api, according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147).
 
-While this number could be higher, the focus for future testing should rather be to improve quality of the tests. Currently, most tests are simple, and do not actually cover important functionality.
+The e2e tests are longer series of actions, closely mimicking how a user would navigate in the application. They are not intended to run often and can therefore use real data fetched from the database.
 
-2. Backend
-
-No tests currently exist for the backend, but they will soon.
-
-3. E2E testing
-
-Nothing yet.
+The current e2e test follows these actions:
+1. A user going to the website.
+2. The user goes to one of the dishes on the front page.
+3. Elements of the dish page is tested.
+  - Correct name
+  - Correct switch between celsius and fahrenheit
+4. The user navigating back to main page.
+5. Search for a specific dish.
+6. Navigate to the dish.
+7. Leave a review on that dish.
 
 <a name="sustainability"></a>
 
@@ -316,7 +347,7 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 
 - Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.
 
-  X Must be implemented before
+  ✔ Long sequences of actions testing interaction with the application. The api is tested indirectly through e2e test, which is acceptable according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147).
 
 - The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices).
 
