@@ -114,11 +114,19 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 ### Other scripts
 
-Navigating to `frontend` allows you to run other scripts.
+The end-to-end tests must be run from the root. 
+
+First run `npm install` to be able to use playwright.
 
 `npm run e2e`
 
+To view the report, run `npx playwright show-report`
+
+The other scripts must be run from the `/frontend/`.
+
 Executes the e2e tests located in the e2e folder.
+
+Navigating to `frontend` allows you to run other scripts.
 
 `npm run test`
 
