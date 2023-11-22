@@ -13,13 +13,13 @@ The documentation page hosts an enhanced rendition of this README file. While th
 Table of Contents
 
 - [Background](#background)
-- [How to run the project](#running)
-- [Project structure](#structure)
-- [Technologies](#technologies)
-- [Important choices](#choices)
-- [Database and datasource](#database)
+- [How to run the project](#run)
+- [General project information](#general)
 - [Testing](#testing)
-- [Sustainability](#sustainability)
+- [Accessibility](#accessibility)
+- [Environment](#environment)
+- [Project requirement checklist](#checklist)
+
 
 <a name="background"></a>
 
@@ -33,7 +33,7 @@ The user can click on the dish of choice, taking them to a separate page. Here, 
 
 The user may also leave a review and a rating on a dish, which will be visible to other users.
 
-<a name="running"></a>
+<a name="run"></a>
 
 ## Running the project
 
@@ -112,8 +112,6 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 - Install dependencies: `npm install`
 - Run the frontend: `npm run local`
 
-<a name="structure"></a>
-
 ### Other scripts
 
 Navigating to `frontend` allows you to run other scripts.
@@ -138,6 +136,8 @@ Checks if the code breaks any linting rules defined `.eslintrc.cjs`
 
 will apply the prettier format specified in .prettierrc to the whole application.
 
+<a name="general"></a>
+
 ## General
 
 ### Project Structure
@@ -161,8 +161,6 @@ The project is structured as follows:
     - `types`: Main frontent typescript types.
     - `App.tsx`: The main component of the application
     - `main.tsx`: The entry point of the application
-
-<a name="technologies"></a>
 
 ### Technologies
 
@@ -193,8 +191,6 @@ These will be justified in the important choices section.
 
 ### Important Choices
 
-<a name="choices"></a>
-
 Choices related to testing, environment and accessibility will be discussed in a separate section.
 
 - The Airbnb style guide is used for coding/linting. They can be found
@@ -209,8 +205,6 @@ Choices related to testing, environment and accessibility will be discussed in a
 - Lottie react provides high quality json animations using a fraction of the space required by other animation types.
 
 - The project uses absolute paths instead of relative paths for file import. This is mostly due to preferance among contributors.
-
-<a name="database"></a>
 
 ### Database and datasource
 
@@ -267,11 +261,11 @@ The current e2e test follows these actions:
 6. Navigate to the dish.
 7. Leave a review on that dish.
 
-<a name="sustainability"></a>
-
 ### Screen size testing
 
 The application has been tested using windows and macos on chrome and safari. It has also been tested on a standard size mobile phone.
+
+<a name="accessibility"></a>
 
 ## Accessibility
 
@@ -290,6 +284,8 @@ III. Color contrast should be reasonably high, since most colors are white/dark 
 
 IV. No blinking, sound, quick animations that might cause problems for some users.
 
+<a name="environment"></a>
+
 ## Environment
 
 I. A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
@@ -299,6 +295,8 @@ II. Darkmode is set by default, which requires less power to display.
 III. SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
 
 IV. Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
+
+<a name="checklist"></a>
 
 ## Project requirement fulfillment
 
