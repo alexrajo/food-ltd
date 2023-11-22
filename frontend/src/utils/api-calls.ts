@@ -7,9 +7,10 @@ import mock_ingredients from 'src/tests/mock/ingredients.json'
 import readme from '../../../README.md'
 import { Section, readmeParser } from './readmeParse'
 
-const URL = `http://${
-  process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
-}:4000/graphql`
+const URL = `http://it2810-43.idi.ntnu.no:4000/graphql`
+// const URL = `http://${
+//   process.env.NODE_ENV === 'production' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
+// }:4000/graphql`
 
 type FetchDishResponse = {
   dish: {
@@ -218,7 +219,6 @@ export const fetchSearchResults = async (
 
     return Promise.resolve(response)
   }
-
   return fetch(URL, {
     method: 'POST',
     headers: {
@@ -313,12 +313,12 @@ export const fetchIngredientFilterCounts = async (
 
 /**
  * Fetches content from readme file. Tanstack query caches this result,
- * so fetching should only occur once. 
- * @returns parsed content, for use on the documentation page. 
+ * so fetching should only occur once.
+ * @returns parsed content, for use on the documentation page.
  */
 export const fetchDocs = async (): Promise<Section[]> => {
-      const res = await fetch(readme)
-      if (!res.ok) throw Error('not ok')
-      const content = await res.text()
-      return readmeParser(content).slice(1)
+  const res = await fetch(readme)
+  if (!res.ok) throw Error('not ok')
+  const content = await res.text()
+  return readmeParser(content).slice(1)
 }

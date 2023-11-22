@@ -10,6 +10,7 @@ import SettingsIcon from 'src/components/icons/SettingsIcon'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useAppRedux'
 import { closeNavbar } from 'src/redux/modalsReducer'
 import XIcon from './icons/XIcon'
+import Settings from 'src/pages/Settings'
 
 /**
  * Allows for navigation between pages in the application.

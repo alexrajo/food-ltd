@@ -55,15 +55,6 @@ function useSearch(): useSearchReturnType {
     staleTime: 10000,
   })
 
-  // useEffect(() => {
-  //   /** Set a timeout to avoid calling the api too often */
-  //   const timeout = setTimeout(() => {
-  //     dispatch(setKeyWord(searchInput));
-  //   }, SEARCH_TIMEOUT_MS);
-  //   /** Clear the timeout if the user types too fast */
-  //   return () => clearTimeout(timeout);
-  // }, [searchInput]);
-
   /**
    * This function refetches the searchresults based
    * on the current confinements
