@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "mock": "set NODE_ENV=test&& vite",
-    "e2e": "set NODE_ENV=remote&& playwright test",
     "test": "set NODE_ENV=test&& vitest",
     "coverage": "vitest --coverage",
     "build": "tsc && vite build",
