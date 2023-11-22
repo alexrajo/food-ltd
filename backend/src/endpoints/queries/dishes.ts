@@ -56,7 +56,7 @@ const endpoint = async ({
     const data = await prisma.dishWithReviewAggregate.findMany({
       where: {
         title: {
-          search: query.split(' ').join(' & '),
+          contains: `%${query}%`,
         },
         AND: ingredientConstraints,
       },
