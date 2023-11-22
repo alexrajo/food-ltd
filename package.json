@@ -1,0 +1,16 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "Most importantly:",
+  "main": "index.js",
+  "scripts": {
+    "e2e": "set NODE_ENV=remote&& playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.9.4"
+  }
+}
