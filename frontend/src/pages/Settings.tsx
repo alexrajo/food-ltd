@@ -5,6 +5,8 @@ import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { setDark, setLight } from 'src/redux/themeReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
 import cn from 'src/utils/cn'
+import darkmode from 'src/assets/darkmode.svg'
+import lightmode from 'src/assets/lightmode.svg'
 
 /**
  * Page where user can change preferances.
@@ -50,41 +52,28 @@ export default function Settings() {
           />
         </button>
         <p className=' flex text-3xl'>Settings</p>
-
-        <button
-          type='button'
-          className=' mt-8 flex items-center gap-10 px-10'
-          onClick={toggleColorMode}
-        >
-          <p
-            className={cn(colorMode === 'dark' ? 'font-semibold' : 'font-thin')}
+        <div className='mt-8 flex flex-col gap-4 px-10'>
+          <p>Theme</p>
+          <button
+            type='button'
+            className='flex items-center gap-4'
+            onClick={toggleColorMode}
           >
-            Dark mode
-          </p>
-          <SliderIcon active={colorMode === 'light'} />
-          <p
-            className={cn(colorMode === 'dark' ? 'font-thin' : 'font-semibold')}
+            <SliderIcon active={colorMode === 'light'} />
+            <p>{colorMode === 'dark' ? 'Darkmode' : 'Lightmode'}</p>
+          </button>
+        </div>
+        <div className='mt-8 flex flex-col gap-4 px-10'>
+          <p>Temperature units</p>
+          <button
+            type='button'
+            className='flex items-center gap-4'
+            onClick={toggleFahrenheit}
           >
-            Light mode
-          </p>
-        </button>
-        <button
-          type='button'
-          className=' mt-8 flex items-center gap-10 px-10'
-          onClick={toggleFahrenheit}
-        >
-          <p
-            className={cn(
-              unit === 'fahrenheit' ? 'font-semibold' : 'font-thin',
-            )}
-          >
-            Fahrenheit
-          </p>
-          <SliderIcon active={unit === 'celsius'} />
-          <p className={cn(unit === 'celsius' ? 'font-semibold' : 'font-thin')}>
-            Celsius
-          </p>
-        </button>
+            <SliderIcon active={unit === 'celsius'} />
+            <p>{unit === 'fahrenheit' ? 'Fahrenheit' : 'Celsius'}</p>
+          </button>
+        </div>
       </div>
     </div>
   )
