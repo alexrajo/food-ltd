@@ -106,7 +106,7 @@ function Search(props: ComponentProps) {
                 <p>{searchInputSuggestions}</p>
               </button>
             )}
-            {suggested.length === 0 &&
+            {searchInput.length === 0 &&
               searchHistory &&
               !typing &&
               !isLoading && (
@@ -125,34 +125,37 @@ function Search(props: ComponentProps) {
                       </button>
                     )}
                   </div>
-                  {[...searchHistory].slice(0, 10).map((prevSearch, index) => (
-                    <div
-                      key={`${index}-${prevSearch}`}
-                      className='flex flex-row items-center justify-between p-2'
-                    >
-                      <button
-                        type='button'
-                        onMouseDown={() => dispatch(setKeyWord(prevSearch))}
-                        className=' flex flex-row items-center gap-2 '
+                  {[...searchHistory]
+                    .reverse()
+                    .slice(0, 10)
+                    .map((prevSearch, index) => (
+                      <div
+                        key={`${index}-${prevSearch}`}
+                        className='flex flex-row items-center justify-between p-2'
                       >
-                        <img
-                          src={historyIcon}
-                          alt='searchIcon'
-                          className='h-6 w-6'
-                        />
-                        <p className=' '>{prevSearch}</p>
-                      </button>
-                      <button
-                        type='button'
-                        onMouseDown={() => {
-                          removeSearchHistory(prevSearch)
-                        }}
-                        className='underline'
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ))}
+                        <button
+                          type='button'
+                          onMouseDown={() => dispatch(setKeyWord(prevSearch))}
+                          className=' flex flex-row items-center gap-2 '
+                        >
+                          <img
+                            src={historyIcon}
+                            alt='searchIcon'
+                            className='h-6 w-6'
+                          />
+                          <p className=' '>{prevSearch}</p>
+                        </button>
+                        <button
+                          type='button'
+                          onMouseDown={() => {
+                            removeSearchHistory(prevSearch)
+                          }}
+                          className='underline'
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
                 </>
               )}
             {(isLoading || typing) && (
@@ -162,6 +165,7 @@ function Search(props: ComponentProps) {
             )}
             {!isLoading &&
               !typing &&
+              searchInput.length > 0 &&
               [...suggested].splice(0, 5).map((dish) => (
                 <button
                   type='button'
