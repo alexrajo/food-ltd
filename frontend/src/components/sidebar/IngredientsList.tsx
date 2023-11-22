@@ -14,7 +14,7 @@ export default function IngredientsList(props: ComponentProps) {
   return (
     <div className='flex flex-wrap gap-4'>
       {ingredients.map((ingredient) => (
-        <IngredientBox name={ingredient.name} />
+        <IngredientBox name={ingredient.name} key={ingredient.id} />
       ))}
     </div>
   )

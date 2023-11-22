@@ -92,6 +92,7 @@ export default function WriteReview() {
                 <label htmlFor='comment'>Comment</label>
                 <Field
                   as='textarea'
+                  data-testid='commet-area'
                   name='comment'
                   className='resize-none border p-2 dark:text-black'
                   rows={5}

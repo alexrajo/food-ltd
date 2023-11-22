@@ -13,7 +13,9 @@ const markdownOptions = {
       <ol className='list-decimal pl-6'>{props.children}</ol>
     ),
     li: (props: { children: ReactNode }) => (
-      <li className='mb-4 text-lg dark:text-slate-100'>{props.children}</li>
+      <li className='mb-4 text-lg text-slate-800 dark:text-slate-100'>
+        {props.children}
+      </li>
     ),
     h1: (props: { children: ReactNode }) => (
       <h1 className='my-4 text-4xl font-bold'>{props.children}</h1>
@@ -25,7 +27,7 @@ const markdownOptions = {
       <h3 className='my-2 text-2xl font-semibold'>{props.children}</h3>
     ),
     p: (props: { children: ReactNode }) => (
-      <p className="mb-6">{props.children}</p>
+      <p className='mb-6'>{props.children}</p>
     ),
     table: (props: { children: ReactNode }) => (
       <div className="overflow-x-auto">
@@ -83,7 +85,7 @@ export default function Documentation() {
   if (isLoading || isError) return <div>Error</div>
 
   return (
-    <div className='p-10 overflow-y-scroll no-scrollbar'>
+    <div className='no-scrollbar overflow-y-scroll p-10'>
       {sections.length > 0 && (
         <Markdown options={markdownOptions}>
           {
