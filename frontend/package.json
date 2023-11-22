@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "set NODE_ENV=remote&& vite",
+    "local": "vite",
     "mock": "set NODE_ENV=test&& vite",
     "test": "set NODE_ENV=test&& vitest",
     "coverage": "vitest --coverage",
