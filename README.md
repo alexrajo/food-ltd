@@ -110,9 +110,33 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 - Run the backend: `npm run dev`
 - Navigate to project-2/frontend
 - Install dependencies: `npm install`
-- Run the frontend: `npm run dev`
+- Run the frontend: `npm run local`
 
 <a name="structure"></a>
+
+### Other scripts
+
+Navigating to `frontend` allows you to run other scripts.
+
+`npm run e2e`
+
+Executes the e2e tests located in the e2e folder.
+
+`npm run test`
+
+Runs all the normal tests, focused on frontend components.
+
+`npm run coverage`
+
+Provides a coverage report for how much of the code is covered by tests.
+
+`npm run lint`
+
+Checks if the code breaks any linting rules defined `.eslintrc.cjs`
+
+`npx prettier --write .`
+
+will apply the prettier format specified in .prettierrc to the whole application.
 
 ## General
 
@@ -200,7 +224,7 @@ The data used in this project is sourced from a publicly available dataset from 
 
 ### Mocking
 
-For all tests except e2e tests, mock data is used. Since these tests are intended to run frequently (unlike e2e), it would be a waste of resources to use real data. 
+For all tests except e2e tests, mock data is used. Since these tests are intended to run frequently (unlike e2e), it would be a waste of resources to use real data.
 
 To mock data, the api calls must be interrupted, and the expected result replaced with fake data. In this project, this is done by having a small number of json objects, using the same format as real data.
 
@@ -230,11 +254,14 @@ Api calls are not tested directly. Instead they are tested indirectly, through e
 The e2e tests are longer series of actions, closely mimicking how a user would navigate in the application. They are not intended to run often and can therefore use real data fetched from the database.
 
 The current e2e test follows these actions:
+
 1. A user going to the website.
 2. The user goes to one of the dishes on the front page.
 3. Elements of the dish page is tested.
-  - Correct name
-  - Correct switch between celsius and fahrenheit
+
+- Correct name
+- Correct switch between celsius and fahrenheit
+
 4. The user navigating back to main page.
 5. Search for a specific dish.
 6. Navigate to the dish.
