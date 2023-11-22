@@ -10,6 +10,19 @@ import cn from 'src/utils/cn'
 import BackIcon from 'src/components/icons/BackIcon'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+const ABBREVIATION_ALIASES = {
+  'Tbsp.': 'Tbsp@',
+  'tbsp.': 'tbsp@',
+  'Tbsps.': 'Tbsps@',
+  'tbsps.': 'tbsps@',
+  'Tsp.': 'Tsp@',
+  'tsp.': 'tsp@',
+  'Tsps.': 'Tsps@',
+  'tsps.': 'tsps@',
+  'Oz.': 'Oz@',
+  'oz.': 'oz@',
+}
+
 /**
  * Converts a text containing a Fahrenheit temperature to Celsius.
  * @param text the text to convert
@@ -26,6 +39,40 @@ const fahrenheitTextToCelsius = (text: string) => {
     return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`)
   }
   return text
+}
+
+/**
+ * Turns a string of instructions into a list of instructions.
+ * @param instructions the instructions text to turn into a list
+ * @returns the instructions as a list of JSX elements
+ */
+const listifyInstructions = (
+  instructions?: string,
+  temperatureUnit?: string,
+) => {
+  if (instructions === undefined) {
+    return undefined
+  }
+
+  Object.entries(ABBREVIATION_ALIASES).forEach(([key, value]) => {
+    const regex = new RegExp(key, 'g')
+    instructions = instructions!.replace(regex, value)
+  })
+
+  const splitInstructions = instructions.split(/\.(?: |\n)/g)
+
+  return splitInstructions.map((instruction, index) => {
+    instruction =
+      temperatureUnit === 'celsius'
+        ? fahrenheitTextToCelsius(instruction)
+        : instruction
+    return (
+      <div key={instruction}>
+        {index + 1}. {instruction.replace(/@/g, '.')}
+        {index !== splitInstructions.length - 1 && '.'}
+      </div>
+    )
+  })
 }
 
 export default function DishPage() {
@@ -123,15 +170,7 @@ export default function DishPage() {
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              {instructions?.split('. ').map((instruction, index) => (
-                <div key={instruction}>
-                  {index + 1}.{' '}
-                  {temperatureUnit.value === 'fahrenheit'
-                    ? instruction
-                    : fahrenheitTextToCelsius(instruction)}
-                  .
-                </div>
-              ))}
+              {listifyInstructions(instructions, temperatureUnit.value)}
             </div>
           </div>
           <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
