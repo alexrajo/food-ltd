@@ -129,7 +129,7 @@ export default function DishPage() {
                   {temperatureUnit.value === 'fahrenheit'
                     ? instruction
                     : fahrenheitTextToCelsius(instruction)}
-                  .
+                <p className='last:hidden'>.</p>
                 </div>
               ))}
             </div>
