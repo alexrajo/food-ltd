@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
@@ -23,6 +23,10 @@ function Search(props: ComponentProps) {
 
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
 
+  const lastSearchInput = useRef<string>(searchInput)
+
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
@@ -46,9 +50,17 @@ function Search(props: ComponentProps) {
     return suggestedData ? suggestedData.data : []
   }, [suggestedData])
 
+  useEffect(() => {
+    if (searchInput.length === 0 || lastSearchInput.current == searchInput)
+      return
+    setShowSuggestions(true)
+    lastSearchInput.current = searchInput
+  }, [searchInput])
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
-    // setShowSuggestions(false)
+    setShowSuggestions(false)
+    // searchInput.current?.blur()
     if (searchInput.length !== 0) {
       addSearchHistory(searchInput)
     }
@@ -59,6 +71,7 @@ function Search(props: ComponentProps) {
     <div className=' relative flex flex-grow flex-col items-center'>
       <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
+          ref={searchInputRef}
           type='text'
           className='w-full rounded-full bg-white px-2 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
