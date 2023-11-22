@@ -116,7 +116,7 @@ export default function Search(props: ComponentProps) {
                 </div>
                 {searchHistory.map((prevSearch, index) => (
                   <div
-                    key={`${index}-${prevSearch}`}
+                    key={index.toString() + prevSearch.toString()}
                     className='flex flex-row items-center justify-between p-2'
                   >
                     <button
