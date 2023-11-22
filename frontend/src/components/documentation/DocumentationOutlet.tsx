@@ -13,7 +13,7 @@ const markdownOptions = {
       <ol className='list-decimal pl-6'>{props.children}</ol>
     ),
     li: (props: { children: ReactNode }) => (
-      <li className='mb-4 text-lg text-slate-100'>{props.children}</li>
+      <li className='mb-4 text-lg dark:text-slate-100'>{props.children}</li>
     ),
     h1: (props: { children: ReactNode }) => (
       <h1 className='my-4 text-4xl font-bold'>{props.children}</h1>
@@ -26,6 +26,37 @@ const markdownOptions = {
     ),
     p: (props: { children: ReactNode }) => (
       <p className="mb-6">{props.children}</p>
+    ),
+    table: (props: { children: ReactNode }) => (
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300">
+          {props.children}
+        </table>
+      </div>
+    ),
+
+    thead: (props: { children: ReactNode }) => (
+      <thead className="bg-gray-200 dark:bg-gray-800">
+        {props.children}
+      </thead>
+    ),
+
+    tbody: (props: { children: ReactNode }) => (
+      <tbody className="divide-y divide-gray-300">
+        {props.children}
+      </tbody>
+    ),
+
+    tr: (props: { children: ReactNode }) => (
+      <tr>{props.children}</tr>
+    ),
+
+    th: (props: { children: ReactNode }) => (
+      <th className="py-2 px-4 font-semibold text-left">{props.children}</th>
+    ),
+
+    td: (props: { children: ReactNode }) => (
+      <td className="py-2 px-4">{props.children}</td>
     ),
   },
 }
