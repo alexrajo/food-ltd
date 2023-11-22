@@ -48,7 +48,7 @@ function Search(props: ComponentProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
-    setShowSuggestions(false)
+    // setShowSuggestions(false)
     if (searchInput.length !== 0) {
       addSearchHistory(searchInput)
     }
