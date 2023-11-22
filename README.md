@@ -114,9 +114,9 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 ### Other scripts
 
-The end-to-end tests must be run from the root. 
-
-First run `npm install` to be able to use playwright.
+The e2e tests must be run from the root of the project.
+From root, enter `npm install` & `npx install playwright`.
+now:
 
 `npm run e2e`
 
