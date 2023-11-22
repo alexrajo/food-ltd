@@ -167,7 +167,13 @@ export default function DishPage() {
               hasMore={hasMoreReviews}
               next={loadMoreReviews}
               loader={<p>Loading more...</p>}
-              endMessage={<p>No more reviews to load</p>}
+              endMessage={
+                reviews.length === 0 ? (
+                  <p>No reviews exist yet.</p>
+                ) : (
+                  <p>No more reviews to load.</p>
+                )
+              }
               className='flex flex-col gap-5'
             >
               {reviews.map((review: Review) => (
