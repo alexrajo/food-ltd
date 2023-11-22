@@ -46,7 +46,10 @@ const fahrenheitTextToCelsius = (text: string) => {
  * @param instructions the instructions text to turn into a list
  * @returns the instructions as a list of JSX elements
  */
-const listifyInstructions = (instructions?: string) => {
+const listifyInstructions = (
+  instructions?: string,
+  temperatureUnit?: string,
+) => {
   if (instructions === undefined) {
     return undefined
   }
@@ -58,12 +61,18 @@ const listifyInstructions = (instructions?: string) => {
 
   const splitInstructions = instructions.split(/\.(?: |\n)/g)
 
-  return splitInstructions.map((instruction, index) => (
-    <div key={instruction}>
-      {index + 1}. {instruction.replace(/@/g, '.')}
-      {index !== splitInstructions.length - 1 && '.'}
-    </div>
-  ))
+  return splitInstructions.map((instruction, index) => {
+    instruction =
+      temperatureUnit === 'celsius'
+        ? fahrenheitTextToCelsius(instruction)
+        : instruction
+    return (
+      <div key={instruction}>
+        {index + 1}. {instruction.replace(/@/g, '.')}
+        {index !== splitInstructions.length - 1 && '.'}
+      </div>
+    )
+  })
 }
 
 export default function DishPage() {
@@ -161,7 +170,7 @@ export default function DishPage() {
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              {listifyInstructions(instructions)}
+              {listifyInstructions(instructions, temperatureUnit.value)}
             </div>
           </div>
           <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
