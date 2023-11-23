@@ -17,13 +17,13 @@ describe('Settings', async () => {
 
     // Simulate user going to favourite page.
     await userEvent.click(screen.getByText('Settings'))
-    expect(screen.getByText('Light mode')).toBeDefined()
+    expect(screen.getByText('Darkmode')).toBeDefined()
   })
   test('Toggle light mode', async () => {
     const { value: initTheme } = store.getState().theme
     expect(initTheme === 'dark').toBeTruthy()
 
-    await userEvent.click(screen.getByText('Light mode'))
+    await userEvent.click(screen.getByText('Darkmode'))
 
     const { value: postTheme } = store.getState().theme
 
