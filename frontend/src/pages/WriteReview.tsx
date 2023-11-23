@@ -17,9 +17,9 @@ function RatingInput(props: FieldProps<any>) {
 
   useEffect(() => {
     form.setFieldValue(name, ratingInput)
-  // Eslint warns that form should be added to the dependency array. Do not do it! 
-  // The review functionality will completely break
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Eslint warns that form should be added to the dependency array. Do not do it!
+    // The review functionality will completely break
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ratingInput, name])
 
   return (

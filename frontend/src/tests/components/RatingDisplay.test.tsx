@@ -19,7 +19,9 @@ describe('Navbar', async () => {
       const src = image.getAttribute('src')
       expect(src).toBe('/project2/src/assets/star.svg')
     })
-    expect(stars[4].getAttribute('src')).toBe('/project2/src/assets/half-star.svg')
+    expect(stars[4].getAttribute('src')).toBe(
+      '/project2/src/assets/half-star.svg',
+    )
   })
   test('mock dish 2 has 4 stars', () => {
     // Find the next 5 first stars on the page, they belong to mock dish 1

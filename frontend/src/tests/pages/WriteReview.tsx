@@ -24,7 +24,7 @@ describe('WriteReview', async () => {
   test('should be possible to write comment', async () => {
     await screen.findByText('Cancel')
     await userEvent.click(screen.getByTestId('comment-area'))
-    await userEvent.keyboard("hello")    
+    await userEvent.keyboard('hello')
   })
   test('should be possible to leave review page', async () => {
     await screen.findByText('Cancel')

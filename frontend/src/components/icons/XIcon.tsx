@@ -10,7 +10,6 @@ type XIconProps = {
 }
 
 export default function XIcon(props: XIconProps) {
-
   const { className, onClick, width, height, onMouseDown } = props
   return (
     <svg

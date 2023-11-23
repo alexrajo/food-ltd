@@ -15,8 +15,8 @@ type FoodDisplayProps = {
  * the individual page for that dish.
  */
 const FoodDisplay = memo((props: FoodDisplayProps) => {
-  const { dish } = props;
-  const { title, dishId: id, imageName, averageRating, reviewCount } = dish;
+  const { dish } = props
+  const { title, dishId: id, imageName, averageRating, reviewCount } = dish
 
   const dispatch = useAppDispatch()
 
