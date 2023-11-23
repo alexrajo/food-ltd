@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
@@ -7,6 +7,7 @@ import historyIcon from 'src/assets/history.svg'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
 import XIcon from '../icons/XIcon'
+import { closeFilterMenu } from 'src/redux/modalsReducer'
 
 /**
  * The large search bar on the main page.
@@ -16,10 +17,14 @@ type ComponentProps = {
   onChangeSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   searchInput: string
 }
-export default function Search(props: ComponentProps) {
+function Search(props: ComponentProps) {
   const { onSearch, onChangeSearchInput, searchInput } = props
 
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
+
+  const lastSearchInput = useRef<string>(searchInput)
+
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   const dispatch = useAppDispatch()
 
@@ -36,13 +41,25 @@ export default function Search(props: ComponentProps) {
     onChangeSearchInput: onChangeSearchInputSuggestions,
     searchInput: searchInputSuggestions,
     data: suggestedData,
+    typing,
+    isLoading,
   } = useSuggestions()
 
-  const suggested = suggestedData ? suggestedData.data : []
+  const suggested = useMemo(() => {
+    return suggestedData ? suggestedData.data : []
+  }, [suggestedData])
+
+  useEffect(() => {
+    if (searchInput.length === 0 || lastSearchInput.current == searchInput)
+      return
+    setShowSuggestions(true)
+    lastSearchInput.current = searchInput
+  }, [searchInput])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
     setShowSuggestions(false)
+    // searchInput.current?.blur()
     if (searchInput.length !== 0) {
       addSearchHistory(searchInput)
     }
@@ -53,17 +70,18 @@ export default function Search(props: ComponentProps) {
     <div className=' relative flex flex-grow flex-col items-center'>
       <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
+          ref={searchInputRef}
           type='text'
           className='w-full rounded-full bg-white px-2 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
-          // onFocus={() => {
-          //   setShowSuggestions(true);
-          // }}
+          onFocus={() => {
+            setShowSuggestions(true)
+          }}
           onBlur={() => {
             setShowSuggestions(false)
           }}
           value={searchInput}
-          onFocus={() => setShowSuggestions(true)}
+          // onFocus={() => setShowSuggestions(true)}
           onChange={(e) => {
             onChangeSearchInput(e)
             onChangeSearchInputSuggestions(e)
@@ -100,71 +118,89 @@ export default function Search(props: ComponentProps) {
                 <p>{searchInputSuggestions}</p>
               </button>
             )}
-            {suggested.length === 0 && searchHistory && (
-              <>
-                <div className='flex flex-row items-center justify-between p-2'>
-                  <p className=' '>No suggestions</p>
-                  <button
-                    type='button'
-                    onMouseDown={() => {
-                      clearSearchHistory()
-                    }}
-                    className='underline'
-                  >
-                    Clear history
-                  </button>
-                </div>
-                {searchHistory.map((prevSearch, index) => (
-                  <div
-                    key={index.toString() + prevSearch.toString()}
-                    className='flex flex-row items-center justify-between p-2'
-                  >
-                    <button
-                      type='button'
-                      onMouseDown={() => dispatch(setKeyWord(prevSearch))}
-                      className=' flex flex-row items-center gap-2 '
-                    >
-                      <img
-                        src={historyIcon}
-                        alt='searchIcon'
-                        className='h-6 w-6'
-                      />
-                      <p className=' '>{prevSearch}</p>
-                    </button>
-                    <button
-                      type='button'
-                      onMouseDown={() => {
-                        removeSearchHistory(prevSearch)
-                      }}
-                      className='underline'
-                    >
-                      Remove
-                    </button>
+            {searchInput.length === 0 &&
+              searchHistory &&
+              !typing &&
+              !isLoading && (
+                <>
+                  <div className='flex flex-row items-center justify-between p-2'>
+                    <p className=' '>No suggestions</p>
+                    {searchHistory.length > 0 && (
+                      <button
+                        type='button'
+                        onMouseDown={() => {
+                          clearSearchHistory()
+                        }}
+                        className='underline'
+                      >
+                        Clear history
+                      </button>
+                    )}
                   </div>
-                ))}
-              </>
+                  {[...searchHistory]
+                    .reverse()
+                    .slice(0, 10)
+                    .map((prevSearch, index) => (
+                      <div
+                        key={`${index}-${prevSearch}`}
+                        className='flex flex-row items-center justify-between p-2'
+                      >
+                        <button
+                          type='button'
+                          onMouseDown={() => dispatch(setKeyWord(prevSearch))}
+                          className=' flex flex-row items-center gap-2 '
+                        >
+                          <img
+                            src={historyIcon}
+                            alt='searchIcon'
+                            className='h-6 w-6'
+                          />
+                          <p className=' '>{prevSearch}</p>
+                        </button>
+                        <button
+                          type='button'
+                          onMouseDown={() => {
+                            removeSearchHistory(prevSearch)
+                          }}
+                          className='underline'
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                </>
+              )}
+            {(isLoading || typing) && (
+              <div className='flex flex-row items-center justify-between p-2'>
+                <p className=' '>Loading...</p>
+              </div>
             )}
-            {suggested.splice(0, 5).map((dish) => (
-              <button
-                type='button'
-                key={dish.dishId}
-                onMouseDown={() => {
-                  navigate(`/dish/${dish.dishId}`)
-                }}
-                // to={`/dish/${dish.dishId}`}
-                className='flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-tertiarydark'
-              >
-                <img
-                  src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
-                  alt='dish'
-                  className='h-10 w-10 object-cover'
-                />
-                <p className=' '>{dish.title}</p>
-              </button>
-            ))}
+            {!isLoading &&
+              !typing &&
+              searchInput.length > 0 &&
+              [...suggested].splice(0, 5).map((dish) => (
+                <button
+                  type='button'
+                  key={dish.dishId}
+                  onMouseDown={() => {
+                    dispatch(closeFilterMenu())
+                    navigate(`/dish/${dish.dishId}`)
+                  }}
+                  // to={`/dish/${dish.dishId}`}
+                  className='flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-tertiarydark'
+                >
+                  <img
+                    src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
+                    alt='dish'
+                    className='h-10 w-10 object-cover'
+                  />
+                  <p className=' '>{dish.title}</p>
+                </button>
+              ))}
           </div>
         </div>
       )}
     </div>
   )
 }
+export default memo(Search)

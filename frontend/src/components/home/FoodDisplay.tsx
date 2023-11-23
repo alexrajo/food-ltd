@@ -3,6 +3,8 @@ import type { Dish } from 'src/types/types'
 import { memo } from 'react'
 import RatingDisplay from 'src/components/RatingDisplay'
 import Placeholder from '../dish/DisplayPlaceholder'
+import { useAppDispatch } from 'src/hooks/useAppRedux'
+import { closeFilterMenu } from 'src/redux/modalsReducer'
 
 type FoodDisplayProps = {
   dish: Dish
@@ -16,12 +18,15 @@ const FoodDisplay = memo((props: FoodDisplayProps) => {
   const { dish } = props;
   const { title, dishId: id, imageName, averageRating, reviewCount } = dish;
 
+  const dispatch = useAppDispatch()
+
   return (
     <Link
       to={`/dish/${id}`}
-      className=' 3xl:basis-1/4 w-full p-2 sm:basis-1/2 xl:basis-1/3'
+      onClick={() => dispatch(closeFilterMenu())}
+      className=' w-full p-2 sm:basis-1/2 xl:basis-1/3 3xl:basis-1/4'
     >
-      <div className='bg- group relative flex h-full w-full cursor-pointer flex-col bg-white shadow-xl transition-all ease-out hover:scale-105 dark:bg-secondary '>
+      <div className='bg- group relative flex h-full w-full cursor-pointer flex-col bg-white shadow-xl transition-all ease-in-out hover:scale-105 dark:bg-secondary '>
         <div className='  flex h-full w-full items-center bg-white dark:bg-secondarydark'>
           {imageName === '#NAME?' ? (
             <Placeholder />

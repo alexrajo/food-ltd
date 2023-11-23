@@ -1,5 +1,8 @@
 import { Prisma } from '@prisma/client';
-import { getDishesSearchQuery, getIngredientConstraints } from '../../utils/dbSearch';
+import {
+  getDishesSearchQuery,
+  getIngredientConstraints,
+} from '../../utils/dbSearch';
 import { SORTING_OPTIONS } from '../../utils/constants';
 import prisma from '../../utils/prisma';
 
@@ -23,12 +26,19 @@ const endpoint = async ({
   pageSize = pageSize !== undefined ? pageSize : 12;
   page = page !== undefined ? page : 1;
 
-  const sortingOptions: Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput | undefined =
+  const sortingOptions:
+    | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
+    | undefined =
     sortingPreference !== undefined
-      ? (SORTING_OPTIONS[sortingPreference] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
+      ? (SORTING_OPTIONS[
+          sortingPreference
+        ] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
       : undefined;
 
-  const ingredientConstraints = getIngredientConstraints(includedIngredients, excludedIngredients);
+  const ingredientConstraints = getIngredientConstraints(
+    includedIngredients,
+    excludedIngredients
+  );
 
   if (query === '') {
     const data = await prisma.dishWithReviewAggregate.findMany({
@@ -57,6 +67,7 @@ const endpoint = async ({
       where: {
         title: {
           contains: `%${query}%`,
+          mode: 'insensitive',
         },
         AND: ingredientConstraints,
       },

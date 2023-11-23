@@ -206,7 +206,6 @@ export const fetchSearchResults = async (
 
     return Promise.resolve(response)
   }
-
   return fetch(URL, {
     method: 'POST',
     headers: {
