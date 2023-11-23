@@ -65,7 +65,7 @@ Uses the remote database on NTNU server.
 - Connect to NTNU internet, either eduroam or vpn.
 - Navigate to frontend: `cd .\frontend\`
 - Install dependencies: `npm install`
-- Start the app: `npm run dev`
+- Start the app: `npm run dev-remote`
 
 ### Running with local database
 
@@ -110,7 +110,7 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 - Run the backend: `npm run dev`
 - Navigate to project-2/frontend
 - Install dependencies: `npm install`
-- Run the frontend: `npm run local`
+- Run the frontend: `npm run dev`
 
 ### Other scripts
 
@@ -122,11 +122,8 @@ now:
 
 To view the report, run `npx playwright show-report`
 
-The other scripts must be run from the `/frontend/`.
+All other scripts must be run from the `/frontend/`.
 
-Executes the e2e tests located in the e2e folder.
-
-Navigating to `frontend` allows you to run other scripts.
 
 `npm run test`
 

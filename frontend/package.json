@@ -6,7 +6,6 @@
   "scripts": {
     "dev-remote": "set NODE_ENV=remote&& vite",
     "dev": "set NODE_ENV=development&& vite",
-    "local": "vite",
     "mock": "set NODE_ENV=test&& vite",
     "test": "set NODE_ENV=test&& vitest",
     "coverage": "vitest --coverage",
