@@ -36,7 +36,7 @@ module.exports = {
         format: null,
         filter: {
           regex:
-            '(&:hover|Content-Type|primary-text|grayed-text|A-Z|book_image|primary_isbn13|primary_isbn10|list_name)',
+            '(&:hover|Content-Type|primary-text|grayed-text|A-Z|book_image|primary_isbn13|primary_isbn10|list_name|Tbsp\\.|tbsp\\.|Tbsps\\.|tbsps\\.|Tsp\\.|tsp\\.|Tsps\\.|tsps\\.|Oz\\.|oz\\.)',
           match: true,
         },
       },

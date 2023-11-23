@@ -4,9 +4,6 @@ import { openNavbar } from 'src/redux/modalsReducer'
 import { setCelsius, setFahrenheit } from 'src/redux/temperatureUnitReducer'
 import { setDark, setLight } from 'src/redux/themeReducer'
 import MenuIcon from 'src/components/icons/MenuIcon'
-import cn from 'src/utils/cn'
-import darkmode from 'src/assets/darkmode.svg'
-import lightmode from 'src/assets/lightmode.svg'
 
 /**
  * Page where user can change preferances.

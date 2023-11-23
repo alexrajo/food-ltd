@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import type { Dish } from 'src/types/types'
 import { memo } from 'react'
 import RatingDisplay from 'src/components/RatingDisplay'
-import Placeholder from '../dish/DisplayPlaceholder'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
+import Placeholder from '../dish/DisplayPlaceholder'
 
 type FoodDisplayProps = {
   dish: Dish

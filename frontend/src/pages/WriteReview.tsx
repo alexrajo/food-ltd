@@ -16,7 +16,7 @@ function RatingInput(props: FieldProps<any>) {
 
   useEffect(() => {
     form.setFieldValue(name, ratingInput)
-  }, [ratingInput])
+  }, [ratingInput, form, name])
 
   return (
     <RatingDisplay rating={ratingInput} setRating={setRatingInput} isInput />
@@ -67,8 +67,6 @@ export default function WriteReview() {
               )
               refetchDish()
               navigate(`/dish/${dishId}`)
-            } else {
-              console.warn('dishId and rating are required')
             }
             setSubmitting(false)
           }}
