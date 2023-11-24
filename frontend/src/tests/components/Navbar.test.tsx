@@ -17,8 +17,8 @@ describe('Navbar', async () => {
     await userEvent.click(screen.getByText('Settings'))
 
     // Shows that the page has been switched
-    await screen.findByText('Light mode')
-    expect(screen.getByText('Light mode')).toBeDefined()
+    await screen.findByText('Darkmode')
+    expect(screen.getByText('Darkmode')).toBeDefined()
   })
 
   test('Can go back to main menu', async () => {

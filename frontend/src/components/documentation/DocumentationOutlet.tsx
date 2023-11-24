@@ -30,35 +30,29 @@ const markdownOptions = {
       <p className='mb-6'>{props.children}</p>
     ),
     table: (props: { children: ReactNode }) => (
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300">
+      <div className='overflow-x-auto'>
+        <table className='min-w-full border border-gray-300'>
           {props.children}
         </table>
       </div>
     ),
 
     thead: (props: { children: ReactNode }) => (
-      <thead className="bg-gray-200 dark:bg-gray-800">
-        {props.children}
-      </thead>
+      <thead className='bg-gray-200 dark:bg-gray-800'>{props.children}</thead>
     ),
 
     tbody: (props: { children: ReactNode }) => (
-      <tbody className="divide-y divide-gray-300">
-        {props.children}
-      </tbody>
+      <tbody className='divide-y divide-gray-300'>{props.children}</tbody>
     ),
 
-    tr: (props: { children: ReactNode }) => (
-      <tr>{props.children}</tr>
-    ),
+    tr: (props: { children: ReactNode }) => <tr>{props.children}</tr>,
 
     th: (props: { children: ReactNode }) => (
-      <th className="py-2 px-4 font-semibold text-left">{props.children}</th>
+      <th className='px-4 py-2 text-left font-semibold'>{props.children}</th>
     ),
 
     td: (props: { children: ReactNode }) => (
-      <td className="py-2 px-4">{props.children}</td>
+      <td className='px-4 py-2'>{props.children}</td>
     ),
   },
 }

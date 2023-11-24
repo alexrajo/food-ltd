@@ -54,18 +54,19 @@ const listifyInstructions = (
     return undefined
   }
 
+  let instr = instructions
   Object.entries(ABBREVIATION_ALIASES).forEach(([key, value]) => {
     const regex = new RegExp(key, 'g')
-    instructions = instructions!.replace(regex, value)
+    instr = instr!.replace(regex, value)
   })
 
-  const splitInstructions = instructions.split(/\.(?: |\n)/g)
+  const splitInstructions = instr.split(/\.(?: |\n)/g)
 
-  return splitInstructions.map((instruction, index) => {
-    instruction =
+  return splitInstructions.map((instruct, index) => {
+    const instruction =
       temperatureUnit === 'celsius'
-        ? fahrenheitTextToCelsius(instruction)
-        : instruction
+        ? fahrenheitTextToCelsius(instruct)
+        : instruct
     return (
       <div key={instruction}>
         {index + 1}. {instruction.replace(/@/g, '.')}

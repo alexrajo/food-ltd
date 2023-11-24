@@ -6,9 +6,8 @@ import useSuggestions from 'src/hooks/useSuggestions'
 import historyIcon from 'src/assets/history.svg'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
-import XIcon from '../icons/XIcon'
-import placeholderimage from 'src/assets/placeholderImage.svg'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
+import XIcon from '../icons/XIcon'
 
 /**
  * The large search bar on the main page.
@@ -18,7 +17,7 @@ type ComponentProps = {
   onChangeSearchInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   searchInput: string
 }
-function Search(props: ComponentProps) {
+const Search = memo((props: ComponentProps) => {
   const { onSearch, onChangeSearchInput, searchInput } = props
 
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
@@ -46,12 +45,13 @@ function Search(props: ComponentProps) {
     isLoading,
   } = useSuggestions()
 
-  const suggested = useMemo(() => {
-    return suggestedData ? suggestedData.data : []
-  }, [suggestedData])
+  const suggested = useMemo(
+    () => (suggestedData ? suggestedData.data : []),
+    [suggestedData],
+  )
 
   useEffect(() => {
-    if (searchInput.length === 0 || lastSearchInput.current == searchInput)
+    if (searchInput.length === 0 || lastSearchInput.current === searchInput)
       return
     setShowSuggestions(true)
     lastSearchInput.current = searchInput
@@ -143,7 +143,7 @@ function Search(props: ComponentProps) {
                     .slice(0, 10)
                     .map((prevSearch, index) => (
                       <div
-                        key={`${index}-${prevSearch}`}
+                        key={index.toString() + prevSearch}
                         className='flex flex-row items-center justify-between p-2'
                       >
                         <button
@@ -203,5 +203,6 @@ function Search(props: ComponentProps) {
       )}
     </div>
   )
-}
-export default memo(Search)
+})
+
+export default Search

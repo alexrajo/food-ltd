@@ -14,9 +14,8 @@ import WriteReview from 'src/pages/WriteReview'
 import DishPage from './pages/Dish'
 import ErrorPage from './pages/Error'
 import DocumentationPage from './pages/DocumentationPage'
-import Documentation  from './components/documentation/DocumentationOutlet'
+import Documentation from './components/documentation/DocumentationOutlet'
 import DocumentationComponent from './components/documentation/DocumentationComponent'
-
 
 const router = createBrowserRouter(
   [
@@ -55,20 +54,19 @@ const router = createBrowserRouter(
       ],
     },
     {
-      path: '/docs', 
+      path: '/docs',
       element: <DocumentationPage />,
       children: [
         {
-          path: '/docs', 
-          element: <DocumentationComponent />
+          path: '/docs',
+          element: <DocumentationComponent />,
         },
         {
           path: '/docs/:section/:subsection',
-          element: <Documentation />
-        }
-
-      ]
-    }
+          element: <Documentation />,
+        },
+      ],
+    },
   ],
   {
     basename: import.meta.env.BASE_URL,

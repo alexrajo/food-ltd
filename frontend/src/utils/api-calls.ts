@@ -8,7 +8,9 @@ import readme from '../../../README.md'
 import { Section, readmeParser } from './readmeParse'
 
 const URL = `http://${
-  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'remote' ? 'it2810-43.idi.ntnu.no' : '127.0.0.1'
+  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'remote'
+    ? 'it2810-43.idi.ntnu.no'
+    : '127.0.0.1'
 }:4000/graphql`
 
 type FetchDishResponse = {
@@ -93,7 +95,6 @@ export const fetchDish = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err))
 }
 
 export const fetchReviews = async (
@@ -146,7 +147,6 @@ export const fetchReviews = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err))
 }
 
 /**
@@ -159,18 +159,8 @@ export const postReview = async (
   title: string,
   rating: number,
   comment: string,
-): Promise<PostReviewResponse> => {
-  // if (process.env.NODE_ENV === 'test') {
-  //   return Promise.resolve({
-  //     reviewId: 1,
-  //     title,
-  //     rating,
-  //     comment,
-  //     dishId,
-  //     postedAt: new Date().toISOString(),
-  //   })
-  // }
-  return fetch(URL, {
+): Promise<PostReviewResponse> =>
+  fetch(URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -196,8 +186,6 @@ export const postReview = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err))
-}
 
 export const fetchSearchResults = async (
   excludedIngredients: Confinement['excludedIngredients'],
@@ -207,12 +195,12 @@ export const fetchSearchResults = async (
   page: number,
   pageSize?: number,
 ): Promise<FetchDishesResponse> => {
-  //Use mock data for testing
+  // Use mock data for testing
   if (process.env.NODE_ENV === 'test') {
     const response: FetchDishesResponse = {
       dishes: {
         data: mock_dishes,
-        pages: 1, // Set the appropriate number of pages
+        pages: 1,
       },
     }
 
@@ -254,7 +242,6 @@ export const fetchSearchResults = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err))
 }
 
 export const fetchIngredientFilterCounts = async (
@@ -307,7 +294,6 @@ export const fetchIngredientFilterCounts = async (
   })
     .then((res) => res.json())
     .then((res) => res.data)
-    .catch((err) => console.log(err))
 }
 
 /**

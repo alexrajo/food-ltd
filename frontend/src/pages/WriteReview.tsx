@@ -9,6 +9,7 @@ import { postReview } from 'src/utils/api-calls'
  * Small component used in the WriteReview page.
  * This allows user to set a rating for the dish they are reviewing.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function RatingInput(props: FieldProps<any>) {
   const { field, form } = props
   const { name } = field
@@ -16,7 +17,10 @@ function RatingInput(props: FieldProps<any>) {
 
   useEffect(() => {
     form.setFieldValue(name, ratingInput)
-  }, [ratingInput])
+    // Eslint warns that form should be added to the dependency array. Do not do it!
+    // The review functionality will completely break
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ratingInput, name])
 
   return (
     <RatingDisplay rating={ratingInput} setRating={setRatingInput} isInput />
@@ -45,6 +49,7 @@ export default function WriteReview() {
             rating: undefined,
           }}
           validate={(values) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const errors: FormikErrors<any> = {}
             if (values.title === '') {
               errors.title = 'Required'
@@ -67,8 +72,6 @@ export default function WriteReview() {
               )
               refetchDish()
               navigate(`/dish/${dishId}`)
-            } else {
-              console.warn('dishId and rating are required')
             }
             setSubmitting(false)
           }}
@@ -76,7 +79,7 @@ export default function WriteReview() {
           {({ isSubmitting, submitForm }) => (
             <Form className='mt-10 flex flex-col gap-5'>
               <div className='flex flex-col'>
-                <label htmlFor='title'>Title</label>
+                <div>Title</div>
                 <Field
                   type='text'
                   name='title'
@@ -89,7 +92,7 @@ export default function WriteReview() {
                 />
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='comment'>Comment</label>
+                <div>Comment</div>
                 <Field
                   as='textarea'
                   data-testid='commet-area'
@@ -104,7 +107,7 @@ export default function WriteReview() {
                 />
               </div>
               <div className='flex flex-col'>
-                <label htmlFor='rating'>Rating</label>
+                <div>Rating</div>
                 <Field name='rating' component={RatingInput} />
                 <ErrorMessage
                   name='rating'
