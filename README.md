@@ -115,17 +115,10 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 Scripts in the root folder. Before running, enter `npm install`
 
-<<<<<<< README.md
-| Command                      | Comment                                                                                                                                                                                |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Command                      | Comment                                                                                                                                                                                                                                                              |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run e2e`                | Runs e2e test. It seems some might also need to run `npx playwright install` if it is the first time using this library. The coverage report will tell you if this is the case. Make sure to be connected to the school network or use a VPN when doing e2e testing. |
-| `npx playwright show-report` | Must be run after e2e tests.                                                                                                                                                           |
-=======
-| Command | Comment |
-|---------|---------|
-| `npm run e2e` | Runs e2e test. It seems some might also need to run `npx install playwright` if it is the first time using this library. The coverage report will tell you if this is the case. |
-| `npx playwright show-report` | Must be run after e2e tests.
->>>>>>> README.md
+| `npx playwright show-report` | Must be run after e2e tests.                                                                                                                                                                                                                                         |
 
 <br>
 <br>
