@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { type Prisma } from '@prisma/client';
 import {
   getDishesSearchQuery,
   getIngredientConstraints,
@@ -7,13 +7,13 @@ import { SORTING_OPTIONS } from '../../utils/constants';
 import prisma from '../../utils/prisma';
 
 type DishesRequestParams = {
-  query: string;
-  page: number;
-  pageSize?: number;
-  includedIngredients?: string[];
-  excludedIngredients?: string[];
-  sortingPreference?: 'popular' | 'rating' | 'alphabetical';
-};
+  query: string
+  page: number
+  pageSize?: number
+  includedIngredients?: string[]
+  excludedIngredients?: string[]
+  sortingPreference?: 'popular' | 'rating' | 'alphabetical'
+}
 
 const endpoint = async ({
   query,
@@ -23,12 +23,12 @@ const endpoint = async ({
   includedIngredients,
   excludedIngredients,
 }: DishesRequestParams) => {
-  pageSize = pageSize !== undefined ? pageSize : 12;
-  page = page !== undefined ? page : 1;
+  pageSize = pageSize ?? 12;
+  page = page ?? 1;
 
   const sortingOptions:
-    | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
-    | undefined =
+  | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
+  | undefined =
     sortingPreference !== undefined
       ? (SORTING_OPTIONS[
           sortingPreference

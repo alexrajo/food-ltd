@@ -1,7 +1,7 @@
-import { Review } from '@prisma/client';
+import { type Review } from '@prisma/client';
 import prisma from '../../utils/prisma';
 
-const endpoint = async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>) => {
+const endpoint = async ({ dishId, title, rating, comment }: Omit<Review, 'reviewId'>): Promise<{ data: Review }> => {
   const review = await prisma.review.create({
     data: {
       dishId,

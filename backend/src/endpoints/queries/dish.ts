@@ -1,7 +1,7 @@
 import prisma from '../../utils/prisma';
 
 type DishRequestParams = {
-  id: number;
+  id: number
 };
 
 const endpoint = async ({ id }: DishRequestParams) => {
@@ -11,7 +11,8 @@ const endpoint = async ({ id }: DishRequestParams) => {
     },
   });
   // Change the reviewCount field of the dish to be a number and not a bigint
-  const responseDish = dish && {
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  const responseDish = !!dish && {
     ...dish,
     reviewCount: Number(dish.reviewCount),
   };
