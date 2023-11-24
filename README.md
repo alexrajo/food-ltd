@@ -46,7 +46,7 @@ Each option is described in their own section, in increasing order of work neede
 - Vite 4.4+
 - Clone the repository for the project:
 
-`git clone https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-43/prosjekt-2.git`
+`git clone https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-43/project-2.git`
 
 ### Running without the backend
 
@@ -114,32 +114,23 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 ### Other scripts
 
-The e2e tests must be run from the root of the project.
-From root, enter `npm install` & `npx install playwright`.
-now:
+Scripts in the root folder. Before running, enter `npm install`
 
-`npm run e2e`
+| Command | Comment |
+|---------|---------|
+| `npm run e2e` | Runs e2e test. It seems some might also need to run `npx install playwright` if it is the first time using this library. |
+| `npx playwright show-report` | Must be run after e2e tests.
 
-To view the report, run `npx playwright show-report`
+<br>
+<br>
+Scripts in the `./frontend/` folder. Make sure to run `npm install` if not already done.
 
-All other scripts must be run from the `/frontend/`.
-
-
-`npm run test`
-
-Runs all the normal tests, focused on frontend components.
-
-`npm run coverage`
-
-Provides a coverage report for how much of the code is covered by tests.
-
-`npm run lint`
-
-Checks if the code breaks any linting rules defined `.eslintrc.cjs`
-
-`npx prettier --write .`
-
-will apply the prettier format specified in .prettierrc to the whole application.
+| Command | Comment |
+|---------|--------------|
+| `npm run test` | Runs all the normal tests, focused on frontend components.|
+| `npm run coverage` | Provides a coverage report for how much of the code is covered by tests. |
+| `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs`|
+| `npx prettier --write .` | will apply the prettier format specified in .prettierrc to the whole application.|
 
 <a name="general"></a>
 
