@@ -20,7 +20,6 @@ Table of Contents
 - [Environment](#environment)
 - [Project requirement checklist](#checklist)
 
-
 <a name="background"></a>
 
 ## Background
@@ -116,22 +115,22 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 Scripts in the root folder. Before running, enter `npm install`
 
-| Command | Comment |
-|---------|---------|
-| `npm run e2e` | Runs e2e test. It seems some might also need to run `npx install playwright` if it is the first time using this library. |
-| `npx playwright show-report` | Must be run after e2e tests.
+| Command                      | Comment                                                                                                                                                                                |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run e2e`                | Runs e2e test. It seems some might also need to run `npx playwright install` if it is the first time using this library. Make sure to be connected to the school network or use a VPN. |
+| `npx playwright show-report` | Must be run after e2e tests.                                                                                                                                                           |
 
 <br>
 <br>
 
 Scripts in the `./frontend/` folder. Make sure to run `npm install` if not already done.
 
-| Command | Comment |
-|---------|--------------|
-| `npm run test` | Runs all the normal tests, focused on frontend components.|
-| `npm run coverage` | Provides a coverage report for how much of the code is covered by tests. |
-| `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs`|
-| `npx prettier --write .` | will apply the prettier format specified in .prettierrc to the whole application.|
+| Command                  | Comment                                                                           |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| `npm run test`           | Runs all the normal tests, focused on frontend components.                        |
+| `npm run coverage`       | Provides a coverage report for how much of the code is covered by tests.          |
+| `npm run lint`           | Checks if the code breaks any linting rules defined `.eslintrc.cjs`               |
+| `npx prettier --write .` | will apply the prettier format specified in .prettierrc to the whole application. |
 
 <a name="general"></a>
 
@@ -140,10 +139,9 @@ Scripts in the `./frontend/` folder. Make sure to run `npm install` if not alrea
 
 Scripts in the `./backend/` folder. Make sure to run `npm install` if not already done.
 
-| Command | Comment |
-|---------|--------------|
-| `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs`|
-
+| Command        | Comment                                                             |
+| -------------- | ------------------------------------------------------------------- |
+| `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs` |
 
 <a name="general"></a>
 
@@ -311,36 +309,34 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 
 ### Functionality
 
-| Requirement | Status | Comment                                        |
-| ------------|--------|------------------------------------------------|
-| Search functionality, e.g., through a dialog/form/search field for input of search. | ✔ | Large search bar on the main page. |
-| List-based presentation of search results, with support for handling large result sets through either pagination or dynamic loading of more results upon scrolling. | ✔ | 1000 pages of dishes with pagination. |
-| Ability to view more details about each object. | ✔ | Each dish can be clicked on, bringing the user to a separate page. |
-| Option for sorting and filtering the result set (note that sorting and filtering should be performed on the entire result set and not just what happens to be loaded on the client). | ✔ | Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic. |
-| Inclusion of some form of user-generated data that should be stored persistently on the database server and presented (e.g., user-contributed information, reviews, ratings, search history, shopping lists, etc.). | ✔ | Users can leave reviews/ratings on the dishes. |
-| The solution should demonstrate aspects of universal design/web accessibility (accessibility). | ✔* | Discussed in its own section. |
-| The solution should demonstrate aspects of sustainable web development (through design choices). | ✔* | Discussed in its own section. |
-| Good design, sensible choices, and solutions that align with the type of data you choose. | ✔ | At least we think so. Reviewers should be free to suggest changes. |
-| The database and backend for the project should be hosted on the group's virtual machine at the time of submission. | ✔ |  |
-
+| Requirement                                                                                                                                                                                                         | Status | Comment                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
+| Search functionality, e.g., through a dialog/form/search field for input of search.                                                                                                                                 | ✔      | Large search bar on the main page.                                                                        |
+| List-based presentation of search results, with support for handling large result sets through either pagination or dynamic loading of more results upon scrolling.                                                 | ✔      | 1000 pages of dishes with pagination.                                                                     |
+| Ability to view more details about each object.                                                                                                                                                                     | ✔      | Each dish can be clicked on, bringing the user to a separate page.                                        |
+| Option for sorting and filtering the result set (note that sorting and filtering should be performed on the entire result set and not just what happens to be loaded on the client).                                | ✔      | Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic. |
+| Inclusion of some form of user-generated data that should be stored persistently on the database server and presented (e.g., user-contributed information, reviews, ratings, search history, shopping lists, etc.). | ✔      | Users can leave reviews/ratings on the dishes.                                                            |
+| The solution should demonstrate aspects of universal design/web accessibility (accessibility).                                                                                                                      | ✔\*    | Discussed in its own section.                                                                             |
+| The solution should demonstrate aspects of sustainable web development (through design choices).                                                                                                                    | ✔\*    | Discussed in its own section.                                                                             |
+| Good design, sensible choices, and solutions that align with the type of data you choose.                                                                                                                           | ✔      | At least we think so. Reviewers should be free to suggest changes.                                        |
+| The database and backend for the project should be hosted on the group's virtual machine at the time of submission.                                                                                                 | ✔      |                                                                                                           |
 
 ### Use of technology
 
-| Requirement | Status | Comment                                        |
-| ------------|--------|------------------------------------------------|
-| The user interface should be based on React and programmed in TypeScript. | ✔ |  |
-| The project should be set up using Vite. | ✔ |  |
-| Use of state management, for example, Redux, Mobx, Recoil, Apollo local state management, etc. | ✔ | The project uses Redux. |
-| Custom/developer-built GraphQL backend, free choice of the type of database server on the backend, but the project should use a backend database set up by the group. | ✔ | PostgreSQL with GraphQL. |
-| Use of good and relevant components and libraries (free choice, and we encourage maximum reuse of third-party solutions). | ✔ | Lottie, Formik, InfiniteScroll, React-Search-Autocomplete. |
-
+| Requirement                                                                                                                                                           | Status | Comment                                                    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ---------------------------------------------------------- |
+| The user interface should be based on React and programmed in TypeScript.                                                                                             | ✔      |                                                            |
+| The project should be set up using Vite.                                                                                                                              | ✔      |                                                            |
+| Use of state management, for example, Redux, Mobx, Recoil, Apollo local state management, etc.                                                                        | ✔      | The project uses Redux.                                    |
+| Custom/developer-built GraphQL backend, free choice of the type of database server on the backend, but the project should use a backend database set up by the group. | ✔      | PostgreSQL with GraphQL.                                   |
+| Use of good and relevant components and libraries (free choice, and we encourage maximum reuse of third-party solutions).                                             | ✔      | Lottie, Formik, InfiniteScroll, React-Search-Autocomplete. |
 
 ### Testing, development and quality control
 
-| Requirement | Status | Comment                                        |
-| ------------|--------|------------------------------------------------|
-| Linting and the use of Prettier. | ✔ | Using a Prettier config and ESLint with Airbnb style guide. |
-| Comprehensive testing of components (we use Vitest). | ✔* | Most components are tested. More to come. |
-| Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing. | ✔ | Long sequences of actions testing interaction with the application. The API is tested indirectly through end-to-end tests, which is acceptable according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147). |
-| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔* | Need to expand the discussion on choices and solutions. |
-| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection. | ✔* | Let us know if there are some parts that require more attention. |
+| Requirement                                                                                                                                                                                                                  | Status | Comment                                                                                                                                                                                                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Linting and the use of Prettier.                                                                                                                                                                                             | ✔      | Using a Prettier config and ESLint with Airbnb style guide.                                                                                                                                                                 |
+| Comprehensive testing of components (we use Vitest).                                                                                                                                                                         | ✔\*    | Most components are tested. More to come.                                                                                                                                                                                   |
+| Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.                                                                                                          | ✔      | Long sequences of actions testing interaction with the application. The API is tested indirectly through end-to-end tests, which is acceptable according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147). |
+| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔\*    | Need to expand the discussion on choices and solutions.                                                                                                                                                                     |
+| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.                                                        | ✔\*    | Let us know if there are some parts that require more attention.                                                                                                                                                            |
