@@ -115,10 +115,17 @@ Comment to the reviewer: if you have tried this, please let us know if these ins
 
 Scripts in the root folder. Before running, enter `npm install`
 
+<<<<<<< README.md
 | Command                      | Comment                                                                                                                                                                                |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run e2e`                | Runs e2e test. It seems some might also need to run `npx playwright install` if it is the first time using this library. Make sure to be connected to the school network or use a VPN. |
+| `npm run e2e`                | Runs e2e test. It seems some might also need to run `npx playwright install` if it is the first time using this library. The coverage report will tell you if this is the case. Make sure to be connected to the school network or use a VPN when doing e2e testing. |
 | `npx playwright show-report` | Must be run after e2e tests.                                                                                                                                                           |
+=======
+| Command | Comment |
+|---------|---------|
+| `npm run e2e` | Runs e2e test. It seems some might also need to run `npx install playwright` if it is the first time using this library. The coverage report will tell you if this is the case. |
+| `npx playwright show-report` | Must be run after e2e tests.
+>>>>>>> README.md
 
 <br>
 <br>
@@ -155,10 +162,10 @@ The project is structured as follows:
   - `prisma`: Schema definition of the data
   - `src`: GraphQL API server
 - `database`: Data to populate database, and PostgreSQL docker creation.
+- `e2e`: Playwright end-to-end test.
 - `frontend`:
   - `src`: Client source code
     - `assets`: SVGs, Lottie animatinos and mock data
-    - `e2e`: Playwright end-to-end test.
     - `components`: Smaller parts of a page. Inside a subfolder indicating which page they belong to.
     - `hooks`: The hooks of the application
     - `pages`: The pages of the application
@@ -250,23 +257,15 @@ The frontend test coverage is around 80%. The major areas that are not tested in
 
 ### E2E and api testing
 
-Api calls are not tested directly. Instead they are tested indirectly, through e2e tests. This is an acceptable way to test api, according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147).
+There are no tests written to directly test api calls. These are tested indirectly through the e2e tests. This is an acceptable way to test api, according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147).
 
 The e2e tests are longer series of actions, closely mimicking how a user would navigate in the application. They are not intended to run often and can therefore use real data fetched from the database.
 
-The current e2e test follows these actions:
+The shortest e2e test just tests page navigation. This was intended to make sure the e2e testing setup was done correctly.
 
-1. A user going to the website.
-2. The user goes to one of the dishes on the front page.
-3. Elements of the dish page is tested.
+There are two real e2e tests. The first covers longer navigation sequences, and checks that the ui updates the information correctly to the user. The other focuses more on search and filter. It makes sure the UI updates correctly when the user applies them.
 
-- Correct name
-- Correct switch between celsius and fahrenheit
-
-4. The user navigating back to main page.
-5. Search for a specific dish.
-6. Navigate to the dish.
-7. Leave a review on that dish.
+More e2e tests are comming. The current ones are mostly testing correct behaviour. It is good to also have some tests that makes sure strange user behaviour is handled correctly.
 
 ### Screen size testing
 
