@@ -54,6 +54,11 @@ const markdownOptions = {
     td: (props: { children: ReactNode }) => (
       <td className='px-4 py-2'>{props.children}</td>
     ),
+    code: (props: { children: ReactNode }) => (
+      <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded-md text-sm font-mono text-gray-800 dark:text-gray-200">
+        {props.children}
+      </code>
+    ),
   },
 }
 
