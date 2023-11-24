@@ -123,6 +123,7 @@ Scripts in the root folder. Before running, enter `npm install`
 
 <br>
 <br>
+
 Scripts in the `./frontend/` folder. Make sure to run `npm install` if not already done.
 
 | Command | Comment |
@@ -131,6 +132,18 @@ Scripts in the `./frontend/` folder. Make sure to run `npm install` if not alrea
 | `npm run coverage` | Provides a coverage report for how much of the code is covered by tests. |
 | `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs`|
 | `npx prettier --write .` | will apply the prettier format specified in .prettierrc to the whole application.|
+
+<a name="general"></a>
+
+<br>
+<br>
+
+Scripts in the `./backend/` folder. Make sure to run `npm install` if not already done.
+
+| Command | Comment |
+|---------|--------------|
+| `npm run lint` | Checks if the code breaks any linting rules defined `.eslintrc.cjs`|
+
 
 <a name="general"></a>
 
