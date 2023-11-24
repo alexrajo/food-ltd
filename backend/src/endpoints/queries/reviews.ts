@@ -1,13 +1,13 @@
 import prisma from '../../utils/prisma';
 
 type ReviewsRequestParams = {
-  dishId: number;
-  page: number;
-  pageSize?: number;
+  dishId: number
+  page: number
+  pageSize?: number
 };
 
 const endpoint = async ({ dishId, page, pageSize }: ReviewsRequestParams) => {
-  pageSize = pageSize !== undefined ? pageSize : 10;
+  pageSize = pageSize ?? 10;
 
   const reviews = await prisma.review.findMany({
     where: {

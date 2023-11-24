@@ -1,8 +1,7 @@
-import type { Prisma, Review } from '@prisma/client';
 import express from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
-import { GraphQLScalarType, Kind, buildSchema } from 'graphql';
+import { buildSchema } from 'graphql';
 import logger from './middleware/logger';
 import dishes from './endpoints/queries/dishes';
 import dish from './endpoints/queries/dish';
@@ -94,16 +93,9 @@ app.use(cors()); // Ensure that the frontend can access this API (ensure preflig
 
 app.use(
   '/graphql',
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   graphqlHTTP({
     schema: schema,
-    // extensions: (info) =>
-    //   new Promise((resolve, reject) => {
-    //     const { variables, result } = info;
-    //     console.log('variables', variables);
-    //     console.log('result', result);
-
-    //     resolve({});
-    //   }),
     rootValue: root,
     graphiql: process.env.NODE_ENV === 'development',
   })
