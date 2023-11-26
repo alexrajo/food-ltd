@@ -11,7 +11,7 @@ const URL = `http://${
   process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'remote'
     ? 'it2810-43.idi.ntnu.no'
     : '127.0.0.1'
-}:4000/graphql`
+}:4001/graphql`
 
 type FetchDishResponse = {
   dish: {
