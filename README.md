@@ -57,16 +57,34 @@ It is possible to run the project without any backend.
 
 <b>Note!</b> This version of the app is intended for testing and development. The backend is not connected, which means that almost no functionality is supported. For that, you should select one of the other options for running the project.
 
-### Running with remote database
+### Running with remote backend
 
-Uses the remote database on NTNU server.
+Uses the remote backend on NTNU server.
 
-- Connect to NTNU internet, either eduroam or vpn.
+- Connect to NTNU internet, either eduroam or VPN.
 - Navigate to frontend: `cd .\frontend\`
 - Install dependencies: `npm install`
 - Start the app: `npm run dev-remote`
 
-### Running with local database
+### Running with remote database and local backend
+
+Runs the node backend on your local machine, but uses the remotely hosted database on the NTNU VM.
+
+Backend:
+
+- Connect to NTNU VPN or to school network.
+- Add a .env file to the backend directory and insert the environment variable `DATABASE_URL="postgresql://postgres:postgres@it2810-43.idi.ntnu.no:5433/dishesdb?schema=public"`
+- Navigate to backend `cd .\backend\`
+- Install dependencies for backend `npm install`
+- Start the app's backend: `npm run dev`
+
+Frontend (make sure to open a new terminal):
+
+- Navigate to frontend `cd .\frontend\`
+- Install dependencies for frontend `npm install`
+- Start the app: `npm run dev`
+
+### Running with local database (not recommended)
 
 This setup requires some work. You will need to setup and populate the databse locally.
 
