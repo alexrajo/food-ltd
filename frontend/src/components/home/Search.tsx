@@ -68,11 +68,12 @@ const Search = memo((props: ComponentProps) => {
   }
 
   return (
-    <div className=' relative flex flex-grow flex-col items-center'>
+    <div className='relative flex flex-grow flex-col items-center'>
       <div className='flex h-14 w-full flex-row items-center rounded-md border-2 border-black bg-white p-1 dark:border-tertiarydark dark:bg-secondarydark'>
         <input
           ref={searchInputRef}
           type='text'
+          aria-label='search for dishes'
           className='w-full rounded-full bg-white px-2 py-2 text-black outline-none dark:bg-secondarydark dark:text-white'
           placeholder='Search'
           onFocus={() => {

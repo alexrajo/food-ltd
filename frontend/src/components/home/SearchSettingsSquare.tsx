@@ -21,6 +21,7 @@ export default function SearchSettingsSquare() {
       type='button'
       data-testid='searchsettingsquare'
       className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark '
+      aria-label='open/close filter menu'
     >
       {/* The rest of this is not relevant, only for styling */}
       <div className='relative w-full border border-black dark:border-white'>

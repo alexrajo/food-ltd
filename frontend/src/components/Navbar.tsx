@@ -40,15 +40,12 @@ export default function Navbar({ className }: { className?: string }) {
     >
       <div className='flex flex-1 flex-col justify-center gap-6'>
         <div className=' flex flex-col items-center'>
-          <Link to='/'>
-            <p className=' font'>Food Ltd.</p>
-          </Link>
-          <Link
-            to='/'
+          <Link to='/'
+          aria-label='Link to homepage'
             onClick={() => {
               playLottie()
-            }}
-          >
+            }}>
+            <h1 className='text-center'>Food Ltd.</h1>
             <Lottie
               loop={false}
               key={key}
@@ -58,8 +55,6 @@ export default function Navbar({ className }: { className?: string }) {
           </Link>
         </div>
         <NavElement icon={<HomeIcon />} text='Home' link='/' />
-        {/* <NavElement icon={<FavoritesIcon />} text='Favorites' link='/favorites' />
-      <NavElement icon={<HistoryIcon />} text='History' link='/history' /> */}
         <NavElement icon={<SettingsIcon />} text='Settings' link='/settings' />
       </div>
       <div className='flex gap-2 pb-20 md:hidden'>
