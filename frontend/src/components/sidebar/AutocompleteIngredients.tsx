@@ -83,8 +83,12 @@ export default function AutocompleteIngredients(props: ComponentProps) {
             color: 'black',
           },
         }),
+        placeholder: (provided) => ({
+          ...provided,
+          color: 'black'
+        }),
       }}
-      className='z-999 '
+      className='z-999'
     />
   )
 }
