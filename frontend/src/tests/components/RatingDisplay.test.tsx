@@ -13,7 +13,7 @@ describe('Navbar', async () => {
   })
   test('mock dish 1 has 4.5 stars stars', () => {
     // Find the 5 first stars on the page, they belong to mock dish 1
-    const stars = screen.getAllByAltText('star').slice(0, 5)
+    const stars = screen.getAllByTestId('star').slice(0, 5)
 
     stars.slice(0, 4).forEach((image) => {
       const src = image.getAttribute('src')
@@ -25,7 +25,7 @@ describe('Navbar', async () => {
   })
   test('mock dish 2 has 4 stars', () => {
     // Find the next 5 first stars on the page, they belong to mock dish 1
-    const stars = screen.getAllByAltText('star').slice(5, 10)
+    const stars = screen.getAllByTestId('star').slice(5, 10)
 
     stars.slice(0, 4).forEach((image) => {
       const src = image.getAttribute('src')

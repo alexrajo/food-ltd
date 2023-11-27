@@ -58,6 +58,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                   star
                 }
                 className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
+                data-testid='star'
               />
             )
           }
