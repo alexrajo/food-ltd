@@ -9,7 +9,7 @@ import reviews from './endpoints/queries/reviews';
 import ingredientFilterCounts from './endpoints/queries/ingredientFilterCounts';
 import postReview from './endpoints/mutations/postReview';
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT ?? 4001;
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
@@ -104,5 +104,7 @@ app.use(
 );
 
 app.listen(PORT, () => {
-  console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`);
+  console.log(
+    `Running a GraphQL API server at http://localhost:${PORT}/graphql`
+  );
 });
