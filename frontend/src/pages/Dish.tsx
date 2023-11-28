@@ -141,7 +141,7 @@ export default function DishPage() {
                 </Link>
                 <div className='flex h-full flex-col justify-end'>
                   <div className='flex flex-col gap-1'>
-                    <p className='font-semibold'>Temperature units</p>
+                    <p className=''>Temperature units</p>
                     <div className='flex gap-3'>
                       <button
                         onClick={() => dispatch(setFahrenheit())}
@@ -176,7 +176,7 @@ export default function DishPage() {
           </div>
           <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
             <p className='text-center text-xl'>Ingredients</p>
-            <p className='text-center text-lg text-grayed-text'>4 portions</p>
+            <p className='text-center text-lg opacity-80'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
                 {ingredients

@@ -40,11 +40,13 @@ export default function Navbar({ className }: { className?: string }) {
     >
       <div className='flex flex-1 flex-col justify-center gap-6'>
         <div className=' flex flex-col items-center'>
-          <Link to='/'
-          aria-label='Link to homepage'
+          <Link
+            to='/'
+            aria-label='Link to homepage of Food Ltd.'
             onClick={() => {
               playLottie()
-            }}>
+            }}
+          >
             <h1 className='text-center'>Food Ltd.</h1>
             <Lottie
               loop={false}

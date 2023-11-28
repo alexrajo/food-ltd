@@ -29,7 +29,7 @@ export default function ReviewDisplay(props: ReviewDisplayProps) {
         </div>
       </div>
       <p>{comment}</p>
-      <p className='text-grayed-text'>Posted at {postedAt}</p>
+      <p className='opacity-80'>Posted at {postedAt}</p>
     </div>
   )
 }
