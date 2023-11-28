@@ -264,7 +264,7 @@ An illustrating example: adding a filter to the search result. The test starts o
 
 These tests might resemble e2e tests more than standard unit tests. This is preferable, beause the code consists primarily of elements that can be interacted with.
 
-The frontend test coverage is around 80%. The major areas that are not tested include api-calls and documentation page. The documentation page is not tested because it is not integral to the application. Api-calls are tested indirectly, through e2e tests. Since the e2e tests use a different library, they do not show up on the coverage report.
+The frontend test coverage is around 80%. The major areas that are not tested include api-calls and documentation page. The documentation page is tested through an e2e test. Api-calls are tested indirectly, through e2e tests. Since the e2e tests use a different library, they do not show up on the coverage report.
 
 ### E2E and api testing
 
