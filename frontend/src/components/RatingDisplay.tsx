@@ -43,23 +43,25 @@ export default function RatingDisplay(props: RatingDisplayProps) {
 
   return (
     <div className={cn('flex flex-wrap items-center gap-3', className)}>
-      <div className='flex flex-row items-center gap-1'>
+      <div className='flex flex-row items-center'>
         {Array.from(Array(5).keys()).map((number, index) => {
           const isGrayed = Math.ceil(rating - 0.3) < index + 1
           const isHalf = rating - index > 0.3 && rating - index < 0.7
           if (!isInput) {
             return (
-              <img
-                alt={`star rating, number ${index + 1}`}
-                key={number}
-                src={
-                  (!isGrayed && isHalf && halfStar) ||
-                  (isGrayed && outlineStar) ||
-                  star
-                }
-                className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
-                data-testid='star'
-              />
+              <div className='pl-0.5 pr-0.5 first:pl-0 last:pr-0'>
+                <img
+                  alt={`star rating, number ${index + 1}`}
+                  key={number}
+                  src={
+                    (!isGrayed && isHalf && halfStar) ||
+                    (isGrayed && outlineStar) ||
+                    star
+                  }
+                  className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
+                  data-testid='star'
+                />
+              </div>
             )
           }
           return (
@@ -69,6 +71,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
               onMouseEnter={() => setRating(index + 1)}
               onMouseLeave={() => setRating(receivedRating)}
               onClick={() => setRatingProp?.(index + 1)}
+              className='pl-0.5 pr-0.5 first:pl-0 last:pr-0 hover:scale-110'
             >
               <img
                 alt='star'
