@@ -172,7 +172,7 @@ The project is structured as follows:
 - `backend`: Server source code
   - `prisma`: Schema definition of the data
   - `src`: GraphQL API server
-- `database`: Data to populate database, and PostgreSQL docker creation.
+- `database`: Data and script to populate database
 - `e2e`: Playwright end-to-end test.
 - `frontend`:
   - `src`: Client source code
@@ -210,7 +210,6 @@ Additional technologies:
 - Lottie react
 - Express
 - Prisma
-- Docker
 
 These will be justified in the important choices section.
 
@@ -233,7 +232,7 @@ Choices related to testing, environment and accessibility will be discussed in a
 
 ### Database and datasource
 
-The backend solution leverages GraphQL as the query language, with Express as the web framework, Prisma for database management, and Docker for containerization. This technology stack enables efficient data retrieval, seamless API development, and streamlined deployment in a containerized environment.
+The backend solution leverages GraphQL as the query language, with Express as the web framework, and Prisma for database management. This technology stack enables efficient data retrieval, seamless API development, and streamlined deployment in a containerized environment.
 
 The data used in this project is sourced from a publicly available dataset from [kaggle](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images).
 
@@ -286,32 +285,47 @@ The application has been tested using windows and macos on chrome and safari. It
 
 ## Accessibility
 
-I. Included in the airbnb styleguide for coding is a11y standard for accessibility. These linting checks make sure that:
+### WCAG standard
 
-- All `<img>` tags have alt text.
-- Alt texts are descriptive.
-- Aria roles are valid and non-abstract.
-- Clickable non-interactive element have at least one keyboard event listener.
+To ensure compliance with accessibility standards, the [WCAG-standard](https://www.uutilsynet.no/wcag-standarden/wcag-standarden/86) has been used as a reference. A series of tools have been used to help with development in line with the standard.
 
-... and more. These are great for making sure the code follows accessibility standards.
+### Adaption
 
-II. Zooming is possible. This is good for users with poor eyesight.
+To accomodate those with poor or no eyesight, several measures have been taken. The site have been developed to allow effective use of screen readers. Different tools have been used to assure that the color contrast is above legal requirements. The text on the site is scalable, and zooming is possible without breaking functionality of the site application.
 
-III. Color contrast should be reasonably high, since most colors are white/dark gray and orange. This could be more thoroughly checked, however.
+The application does not play any sound, so those with poor or no hearing encounter no limitations. 
 
-IV. No blinking, sound, quick animations that might cause problems for some users.
+All buttons and clickable surfaces are large. The site is also fully keyboard navigable. A full e2e test is dedicated to ensuring that keyboard navigation works as expected.
+
+### Perception
+
+All non-text elements have aria labels and/or alt text. This supports convertion to different formats, and the use of screen readers. Colors have been chosen to make sure text is easy to read. 
+
+### Service
+
+As mentioned, the application has been tested for keyboard navigation. A focus has also been placed on keeping general navigation as intuitive as possible. To achieve this, external user tests have been vital.
+
+ There are no timed events, which gives the user all the time they might need. The only exception is possibly the Lottie animations. These are however not vital for any functionality. No fast blinking exist anywhere in the application.
+
+### Techniques used to achieve accessibility
+
+- WAVE and axe DevTools chrome extensions have been used to discover contrast issues and other general accessibility problems.
+- E2E test to make sure application is keyboard navigable.
+- Airbnb styleguide with a11y standard for accessibility.
+- External user test for discovery of accessibility problems.
+- Windows screen reader and NVDA screen reader have been used to test that the application works well with these tools. 
 
 <a name="environment"></a>
 
 ## Environment
 
-I. A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
+A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
 
-II. Darkmode is set by default, which requires less power to display.
+Darkmode is set by default, which requires less power to display.
 
-III. SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
+SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
 
-IV. Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
+Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
 
 <a name="checklist"></a>
 
@@ -326,8 +340,8 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 | Ability to view more details about each object.                                                                                                                                                                     | ✔      | Each dish can be clicked on, bringing the user to a separate page.                                        |
 | Option for sorting and filtering the result set (note that sorting and filtering should be performed on the entire result set and not just what happens to be loaded on the client).                                | ✔      | Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic. |
 | Inclusion of some form of user-generated data that should be stored persistently on the database server and presented (e.g., user-contributed information, reviews, ratings, search history, shopping lists, etc.). | ✔      | Users can leave reviews/ratings on the dishes.                                                            |
-| The solution should demonstrate aspects of universal design/web accessibility (accessibility).                                                                                                                      | ✔\*    | Discussed in its own section.                                                                             |
-| The solution should demonstrate aspects of sustainable web development (through design choices).                                                                                                                    | ✔\*    | Discussed in its own section.                                                                             |
+| The solution should demonstrate aspects of universal design/web accessibility (accessibility).                                                                                                                      | ✔    | Discussed in its own section.                                                                             |
+| The solution should demonstrate aspects of sustainable web development (through design choices).                                                                                                                    | ✔    | Discussed in its own section.                                                                             |
 | Good design, sensible choices, and solutions that align with the type of data you choose.                                                                                                                           | ✔      | At least we think so. Reviewers should be free to suggest changes.                                        |
 | The database and backend for the project should be hosted on the group's virtual machine at the time of submission.                                                                                                 | ✔      |                                                                                                           |
 
@@ -346,7 +360,7 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 | Requirement                                                                                                                                                                                                                  | Status | Comment                                                                                                                                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Linting and the use of Prettier.                                                                                                                                                                                             | ✔      | Using a Prettier config and ESLint with Airbnb style guide.                                                                                                                                                                 |
-| Comprehensive testing of components (we use Vitest).                                                                                                                                                                         | ✔\*    | Most components are tested. More to come.                                                                                                                                                                                   |
+| Comprehensive testing of components (we use Vitest).                                                                                                                                                                         | ✔    | There are many tests for the frontend.                                                                                                                                                                                   |
 | Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.                                                                                                          | ✔      | Long sequences of actions testing interaction with the application. The API is tested indirectly through end-to-end tests, which is acceptable according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147). |
-| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔\*    | Need to expand the discussion on choices and solutions.                                                                                                                                                                     |
-| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.                                                        | ✔\*    | Let us know if there are some parts that require more attention.                                                                                                                                                            |
+| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔    |                                                                                                                                                                    |
+| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.                                                        | ✔    |                                                                                                                                                            |
