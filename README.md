@@ -218,17 +218,21 @@ These will be justified in the important choices section.
 Choices related to testing, environment and accessibility will be discussed in a separate section.
 
 - The Airbnb style guide is used for coding/linting. They can be found
-  [here](https://github.com/airbnb/javascript). Although the rules are strict, the advantages of a common coding pattern is worth the extra work and occasional roadblock.
+  [here](https://github.com/airbnb/javascript). Although the rules are strict, the advantages of a common coding pattern is worth the extra work and occasional roadblock. The airbnb style guide will also enforce good coding patterns for accessibility. 
 
 - A prettier config, to make sure all contributors apply prettier in the same way. Without this config, each contributors would apply prettier according to personal settings, which would undermine the whole point of using a tool for standardizing.
 
-- Tailwind CSS for all styling. This is a great way to make sure all code related to a component is collected in the same place. This makes adjustments easier, and bug fixing faster. All current contributors strongly prefer tailwind to all other css solutions.
+- Tailwind CSS for all styling. This is a great way to make sure all code related to a component is collected in the same place. This makes adjustments easier, and bug fixing faster. All current contributors strongly prefer tailwind to all other css solutions. Prettier has also been configured to work with tailwind. This ensures that the order of elements in the classnames follow the same pattern.
 
 - Formik is one of the many solutions for forms in react. The decision to pick this solution was made based on prior experience.
 
-- Lottie react provides high quality json animations using a fraction of the space required by other animation types.
+- Lottie react provides high quality json animations using a fraction of the space required by other animation types. Animations are environmentally costly, but included regardless for the sake of diversity. Reviewers also frequently commented positively on the use of these animations.  
 
 - The project uses absolute paths instead of relative paths for file import. This is mostly due to preferance among contributors.
+
+- A few third party components were used in the project. These include InfiniteScroll and React-Search-Autocomplete. The functionality these implement is quite complicated, and it is better to use well-tested components instead of implementing them from scratch. 
+
+- Other than the mentioned components, all UI was designed and implemented by the team. This allows a higher degree of choice when it comes to the structure of the application. And it is also more fun. 
 
 ### Database and datasource
 
