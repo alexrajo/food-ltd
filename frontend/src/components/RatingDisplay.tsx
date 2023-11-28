@@ -50,7 +50,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
           if (!isInput) {
             return (
               <img
-                alt='star'
+                alt={`star rating, number ${index + 1}`}
                 key={number}
                 src={
                   (!isGrayed && isHalf && halfStar) ||
@@ -58,6 +58,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
                   star
                 }
                 className={cn(isInput && 'cursor-pointer', 'drop-shadow-md')}
+                data-testid='star'
               />
             )
           }
