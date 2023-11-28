@@ -3,7 +3,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: 'standard-with-typescript',
+  extends: ['standard-with-typescript', 'prettier'],
   overrides: [
     {
       env: {
@@ -24,10 +24,13 @@ module.exports = {
   rules: {
     '@typescript-eslint/semi': 'off',
     '@typescript-eslint/comma-dangle': 'off',
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/consistent-indexed-object-style': ['error', 'index-signature'],
+    '@typescript-eslint/consistent-indexed-object-style': [
+      'error',
+      'index-signature',
+    ],
     'no-var': 'error',
     'object-shorthand': 'off', // Not readable when enabled in my opinion
   },
-};
+}

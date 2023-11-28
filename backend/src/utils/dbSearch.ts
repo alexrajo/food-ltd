@@ -2,6 +2,13 @@ export const getDishesSearchQuery = (query: string) => {
   return query.split(' ').join(' & ');
 };
 
+export const getTitleSearchParams = (query: string) => {
+  return {
+    contains: `%${query}%`,
+    mode: 'insensitive',
+  };
+};
+
 export const getIngredientConstraints = (
   includedIngredients?: string[],
   excludedIngredients?: string[]

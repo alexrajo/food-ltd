@@ -1,10 +1,10 @@
-import { type Prisma } from '@prisma/client';
+import { type Prisma } from '@prisma/client'
 import {
-  getDishesSearchQuery,
   getIngredientConstraints,
-} from '../../utils/dbSearch';
-import { SORTING_OPTIONS } from '../../utils/constants';
-import prisma from '../../utils/prisma';
+  getTitleSearchParams,
+} from '../../utils/dbSearch'
+import { SORTING_OPTIONS } from '../../utils/constants'
+import prisma from '../../utils/prisma'
 
 type DishesRequestParams = {
   query: string
@@ -23,22 +23,22 @@ const endpoint = async ({
   includedIngredients,
   excludedIngredients,
 }: DishesRequestParams) => {
-  pageSize = pageSize ?? 12;
-  page = page ?? 1;
+  pageSize = pageSize ?? 12
+  page = page ?? 1
 
   const sortingOptions:
-  | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
-  | undefined =
+    | Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput
+    | undefined =
     sortingPreference !== undefined
       ? (SORTING_OPTIONS[
           sortingPreference
         ] as Prisma.DishWithReviewAggregateOrderByWithRelationAndSearchRelevanceInput)
-      : undefined;
+      : undefined
 
   const ingredientConstraints = getIngredientConstraints(
     includedIngredients,
-    excludedIngredients
-  );
+    excludedIngredients,
+  )
 
   if (query === '') {
     const data = await prisma.dishWithReviewAggregate.findMany({
@@ -48,50 +48,49 @@ const endpoint = async ({
       skip: Math.max(0, page - 1) * pageSize,
       take: pageSize,
       orderBy: sortingOptions,
-    });
+    })
     const count = await prisma.dish.count({
       where: {
         AND: ingredientConstraints,
       },
-    });
+    })
     const responseDishes = data.map((dish) => ({
       ...dish,
       reviewCount: Number(dish.reviewCount),
-    }));
+    }))
     return {
       pages: Math.ceil(count / pageSize),
       data: responseDishes,
-    };
+    }
   } else {
     const data = await prisma.dishWithReviewAggregate.findMany({
       where: {
-        title: {
-          contains: `%${query}%`,
-          mode: 'insensitive',
-        },
+        title: getTitleSearchParams(
+          query,
+        ) as Prisma.StringNullableFilter<'DishWithReviewAggregate'>,
         AND: ingredientConstraints,
       },
       skip: Math.max(0, page - 1) * pageSize,
       take: pageSize,
       orderBy: sortingOptions,
-    });
+    })
     const count = await prisma.dish.count({
       where: {
-        title: {
-          search: getDishesSearchQuery(query),
-        },
+        title: getTitleSearchParams(
+          query,
+        ) as Prisma.StringNullableFilter<'Dish'>,
         AND: ingredientConstraints,
       },
-    });
+    })
     const responseDishes = data.map((dish) => ({
       ...dish,
       reviewCount: Number(dish.reviewCount),
-    }));
+    }))
     return {
       pages: Math.ceil(count / pageSize),
       data: responseDishes,
-    };
+    }
   }
-};
+}
 
-export default endpoint;
+export default endpoint
