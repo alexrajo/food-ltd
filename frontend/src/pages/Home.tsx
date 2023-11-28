@@ -141,7 +141,7 @@ export default function Home() {
               {pageSuggestions[0]}
             </button>
           )}
-          {page > 2 && (
+          {page > 3 && (
             <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
               •••
             </p>
