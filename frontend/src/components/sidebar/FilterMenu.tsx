@@ -5,8 +5,8 @@ import AutocompleteIngredients from 'src/components/sidebar/AutocompleteIngredie
 import IngredientsList from 'src/components/sidebar/IngredientsList'
 import useAutocomplete from 'src/hooks/useAutocomplete'
 import useFilter from 'src/hooks/useFilter'
-import XIcon from '../icons/XIcon'
 import { useEffect, useRef } from 'react'
+import XIcon from '../icons/XIcon'
 
 /**
  * For holding the different filters on the right side
@@ -37,7 +37,7 @@ export default function FilterMenu() {
     >
       <div className='flex gap-2'>
         <button
-        ref={ref}
+          ref={ref}
           type='button'
           aria-label='Close filter menu'
           onClick={() => {
