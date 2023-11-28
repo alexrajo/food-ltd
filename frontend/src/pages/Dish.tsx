@@ -30,13 +30,25 @@ const ABBREVIATION_ALIASES = {
  */
 const fahrenheitTextToCelsius = (text: string) => {
   // Find the Fahrenheit temperature in the text and convert it to Celsius
-  const match = text.match(/(\d+) ?°[F]/)
+  const fahrenheitMatchRegex = /\d+°[F]/g
+  const matches = text.match(fahrenheitMatchRegex)
 
-  if (match) {
-    const fahrenheitValue = parseInt(match[1], 10)
-    const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
+  if (matches) {
+    const splitString = text.split(fahrenheitMatchRegex)
+    const celsiusValues = matches.map((match) => {
+      const fahrenheitValue = parseInt(match, 10)
+      const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
 
-    return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`)
+      return celsiusCalc
+    })
+    let finalString = ''
+    for (let i = 0; i < splitString.length; i++) {
+      finalString += splitString[i]
+      if (i < celsiusValues.length) {
+        finalString += `${celsiusValues[i]}°C`
+      }
+    }
+    return finalString
   }
   return text
 }
