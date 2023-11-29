@@ -92,6 +92,8 @@ const Search = memo((props: ComponentProps) => {
         />
         {searchInput.length > 0 && (
           <XIcon
+            dataTestId='remove search input'
+            ariaLabel='remove search input'
             className='h-6 w-6 hover:cursor-pointer'
             onMouseDown={() => {
               onChangeSearchInput({
@@ -101,13 +103,15 @@ const Search = memo((props: ComponentProps) => {
               setShowSuggestions(false)
             }}
           />
-        )}
+        )}                                      
       </div>
       {showSuggestions && (
         <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark '>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <button
+                aria-label={`search for ${searchInput}`}
+                data-testid={`search for ${searchInput}`}
                 type='button'
                 className='flex flex-row items-center gap-4 p-4 hover:cursor-pointer hover:bg-tertiarydark'
                 onMouseDown={() => {
@@ -193,7 +197,7 @@ const Search = memo((props: ComponentProps) => {
                 >
                   <img
                     src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
-                    alt='dish'
+                    alt={`search result number ${dish.dishId}`}
                     className='h-10 w-10 object-cover'
                   />
                   <p className=' '>{dish.title}</p>
