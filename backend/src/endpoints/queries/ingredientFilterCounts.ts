@@ -1,15 +1,16 @@
+import type { Prisma } from '@prisma/client'
 import {
-  getDishesSearchQuery,
   getIngredientConstraints,
-} from '../../utils/dbSearch';
-import prisma from '../../utils/prisma';
+  getTitleSearchParams,
+} from '../../utils/dbSearch'
+import prisma from '../../utils/prisma'
 
 type IngredientFilterCountsRequestParams = {
   query: string
   includedIngredients: string[]
   excludedIngredients: string[]
   ingredientOptions: string[]
-};
+}
 
 const endpoint = async ({
   query,
@@ -18,13 +19,13 @@ const endpoint = async ({
   ingredientOptions,
 }: IngredientFilterCountsRequestParams) => {
   // Explicitly define the types of the variables to a dictionary where the key is a string and the value is a number
-  const includedIngredientCounts: { [key: string]: number } = {};
-  const excludedIngredientCounts: { [key: string]: number } = {};
+  const includedIngredientCounts: { [key: string]: number } = {}
+  const excludedIngredientCounts: { [key: string]: number } = {}
 
   const ingredientConstraints = getIngredientConstraints(
     includedIngredients,
-    excludedIngredients
-  );
+    excludedIngredients,
+  )
 
   // Loop through all optional ingredients and count the resulting dishes when they are included or excluded
   if (query === '') {
@@ -36,7 +37,7 @@ const endpoint = async ({
             { ingredients: { contains: `%${ingredient}%` } },
           ],
         },
-      });
+      })
       const excludedCount = await prisma.dish.count({
         where: {
           AND: [
@@ -44,37 +45,37 @@ const endpoint = async ({
             { ingredients: { not: { contains: `%${ingredient}%` } } },
           ],
         },
-      });
-      includedIngredientCounts[ingredient] = includedCount;
-      excludedIngredientCounts[ingredient] = excludedCount;
+      })
+      includedIngredientCounts[ingredient] = includedCount
+      excludedIngredientCounts[ingredient] = excludedCount
     }
   } else {
     for (const [, ingredient] of ingredientOptions.entries()) {
       const includedCount = await prisma.dish.count({
         where: {
-          title: {
-            search: getDishesSearchQuery(query),
-          },
+          title: getTitleSearchParams(
+            query,
+          ) as Prisma.StringNullableFilter<'Dish'>,
           AND: [
             ...ingredientConstraints,
             { ingredients: { contains: `%${ingredient}%` } },
           ],
         },
-      });
+      })
       const excludedCount = await prisma.dish.count({
         where: {
-          title: {
-            search: getDishesSearchQuery(query),
-          },
+          title: getTitleSearchParams(
+            query,
+          ) as Prisma.StringNullableFilter<'Dish'>,
           AND: [
             ...ingredientConstraints,
             { ingredients: { not: { contains: `%${ingredient}%` } } },
           ],
         },
-      });
+      })
 
-      includedIngredientCounts[ingredient] = includedCount;
-      excludedIngredientCounts[ingredient] = excludedCount;
+      includedIngredientCounts[ingredient] = includedCount
+      excludedIngredientCounts[ingredient] = excludedCount
     }
   }
 
@@ -84,7 +85,7 @@ const endpoint = async ({
       includedIngredients: JSON.stringify(includedIngredientCounts),
       excludedIngredients: JSON.stringify(excludedIngredientCounts),
     },
-  };
-};
+  }
+}
 
-export default endpoint;
+export default endpoint

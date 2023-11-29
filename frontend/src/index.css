@@ -7,6 +7,18 @@
     font-family: 'Poppins';
     src: url('../src/assets/fonts/Poppins-Regular.ttf');
   }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('../src/assets/fonts/Poppins-SemiBold.ttf');
+    font-weight: 600;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('../src/assets/fonts/Poppins-Bold.ttf');
+    font-weight: 700;
+  }
 }
 
 @layer base {

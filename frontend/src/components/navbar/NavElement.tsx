@@ -35,8 +35,8 @@ export default function NavElement(props: ComponentProps) {
       {icon}
       <p
         className={cn(
-          'flex',
-          selected ? 'text-black dark:text-white' : 'text-gray-400',
+          'flex text-black dark:text-white',
+          selected ? 'font-semibold' : 'font-normal opacity-80',
         )}
       >
         {text}

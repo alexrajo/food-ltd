@@ -94,6 +94,7 @@ export default function Home() {
             </button>
             {/** Make input have the value of page */}
             <input
+              aria-label='Go to page number'
               type='text'
               id='page'
               onChange={(e) => {
@@ -107,7 +108,7 @@ export default function Home() {
                 if (e.key !== 'Enter') return
                 paginateTo(parseInt((e.target as HTMLInputElement).value, 10))
               }}
-              className=' h-10 w-10 rounded-md border text-center text-black outline-none dark:border-0'
+              className='h-10 w-10 rounded-md border text-center text-black outline-none dark:border-0'
               value={pageInput}
             />
             <p>of</p>
@@ -140,7 +141,7 @@ export default function Home() {
               {pageSuggestions[0]}
             </button>
           )}
-          {page > 2 && (
+          {page > 3 && (
             <p className='flex h-6 w-6 items-center justify-center border-black p-2 tracking-widest dark:border-white'>
               •••
             </p>

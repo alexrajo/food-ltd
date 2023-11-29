@@ -30,13 +30,25 @@ const ABBREVIATION_ALIASES = {
  */
 const fahrenheitTextToCelsius = (text: string) => {
   // Find the Fahrenheit temperature in the text and convert it to Celsius
-  const match = text.match(/(\d+) ?°[F]/)
+  const fahrenheitMatchRegex = /\d+°[F]/g
+  const matches = text.match(fahrenheitMatchRegex)
 
-  if (match) {
-    const fahrenheitValue = parseInt(match[1], 10)
-    const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
+  if (matches) {
+    const splitString = text.split(fahrenheitMatchRegex)
+    const celsiusValues = matches.map((match) => {
+      const fahrenheitValue = parseInt(match, 10)
+      const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
 
-    return text.replace(/(\d+) ?°[F]/, `${celsiusCalc} °C`)
+      return celsiusCalc
+    })
+    let finalString = ''
+    for (let i = 0; i < splitString.length; i++) {
+      finalString += splitString[i]
+      if (i < celsiusValues.length) {
+        finalString += `${celsiusValues[i]}°C`
+      }
+    }
+    return finalString
   }
   return text
 }
@@ -141,14 +153,14 @@ export default function DishPage() {
                 </Link>
                 <div className='flex h-full flex-col justify-end'>
                   <div className='flex flex-col gap-1'>
-                    <p className='font-semibold'>Temperature units</p>
+                    <p className=''>Temperature units</p>
                     <div className='flex gap-3'>
                       <button
                         onClick={() => dispatch(setFahrenheit())}
                         className={cn(
                           'rounded-md border p-2',
                           temperatureUnit.value === 'fahrenheit' &&
-                            ' bg-secondary text-white',
+                            'bg-secondary text-black',
                         )}
                         type='button'
                       >
@@ -159,7 +171,7 @@ export default function DishPage() {
                         className={cn(
                           'rounded-md border p-2',
                           temperatureUnit.value === 'celsius' &&
-                            'bg-secondary text-white',
+                            'bg-secondary text-black',
                         )}
                         type='button'
                       >
@@ -176,7 +188,7 @@ export default function DishPage() {
           </div>
           <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
             <p className='text-center text-xl'>Ingredients</p>
-            <p className='text-center text-lg text-grayed-text'>4 portions</p>
+            <p className='text-center text-lg opacity-80'>4 portions</p>
             <div>
               <ul className='list-disc gap-3'>
                 {ingredients

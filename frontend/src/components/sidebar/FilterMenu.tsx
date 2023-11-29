@@ -5,6 +5,7 @@ import AutocompleteIngredients from 'src/components/sidebar/AutocompleteIngredie
 import IngredientsList from 'src/components/sidebar/IngredientsList'
 import useAutocomplete from 'src/hooks/useAutocomplete'
 import useFilter from 'src/hooks/useFilter'
+import { useEffect, useRef } from 'react'
 import XIcon from '../icons/XIcon'
 
 /**
@@ -13,6 +14,13 @@ import XIcon from '../icons/XIcon'
 
 export default function FilterMenu() {
   const open = useAppSelector((state) => state.modals.filterMenu)
+  const ref = useRef<HTMLButtonElement>(null)
+
+  // Make the site more keyboard navigable by setting focus on an element in the menu as soon as it is opened.
+  useEffect(() => {
+    if (!open || !ref.current) return
+    ref.current.focus()
+  }, [open])
 
   const menuClass = open ? 'flex' : 'hidden'
 
@@ -28,16 +36,18 @@ export default function FilterMenu() {
       className={`fixed right-0 z-50 flex md:h-full ${menuClass} w-full flex-col gap-6 bg-white px-10 py-10 shadow-xl transition-all dark:bg-secondarydark md:w-96`}
     >
       <div className='flex gap-2'>
-        <XIcon
+        <button
+          ref={ref}
+          type='button'
+          aria-label='Close filter menu'
           onClick={() => {
             if (open) {
               dispatch(closeFilterMenu())
             }
           }}
-          className='hover:cursor-pointer'
-          height={36}
-          width={36}
-        />
+        >
+          <XIcon height={36} width={36} />
+        </button>
       </div>
       <div className='flex flex-col gap-2'>
         <div className='text-start text-xl font-bold'>Include ingredients</div>

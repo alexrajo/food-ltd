@@ -38,7 +38,7 @@ const FoodDisplay = memo((props: FoodDisplayProps) => {
             />
           )}
         </div>
-        <div className='px-4 py-4 font-bold text-black '>
+        <div className='px-4 py-4 text-black '>
           <p className=' line-clamp-1 text-xs lg:text-sm'>{title}</p>
         </div>
         <div className=' h-2 w-full bg-primary dark:bg-oldbrick' />

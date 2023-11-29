@@ -58,6 +58,7 @@ export default function AutocompleteIngredients(props: ComponentProps) {
       escapeClearsValue
       value={null}
       placeholder='Search for ingredients'
+      aria-label='Search for ingredients to filter the search with'
       autoFocus
       styles={{
         menu: (provided) => ({
@@ -82,8 +83,12 @@ export default function AutocompleteIngredients(props: ComponentProps) {
             color: 'black',
           },
         }),
+        placeholder: (provided) => ({
+          ...provided,
+          color: 'black'
+        }),
       }}
-      className='z-999 '
+      className='z-999'
     />
   )
 }
