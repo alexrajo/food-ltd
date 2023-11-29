@@ -9,84 +9,7 @@ import { Link } from 'react-router-dom'
 import cn from 'src/utils/cn'
 import BackIcon from 'src/components/icons/BackIcon'
 import InfiniteScroll from 'react-infinite-scroll-component'
-
-const ABBREVIATION_ALIASES = {
-  'Tbsp.': 'Tbsp@',
-  'tbsp.': 'tbsp@',
-  'Tbsps.': 'Tbsps@',
-  'tbsps.': 'tbsps@',
-  'Tsp.': 'Tsp@',
-  'tsp.': 'tsp@',
-  'Tsps.': 'Tsps@',
-  'tsps.': 'tsps@',
-  'Oz.': 'Oz@',
-  'oz.': 'oz@',
-}
-
-/**
- * Converts a text containing a Fahrenheit temperature to Celsius.
- * @param text the text to convert
- * @returns the text with the Fahrenheit temperature converted to Celsius
- */
-const fahrenheitTextToCelsius = (text: string) => {
-  // Find the Fahrenheit temperature in the text and convert it to Celsius
-  const fahrenheitMatchRegex = /\d+°[F]/g
-  const matches = text.match(fahrenheitMatchRegex)
-
-  if (matches) {
-    const splitString = text.split(fahrenheitMatchRegex)
-    const celsiusValues = matches.map((match) => {
-      const fahrenheitValue = parseInt(match, 10)
-      const celsiusCalc = Math.floor(((fahrenheitValue - 32) * 5) / 9)
-
-      return celsiusCalc
-    })
-    let finalString = ''
-    for (let i = 0; i < splitString.length; i++) {
-      finalString += splitString[i]
-      if (i < celsiusValues.length) {
-        finalString += `${celsiusValues[i]}°C`
-      }
-    }
-    return finalString
-  }
-  return text
-}
-
-/**
- * Turns a string of instructions into a list of instructions.
- * @param instructions the instructions text to turn into a list
- * @returns the instructions as a list of JSX elements
- */
-const listifyInstructions = (
-  instructions?: string,
-  temperatureUnit?: string,
-) => {
-  if (instructions === undefined) {
-    return undefined
-  }
-
-  let instr = instructions
-  Object.entries(ABBREVIATION_ALIASES).forEach(([key, value]) => {
-    const regex = new RegExp(key, 'g')
-    instr = instr!.replace(regex, value)
-  })
-
-  const splitInstructions = instr.split(/\.(?: |\n)/g)
-
-  return splitInstructions.map((instruct, index) => {
-    const instruction =
-      temperatureUnit === 'celsius'
-        ? fahrenheitTextToCelsius(instruct)
-        : instruct
-    return (
-      <div key={instruction}>
-        {index + 1}. {instruction.replace(/@/g, '.')}
-        {index !== splitInstructions.length - 1 && '.'}
-      </div>
-    )
-  })
-}
+import { listifyInstructions } from 'src/utils/text-modifiers'
 
 export default function DishPage() {
   const { data: dishData } = useDish()
@@ -124,7 +47,6 @@ export default function DishPage() {
           <BackIcon />
           Back
         </Link>
-
         <div className='flex flex-col gap-2 md:flex-row'>
           <div className='flex w-full basis-2/3 flex-col gap-10 bg-white p-4 drop-shadow-md dark:bg-secondarydark'>
             <div className='flex flex-col gap-10 xl:flex-row'>
@@ -135,16 +57,9 @@ export default function DishPage() {
               />
               <div className='flex flex-col'>
                 <p className='text-2xl'>{title}</p>
-                {/* <p className='text-grayed-text'>800 kcal</p> */}
                 <div className='mt-4'>
                   <RatingDisplay key={`rating-${dishId}`} rating={rating} />
                 </div>
-                {/* <HashLink
-                  className='underline hover:cursor-pointer'
-                  to={`/dish/${dishId}#reviews`}
-                >
-                  See reviews
-                </HashLink> */}
                 <Link
                   className='my-3 w-full rounded-md border p-2 text-center sm:w-fit'
                   to='write-review'
@@ -183,7 +98,13 @@ export default function DishPage() {
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              {listifyInstructions(instructions, temperatureUnit.value)}
+              {listifyInstructions(instructions, temperatureUnit.value)?.map(
+                (instruction) => (
+                  <div key={instruction}>
+                    <p>{instruction}</p>
+                  </div>
+                ),
+              )}
             </div>
           </div>
           <div className='h-fit w-full basis-1/3 bg-white p-10 drop-shadow-md dark:bg-secondarydark'>
