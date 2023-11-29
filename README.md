@@ -276,11 +276,17 @@ There are no tests written to directly test api calls. These are tested indirect
 
 The e2e tests are longer series of actions, closely mimicking how a user would navigate in the application. They are not intended to run often and can therefore use real data fetched from the database.
 
-The shortest e2e test just tests page navigation. This was intended to make sure the e2e testing setup was done correctly.
+There are currently 5 different e2e tests, all running on 3 different browsers to cover as much functionality as possible. They all focus on different kind of behaviour. 
 
-There are two real e2e tests. The first covers longer navigation sequences, and checks that the ui updates the information correctly to the user. The other focuses more on search and filter. It makes sure the UI updates correctly when the user applies them.
+Warmup: Just to ensure that e2e testing is correctly configured.
+Documentation: Navigation and updates on the documentation page.
+Keyboard navigation: Maneuvering around the page, using only keyboard. Important for accessibility. 
+Normal navigation: Making sure general navigation updates the UI correctly.
+Filtering: Making sure that UI updates correctly when a user applies filters. 
+Review: Making sure that UI updates correctly when a user writes a review. 
+Strange behaviour: Tries out inputs which are not legal, to check that the UI handles this correctly.
 
-More e2e tests are comming. The current ones are mostly testing correct behaviour. It is good to also have some tests that makes sure strange user behaviour is handled correctly.
+The e2e test covering keyboard navigation fails at one point in one of the browsers. This suggests that extra care should be taken to support this type of navigation in some browsers. 
 
 ### Screen size testing
 
