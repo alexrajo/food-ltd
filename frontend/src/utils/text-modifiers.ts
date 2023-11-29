@@ -18,7 +18,7 @@ const ABBREVIATION_ALIASES = {
  */
 export const fahrenheitTextToCelsius = (text: string) => {
   // Find the Fahrenheit temperature in the text and convert it to Celsius
-  const fahrenheitMatchRegex = /\d+°[F]/g
+  const fahrenheitMatchRegex = /\d+\s?°[F]/g
   const matches = text.match(fahrenheitMatchRegex)
 
   if (matches) {
@@ -68,7 +68,8 @@ export const listifyInstructions = (
         ? fahrenheitTextToCelsius(instruct)
         : instruct
 
-    return `${index + 1}. ${instruction.replace(/@/g, '.')}
-            ${index !== splitInstructions.length - 1 && '.'}`
+    return `${index + 1}. ${instruction.replace(/@/g, '.')}${
+      index !== splitInstructions.length - 1 ? '.' : ''
+    }`
   })
 }
