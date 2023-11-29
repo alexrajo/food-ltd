@@ -4,6 +4,9 @@ import Markdown from 'markdown-to-jsx'
 import { useQuery } from '@tanstack/react-query'
 import { fetchDocs } from 'src/utils/api-calls'
 
+/* 
+  Style settings for the markdown renderer. These are needed to style with tailwind.
+*/
 const markdownOptions = {
   overrides: {
     ul: (props: { children: ReactNode }) => (
@@ -62,6 +65,9 @@ const markdownOptions = {
   },
 }
 
+/* 
+  The display of selected documentation paragraph. Simply rendering the markdown of the selected section.
+*/
 export default function Documentation() {
   const {
     data: sections,

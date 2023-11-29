@@ -12,11 +12,6 @@ export default function DocumentationComponent() {
         here.
       </p>
       <p className='mb-4'>Select any subsection you wish to read more about.</p>
-      <p className='mb-4'>
-        <b>Limitations:</b> the documentation pages do not work great on mobile
-        yet. They will do before the final delivery. Also, no tests are written
-        for the documentation pages.
-      </p>
     </p>
   )
 }
