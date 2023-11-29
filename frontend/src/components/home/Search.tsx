@@ -8,6 +8,7 @@ import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
 import XIcon from '../icons/XIcon'
+import HistoryIcon from 'src/components/icons/HistoryIcon'
 
 /**
  * The large search bar on the main page.
@@ -152,11 +153,7 @@ const Search = memo((props: ComponentProps) => {
                           onMouseDown={() => dispatch(setKeyWord(prevSearch))}
                           className=' flex flex-row items-center gap-2 '
                         >
-                          <img
-                            src={historyIcon}
-                            alt='searchIcon'
-                            className='h-6 w-6'
-                          />
+                          <HistoryIcon />
                           <p className=' '>{prevSearch}</p>
                         </button>
                         <button
