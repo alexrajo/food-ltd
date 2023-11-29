@@ -40,14 +40,6 @@ const router = createBrowserRouter(
           element: <ErrorPage />,
         },
         {
-          path: '/favorites',
-          element: <Favorites />,
-        },
-        {
-          path: '/search',
-          element: <>Settings</>,
-        },
-        {
           path: '/settings',
           element: <Settings />,
         },
