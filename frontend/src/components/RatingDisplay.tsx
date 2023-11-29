@@ -73,7 +73,7 @@ export default function RatingDisplay(props: RatingDisplayProps) {
               className='pl-0.5 pr-0.5 first:pl-0 last:pr-0 hover:scale-110'
             >
               <img
-                alt='star'
+                alt={`star number ${index + 1}`}
                 src={
                   (!isGrayed && isHalf && halfStar) ||
                   (isGrayed && outlineStar) ||
