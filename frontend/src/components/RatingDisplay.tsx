@@ -49,10 +49,9 @@ export default function RatingDisplay(props: RatingDisplayProps) {
           const isHalf = rating - index > 0.3 && rating - index < 0.7
           if (!isInput) {
             return (
-              <div className='pl-0.5 pr-0.5 first:pl-0 last:pr-0'>
+              <div key={number} className='pl-0.5 pr-0.5 first:pl-0 last:pr-0'>
                 <img
                   alt={`star rating, number ${index + 1}`}
-                  key={number}
                   src={
                     (!isGrayed && isHalf && halfStar) ||
                     (isGrayed && outlineStar) ||

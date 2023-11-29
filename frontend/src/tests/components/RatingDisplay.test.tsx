@@ -6,7 +6,7 @@ vi.mock('lottie-react', () => ({
   default: vi.fn(),
 }))
 
-describe('Navbar', async () => {
+describe('RatingDisplay', async () => {
   beforeEach(async () => {
     render(<div />, { wrapper: TestWrapper })
     await screen.findByText('Mock Dish 1')
