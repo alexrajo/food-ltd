@@ -5,7 +5,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from 'src/App'
 import DishPage from 'src/pages/Dish'
 import ErrorPage from 'src/pages/Error'
-import Favorites from 'src/pages/Favorites'
 import Home from 'src/pages/Home'
 import Settings from 'src/pages/Settings'
 import WriteReview from 'src/pages/WriteReview'
@@ -40,14 +39,6 @@ export default function TestWrapper({ children }: { children: ReactNode }) {
           {
             path: '*',
             element: <ErrorPage />,
-          },
-          {
-            path: '/favorites',
-            element: <Favorites />,
-          },
-          {
-            path: '/search',
-            element: <>Settings</>,
           },
           {
             path: '/settings',

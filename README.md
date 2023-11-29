@@ -268,7 +268,7 @@ An illustrating example: adding a filter to the search result. The test starts o
 
 These tests might resemble e2e tests more than standard unit tests. This is preferable, beause the code consists primarily of elements that can be interacted with.
 
-The frontend test coverage is around 80%. The major areas that are not tested include api-calls and documentation page. The documentation page is not tested because it is not integral to the application. Api-calls are tested indirectly, through e2e tests. Since the e2e tests use a different library, they do not show up on the coverage report.
+Running a coverage report will show that almost 90% of branches and lines are covered by tests. Slightly above 70% of functions are covered. It is important to note that the e2e tests are not included in this report! Some of the areas not in focus of these tests include redux reducers, hooks and api calls. All of these are indirectly tested through other tests. Most thoroughly with the e2e tests, since these are more focues on functionality.
 
 ### E2E and api testing
 
@@ -276,11 +276,16 @@ There are no tests written to directly test api calls. These are tested indirect
 
 The e2e tests are longer series of actions, closely mimicking how a user would navigate in the application. They are not intended to run often and can therefore use real data fetched from the database.
 
-The shortest e2e test just tests page navigation. This was intended to make sure the e2e testing setup was done correctly.
+There are currently 5 different e2e tests, all running on 3 different browsers to cover as much functionality as possible. They all focus on different kind of behaviour. 
 
-There are two real e2e tests. The first covers longer navigation sequences, and checks that the ui updates the information correctly to the user. The other focuses more on search and filter. It makes sure the UI updates correctly when the user applies them.
+Warmup: Just to ensure that e2e testing is correctly configured.
+Documentation: Navigation and updates on the documentation page.
+Keyboard navigation: Maneuvering around the page, using only keyboard. Important for accessibility. 
+Normal navigation: Making sure general navigation updates the UI correctly.
+Review: Making sure that UI updates correctly when a user writes a review. 
+Strange behaviour: Tries out inputs which are not legal, to check that the UI handles this correctly.
 
-More e2e tests are comming. The current ones are mostly testing correct behaviour. It is good to also have some tests that makes sure strange user behaviour is handled correctly.
+The e2e test covering keyboard navigation fails at one point in one of the browsers. This suggests that extra care should be taken to support this type of navigation in some browsers. 
 
 ### Screen size testing
 

@@ -9,7 +9,7 @@ import { useSortReturnType } from './HookTypes'
  * Hooks which allows to sort the dishes
  * @example
  * const MyComponent = () => {
- * const { sortingPreference, onChangeSortingPreference } = useSort();
+ * const [sortingPreference, onChangeSortingPreference] = useSort();
  * return (
  * <div>
  *   <select onChange={(event) => onChangeSortingPreference(event)}>

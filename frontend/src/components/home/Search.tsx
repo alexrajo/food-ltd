@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
-import historyIcon from 'src/assets/history.svg'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
+import HistoryIcon from 'src/components/icons/HistoryIcon'
 import XIcon from '../icons/XIcon'
 
 /**
@@ -92,6 +92,8 @@ const Search = memo((props: ComponentProps) => {
         />
         {searchInput.length > 0 && (
           <XIcon
+            dataTestId='remove search input'
+            ariaLabel='remove search input'
             className='h-6 w-6 hover:cursor-pointer'
             onMouseDown={() => {
               onChangeSearchInput({
@@ -101,13 +103,15 @@ const Search = memo((props: ComponentProps) => {
               setShowSuggestions(false)
             }}
           />
-        )}
+        )}                                      
       </div>
       {showSuggestions && (
         <div className='absolute top-14 z-50 flex w-full overflow-hidden bg-white drop-shadow-md dark:bg-secondarydark '>
           <div className='flex w-full flex-col'>
             {searchInputSuggestions && (
               <button
+                aria-label={`search for ${searchInput}`}
+                data-testid={`search for ${searchInput}`}
                 type='button'
                 className='flex flex-row items-center gap-4 p-4 hover:cursor-pointer hover:bg-tertiarydark'
                 onMouseDown={() => {
@@ -152,11 +156,7 @@ const Search = memo((props: ComponentProps) => {
                           onMouseDown={() => dispatch(setKeyWord(prevSearch))}
                           className=' flex flex-row items-center gap-2 '
                         >
-                          <img
-                            src={historyIcon}
-                            alt='searchIcon'
-                            className='h-6 w-6'
-                          />
+                          <HistoryIcon />
                           <p className=' '>{prevSearch}</p>
                         </button>
                         <button
@@ -185,6 +185,7 @@ const Search = memo((props: ComponentProps) => {
                   type='button'
                   key={dish.dishId}
                   onMouseDown={() => {
+                    if (searchInput) addSearchHistory(searchInput)
                     dispatch(closeFilterMenu())
                     navigate(`/dish/${dish.dishId}`)
                   }}
@@ -193,7 +194,7 @@ const Search = memo((props: ComponentProps) => {
                 >
                   <img
                     src={`http://it2810-43.idi.ntnu.no/images/${dish.imageName}.jpg`}
-                    alt='dish'
+                    alt={`search result number ${dish.dishId}`}
                     className='h-10 w-10 object-cover'
                   />
                   <p className=' '>{dish.title}</p>

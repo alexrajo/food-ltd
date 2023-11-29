@@ -12,22 +12,22 @@ import { INGREDIENTS } from 'src/utils/constants'
  * const { isLoading, parsedIncludedIngredients, parsedExcludedIngredients } = useAutocomplete()
  *  return (
  *   <div>
- *    {isLoading ? (
- *     <p>Loading...</p>
- *   ) : (
- *    <div>
- *    <p>Included Ingredients</p>
- *   {Object.keys(parsedIncludedIngredients).map((key) => (
- *    <p>{key}</p>
- *  ))}
- * <p>Excluded Ingredients</p>
- * {Object.keys(parsedExcludedIngredients).map((key) => (
- *  <p>{key}</p>
- * ))}
- * </div>
- * ))}
- * </div>
- * )
+ *      {isLoading ? (
+ *        <p>Loading...</p>
+ *      ) : (
+ *        <div>
+ *          <p>Included Ingredients</p>
+ *          {Object.keys(parsedIncludedIngredients).map((key) => (
+ *          <p>{key}</p>
+ *      ))}
+ *    <p>Excluded Ingredients</p>
+ *    {Object.keys(parsedExcludedIngredients).map((key) => (
+ *      <p>{key}</p>
+ *    ))}
+ *    </div>
+ *    )}
+ *    </div>
+ *  )
  * }
  *
  * @returns The parsed included and excluded ingredients

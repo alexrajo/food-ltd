@@ -42,7 +42,7 @@ export default function Settings() {
           className='md group flex h-14 w-14 flex-col items-center justify-center gap-2 rounded border-2 border-black bg-white p-1 px-3 dark:border-tertiarydark dark:bg-secondarydark lg:hidden '
         >
           <MenuIcon
-            className='flex h-6 w-6 hover:cursor-pointer '
+            className='flex h-6 w-6 hover:cursor-pointer'
             onMouseDown={() => {
               dispatch(openNavbar())
             }}
