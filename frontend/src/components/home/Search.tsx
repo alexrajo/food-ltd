@@ -182,6 +182,7 @@ const Search = memo((props: ComponentProps) => {
                   type='button'
                   key={dish.dishId}
                   onMouseDown={() => {
+                    if (searchInput) addSearchHistory(searchInput)
                     dispatch(closeFilterMenu())
                     navigate(`/dish/${dish.dishId}`)
                   }}
