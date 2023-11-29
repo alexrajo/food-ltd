@@ -76,6 +76,7 @@ Backend:
 - Add a .env file to the backend directory and insert the environment variable `DATABASE_URL="postgresql://postgres:postgres@it2810-43.idi.ntnu.no:5433/dishesdb?schema=public"`
 - Navigate to backend `cd .\backend\`
 - Install dependencies for backend `npm install`
+- Generate the prisma client `npx prisma generate`
 - Start the app's backend: `npm run dev`
 
 Frontend (make sure to open a new terminal):
@@ -172,7 +173,7 @@ The project is structured as follows:
 - `backend`: Server source code
   - `prisma`: Schema definition of the data
   - `src`: GraphQL API server
-- `database`: Data to populate database, and PostgreSQL docker creation.
+- `database`: Data and script to populate database
 - `e2e`: Playwright end-to-end test.
 - `frontend`:
   - `src`: Client source code
@@ -210,7 +211,6 @@ Additional technologies:
 - Lottie react
 - Express
 - Prisma
-- Docker
 
 These will be justified in the important choices section.
 
@@ -219,21 +219,25 @@ These will be justified in the important choices section.
 Choices related to testing, environment and accessibility will be discussed in a separate section.
 
 - The Airbnb style guide is used for coding/linting. They can be found
-  [here](https://github.com/airbnb/javascript). Although the rules are strict, the advantages of a common coding pattern is worth the extra work and occasional roadblock.
+  [here](https://github.com/airbnb/javascript). Although the rules are strict, the advantages of a common coding pattern is worth the extra work and occasional roadblock. The airbnb style guide will also enforce good coding patterns for accessibility.
 
 - A prettier config, to make sure all contributors apply prettier in the same way. Without this config, each contributors would apply prettier according to personal settings, which would undermine the whole point of using a tool for standardizing.
 
-- Tailwind CSS for all styling. This is a great way to make sure all code related to a component is collected in the same place. This makes adjustments easier, and bug fixing faster. All current contributors strongly prefer tailwind to all other css solutions.
+- Tailwind CSS for all styling. This is a great way to make sure all code related to a component is collected in the same place. This makes adjustments easier, and bug fixing faster. All current contributors strongly prefer tailwind to all other css solutions. Prettier has also been configured to work with tailwind. This ensures that the order of elements in the classnames follow the same pattern.
 
 - Formik is one of the many solutions for forms in react. The decision to pick this solution was made based on prior experience.
 
-- Lottie react provides high quality json animations using a fraction of the space required by other animation types.
+- Lottie react provides high quality json animations using a fraction of the space required by other animation types. Animations are environmentally costly, but included regardless for the sake of diversity. Reviewers also frequently commented positively on the use of these animations.
 
 - The project uses absolute paths instead of relative paths for file import. This is mostly due to preferance among contributors.
 
+- A few third party components were used in the project. These include InfiniteScroll and React-Search-Autocomplete. The functionality these implement is quite complicated, and it is better to use well-tested components instead of implementing them from scratch.
+
+- Other than the mentioned components, all UI was designed and implemented by the team. This allows a higher degree of choice when it comes to the structure of the application. And it is also more fun.
+
 ### Database and datasource
 
-The backend solution leverages GraphQL as the query language, with Express as the web framework, Prisma for database management, and Docker for containerization. This technology stack enables efficient data retrieval, seamless API development, and streamlined deployment in a containerized environment.
+The backend solution leverages GraphQL as the query language, with Express as the web framework, and Prisma for database management and PostgreSQL as the database. This technology stack enables efficient data retrieval, seamless API development, and streamlined deployment in a containerized environment.
 
 The data used in this project is sourced from a publicly available dataset from [kaggle](https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images).
 
@@ -286,32 +290,51 @@ The application has been tested using windows and macos on chrome and safari. It
 
 ## Accessibility
 
-I. Included in the airbnb styleguide for coding is a11y standard for accessibility. These linting checks make sure that:
+### WCAG standard
 
-- All `<img>` tags have alt text.
-- Alt texts are descriptive.
-- Aria roles are valid and non-abstract.
-- Clickable non-interactive element have at least one keyboard event listener.
+To ensure compliance with accessibility standards, the [WCAG-standard](https://www.uutilsynet.no/wcag-standarden/wcag-standarden/86) has been used as a reference. A series of tools have been used to help with development in line with the standard.
 
-... and more. These are great for making sure the code follows accessibility standards.
+### Adaption
 
-II. Zooming is possible. This is good for users with poor eyesight.
+To accomodate those with poor or no eyesight, several measures have been taken. The site have been developed to allow effective use of screen readers. Different tools have been used to assure that the color contrast is above legal requirements. The text on the site is scalable, and zooming is possible without breaking functionality of the site application.
 
-III. Color contrast should be reasonably high, since most colors are white/dark gray and orange. This could be more thoroughly checked, however.
+The application does not play any sound, so those with poor or no hearing encounter no limitations.
 
-IV. No blinking, sound, quick animations that might cause problems for some users.
+All buttons and clickable surfaces are large. The site is also fully keyboard navigable. A full e2e test is dedicated to ensuring that keyboard navigation works as expected.
+
+### Perception
+
+All non-text elements have aria labels and/or alt text. This supports convertion to different formats, and the use of screen readers. Colors have been chosen to make sure text is easy to read.
+
+### Service
+
+As mentioned, the application has been tested for keyboard navigation. A focus has also been placed on keeping general navigation as intuitive as possible. To achieve this, external user tests have been vital.
+
+There are no timed events, which gives the user all the time they might need. The only exception is possibly the Lottie animations. These are however not vital for any functionality. No fast blinking exist anywhere in the application.
+
+### Techniques used to achieve accessibility
+
+- WAVE and axe DevTools chrome extensions have been used to discover contrast issues and other general accessibility problems.
+- E2E test to make sure application is keyboard navigable.
+- Airbnb styleguide with a11y standard for accessibility.
+- External user test for discovery of accessibility problems.
+- Windows screen reader and NVDA screen reader have been used to test that the application works well with these tools.
 
 <a name="environment"></a>
 
 ## Environment
 
-I. A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
+A focus has been placed on not fetching data unnecessarily. This is done by disabling queries when they are not needed, and caching most query results. Tanstack query makes this a lot easier.
 
-II. Darkmode is set by default, which requires less power to display.
+Dark mode is set by default, which requires less power to display.
 
-III. SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
+SVGs and Lottie animations are used. SVGs are compact, and much better than other images. Lottie animations also require a lot less resources than other types of animation.
 
-IV. Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
+Only a limited number of results per page. Since images take up a lot of the traffic, only a few is fetched per page.
+
+We also emphasized optimizing the database queries themselves. Based on student feedback and our own experiences we found that the ingredientFilterCounts query was way too slow and inefficient. When testing fetching filter counts on the hosted website, we experienced a wait time of around 10 seconds. This is unacceptable, both because it creates a bad user experience and it reflects a high resource usage. By adding an index in our postgresql database which uses the pg_trgm postgresql extension, we managed to improve the lookup times for filter counts tremendously.
+
+We also added an index of dish titles to our database to improve the lookup times when searching using the search bar.
 
 <a name="checklist"></a>
 
@@ -326,8 +349,8 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 | Ability to view more details about each object.                                                                                                                                                                     | ✔      | Each dish can be clicked on, bringing the user to a separate page.                                        |
 | Option for sorting and filtering the result set (note that sorting and filtering should be performed on the entire result set and not just what happens to be loaded on the client).                                | ✔      | Currently possible to filter by which ingredients you want/don't want, and sort by new/rating/alphabetic. |
 | Inclusion of some form of user-generated data that should be stored persistently on the database server and presented (e.g., user-contributed information, reviews, ratings, search history, shopping lists, etc.). | ✔      | Users can leave reviews/ratings on the dishes.                                                            |
-| The solution should demonstrate aspects of universal design/web accessibility (accessibility).                                                                                                                      | ✔\*    | Discussed in its own section.                                                                             |
-| The solution should demonstrate aspects of sustainable web development (through design choices).                                                                                                                    | ✔\*    | Discussed in its own section.                                                                             |
+| The solution should demonstrate aspects of universal design/web accessibility (accessibility).                                                                                                                      | ✔      | Discussed in its own section.                                                                             |
+| The solution should demonstrate aspects of sustainable web development (through design choices).                                                                                                                    | ✔      | Discussed in its own section.                                                                             |
 | Good design, sensible choices, and solutions that align with the type of data you choose.                                                                                                                           | ✔      | At least we think so. Reviewers should be free to suggest changes.                                        |
 | The database and backend for the project should be hosted on the group's virtual machine at the time of submission.                                                                                                 | ✔      |                                                                                                           |
 
@@ -346,7 +369,7 @@ IV. Only a limited number of results per page. Since images take up a lot of the
 | Requirement                                                                                                                                                                                                                  | Status | Comment                                                                                                                                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Linting and the use of Prettier.                                                                                                                                                                                             | ✔      | Using a Prettier config and ESLint with Airbnb style guide.                                                                                                                                                                 |
-| Comprehensive testing of components (we use Vitest).                                                                                                                                                                         | ✔\*    | Most components are tested. More to come.                                                                                                                                                                                   |
+| Comprehensive testing of components (we use Vitest).                                                                                                                                                                         | ✔      | There are many tests for the frontend.                                                                                                                                                                                      |
 | Some form of automated end-to-end testing (in practice, testing a longer sequence of interactions) and API testing.                                                                                                          | ✔      | Long sequences of actions testing interaction with the application. The API is tested indirectly through end-to-end tests, which is acceptable according to [instructor](https://piazza.com/class/llxfyt1xe9z2jn/post/147). |
-| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔\*    | Need to expand the discussion on choices and solutions.                                                                                                                                                                     |
-| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.                                                        | ✔\*    | Let us know if there are some parts that require more attention.                                                                                                                                                            |
+| The project should be documented with a README.md in the Git repository. The documentation should discuss, explain, and reference all the key choices and solutions made by the group (including component and API choices). | ✔      |                                                                                                                                                                                                                             |
+| The code should be readable, well-structured, and commented to make it easy for others to understand. Use of comments should be tailored to external code inspection.                                                        | ✔      |                                                                                                                                                                                                                             |

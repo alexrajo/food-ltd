@@ -3,6 +3,11 @@ import { useParams, Link } from 'react-router-dom'
 import { fetchDocs } from 'src/utils/api-calls'
 import cn from 'src/utils/cn'
 
+/* 
+  Menu for the documentation page. Shows all available documentation sections. 
+  User may click on a header to open the content in the documentation outlet.
+  The current page is highlighted.
+*/
 export default function DocumentationSidebar() {
   const {
     data: sections,
@@ -18,7 +23,7 @@ export default function DocumentationSidebar() {
   if (isLoading || isError) return <div>Loading...</div>
 
   return (
-    <div className='no-scrollbar flex w-80 flex-col gap-10 overflow-y-scroll border-r px-4 py-10'>
+    <div className='no-scrollbar flex h-80 w-full flex-col gap-10 overflow-y-scroll border-r-0 border-t px-4 py-10 md:h-auto md:w-80 md:border-r md:border-t-0'>
       {sections.map((section, sectionIndex) => (
         <div key={section.title}>
           <div className='font-semibold'>{section.title}</div>
