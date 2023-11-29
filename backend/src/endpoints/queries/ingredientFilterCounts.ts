@@ -34,7 +34,9 @@ const endpoint = async ({
         where: {
           AND: [
             ...ingredientConstraints,
-            { ingredients: { contains: `%${ingredient}%` } },
+            {
+              ingredients: { contains: `%${ingredient}%`, mode: 'insensitive' },
+            },
           ],
         },
       })
@@ -42,7 +44,12 @@ const endpoint = async ({
         where: {
           AND: [
             ...ingredientConstraints,
-            { ingredients: { not: { contains: `%${ingredient}%` } } },
+            {
+              ingredients: {
+                not: { contains: `%${ingredient}%` },
+                mode: 'insensitive',
+              },
+            },
           ],
         },
       })
@@ -58,7 +65,9 @@ const endpoint = async ({
           ) as Prisma.StringNullableFilter<'Dish'>,
           AND: [
             ...ingredientConstraints,
-            { ingredients: { contains: `%${ingredient}%` } },
+            {
+              ingredients: { contains: `%${ingredient}%`, mode: 'insensitive' },
+            },
           ],
         },
       })
@@ -69,7 +78,12 @@ const endpoint = async ({
           ) as Prisma.StringNullableFilter<'Dish'>,
           AND: [
             ...ingredientConstraints,
-            { ingredients: { not: { contains: `%${ingredient}%` } } },
+            {
+              ingredients: {
+                not: { contains: `%${ingredient}%` },
+                mode: 'insensitive',
+              },
+            },
           ],
         },
       })

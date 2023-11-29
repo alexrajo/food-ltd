@@ -34,8 +34,8 @@ export const getIngredientConstraints = (
       ingredients: {
         not: {
           contains: `%${ingredient}%`,
-          mode: queryMode,
         },
+        mode: queryMode,
       },
     }),
   )
