@@ -1,12 +1,13 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import TestWrapper from 'src/tests/TestWrapper'
+import userEvent from '@testing-library/user-event'
 
 vi.mock('lottie-react', () => ({
   default: vi.fn(),
 }))
 
-describe('Navbar', async () => {
+describe('RatingDisplay', async () => {
   beforeEach(async () => {
     render(<div />, { wrapper: TestWrapper })
     await screen.findByText('Mock Dish 1')
@@ -34,5 +35,11 @@ describe('Navbar', async () => {
     expect(stars[4].getAttribute('src')).toBe(
       '/project2/src/assets/outline-star.svg',
     )
+  })
+  test('input star rating', async () => {
+    await userEvent.click(screen.getByText('Mock Dish 1'))
+    await userEvent.click(screen.getByText('Write a review'))
+    await userEvent.click(screen.getByAltText('star number 3'))
+    expect(screen.getByText('3')).toBeDefined()
   })
 })
