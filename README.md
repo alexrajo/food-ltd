@@ -282,7 +282,6 @@ Warmup: Just to ensure that e2e testing is correctly configured.
 Documentation: Navigation and updates on the documentation page.
 Keyboard navigation: Maneuvering around the page, using only keyboard. Important for accessibility. 
 Normal navigation: Making sure general navigation updates the UI correctly.
-Filtering: Making sure that UI updates correctly when a user applies filters. 
 Review: Making sure that UI updates correctly when a user writes a review. 
 Strange behaviour: Tries out inputs which are not legal, to check that the UI handles this correctly.
 
