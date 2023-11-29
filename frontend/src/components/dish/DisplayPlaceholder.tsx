@@ -2,6 +2,7 @@ export default function Placeholder() {
   return (
     <div
       role='presentation'
+      aria-label='Placeholder for food image'
       className='flex aspect-video grow items-center justify-center'
     >
       <svg
