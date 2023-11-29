@@ -319,6 +319,7 @@ There are no timed events, which gives the user all the time they might need. Th
 - Airbnb styleguide with a11y standard for accessibility.
 - External user test for discovery of accessibility problems.
 - Windows screen reader and NVDA screen reader have been used to test that the application works well with these tools.
+- Lighthouse has been used to evaluate the accessibility score of the website.
 
 <a name="environment"></a>
 
