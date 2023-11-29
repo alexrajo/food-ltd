@@ -61,9 +61,12 @@ export default function Navbar({ className }: { className?: string }) {
       </div>
       <div className='flex gap-2 pb-20 md:hidden'>
         <XIcon
+          data-testid='close navigation menu'
+          ariaLabel='Close navigation bar'
           onClick={() => {
             dispatch(closeNavbar())
           }}
+          className='cursor-pointer'
           width={36}
           height={36}
         />
