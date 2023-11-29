@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import search from 'src/assets/searchIcon.svg'
 import useSearchHistory from 'src/hooks/useSearchHistory'
 import useSuggestions from 'src/hooks/useSuggestions'
-import historyIcon from 'src/assets/history.svg'
 import { useAppDispatch } from 'src/hooks/useAppRedux'
 import { setKeyWord } from 'src/redux/confinementReducer'
 import { closeFilterMenu } from 'src/redux/modalsReducer'
-import XIcon from '../icons/XIcon'
 import HistoryIcon from 'src/components/icons/HistoryIcon'
+import XIcon from '../icons/XIcon'
 
 /**
  * The large search bar on the main page.
